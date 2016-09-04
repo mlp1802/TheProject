@@ -1,0 +1,36 @@
+<template name="CustomerList">
+<h1>Customers</h1>
+
+    <div >
+      <div style="text-align:right">
+        <button type="button" name="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#dialog">Sort by</button>
+        <div class="modal fade" id="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                   <h1>Sort customers</h1>
+                </div>
+                <div class="modal-body">
+                  <button data-dismiss="modal" class="by_name btn btn-default largeButton" style="width:100%">By name</button>
+                  <button data-dismiss="modal" class="by_date btn btn-default largeButton" style="width:100%">By date</button>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary largeButton" data-dismiss="modal">Close</button>
+                </div>
+
+          </div>
+        </div>
+
+        </div>
+    </div>
+    </div>
+
+
+<br>
+    {{#each company in companies}}
+      <article class="recipe">
+        {{>Customer customer=company}}
+      </article>
+    {{/each}}
+    <br>
+</template>

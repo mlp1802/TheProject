@@ -41,7 +41,14 @@ loggedIn.route("/main",{
 loggedIn.route("/customers",{
   name:"customers",
   action() {
-    BlazeLayout.render("Customers");
+    BlazeLayout.render("Customers",
+    {main:"CustomerList"});
+  }
+})
+loggedIn.route("/customers/new",{
+  name:"customers-new",
+  action() {
+    BlazeLayout.render("Customers",{main:"NewCustomer"});
   }
 })
 

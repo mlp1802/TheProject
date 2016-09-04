@@ -28,3 +28,5 @@ stolinski:stylus-multi
 twbs:bootstrap
 gwendall:auth-client-callbacks
 kadira:blaze-layout
+session
+momentjs:moment

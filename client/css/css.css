@@ -6,6 +6,16 @@
 .glyphicon {
 
 }
+.largeButton {
+  font-size: 30px;
+  width: 90%;
+  font-size:50px;
+  margin: 10px;
+  margin-bottom: 40px
+
+
+
+}
 .menuitem {
   display: block;
   font-size: 100px;
@@ -13,4 +23,29 @@
 }
 .menuText {
   font-size: 30px;
+}
+input[type=text] {
+ background-color:#FFF;
+ min-height:100px;
+ font-size: 35px;
+
+}
+input[type=submit] {
+ background-color:#FFF;
+ min-height:75px;
+ font-size: 40px;
+
+}
+
+label  {
+  font-size:30px
+}
+.createdAt {
+    color:gray;
+    font-size:medium;
+    margin-left: 2px;
+
+}
+button {
+  text-transform: uppercase;
 }

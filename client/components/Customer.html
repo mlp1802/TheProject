@@ -1,0 +1,9 @@
+<template name="Customer">
+  <h3>{{customer.name}}</h3>
+    <span class="ingredient">
+      {{customer.address}}
+      <div class="createdAt"> Created {{>FromNow date=customer.created_at}}
+      <br>
+    </div>
+    </span>
+</template>

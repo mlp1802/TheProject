@@ -30,3 +30,5 @@ gwendall:auth-client-callbacks
 kadira:blaze-layout
 session
 momentjs:moment
+random
+webtempest:animate

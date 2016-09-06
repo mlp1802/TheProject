@@ -17,11 +17,7 @@ Template.CustomerList.onCreated(function() {
 })
 Template.CustomerList.helpers({
   companies:()=> {
-    console.log("Updating companies")
-    let f = Session.get("customers")
-    return f
-
-
+    return  Session.get("customers")
   }
 })
 

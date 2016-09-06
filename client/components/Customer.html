@@ -1,4 +1,8 @@
+
 <template name="Customer">
+  {{#transition in="zoomIn" out="bounceOut"}}
+{{#if shouldShowHeader}}
+  <div class="customerClick">
   <h3>{{customer.name}}</h3>
     <span class="ingredient">
       {{customer.address}}
@@ -6,4 +10,20 @@
       <br>
     </div>
     </span>
+  </div>
+  {{/if}}
+ {{#if showDetails}}
+ <div>
+  {{>CustomerDetails customer=customer}}
+  </div>
+  <button editCustomer class="btn btn-primary largeButton">Edit</button>
+  {{/if}}
+
+  {{#if showEdit}}
+
+    <div>
+     {{>EditCustomer customer=customer}}
+     </div>
+   {{/if}}
+   {{/transition}}
 </template>

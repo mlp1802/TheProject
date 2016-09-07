@@ -14,16 +14,23 @@
   {{/if}}
  {{#if showDetails}}
  <div>
+
   {{>CustomerDetails customer=customer}}
   </div>
-  <button editCustomer class="btn btn-primary largeButton">Edit</button>
+  {{#unless showOrders}}
+    <button orders class="btn btn-primary mediumButton">Orders</button> <button editCustomer class="btn btn-primary mediumButton">Edit</button>
+  {{/unless}}
   {{/if}}
-
   {{#if showEdit}}
-
     <div>
+      <div style="float:right;margin-right:30px">
+      <button class="cancelEditCustomer btn glyphicon  glyphicon-remove">Close</button>
+    </div>
      {{>EditCustomer customer=customer}}
      </div>
+   {{/if}}
+   {{#if showOrders}}
+    {{>OrdersAdmin customer=customer}}
    {{/if}}
    {{/transition}}
 </template>

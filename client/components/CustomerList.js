@@ -1,40 +1,35 @@
-var sortOrder = "by_name"
+
 function getCustomersByName() {
   return Companies.find({}, {sort: {name: 1}}).fetch();
 }
 function getCustomersByDate() {
   return Companies.find({}, {sort: {created_at: -1}}).fetch();
 }
-Template.CustomerList.onCreated(function() {
-  var self = this;
-  self.autorun(function() {
-    console.log("autorun lol")
-    let a = function() {}
-    self.subscribe("companies")
-    Session.set("customers",getCustomersByName())
 
-  });
-})
+Template.CustomerList.created = function() {
+    this.subscribe("companies")
+    this.sortOrder = new ReactiveVar("by_name")
+}
 Template.CustomerList.helpers({
   companies:()=> {
-    return  Session.get("customers")
+    let sortOrder = Template.instance().sortOrder.get()
+    if(sortOrder=="by_name") {
+      return getCustomersByName()
+    }
+    if(sortOrder=="by_date") {
+      return getCustomersByDate()
+    }
   }
 })
 
 Template.CustomerList.events(
   {
     'click .by_date': function(event){
-        event.preventDefault();
-        console.log("BY DATE")
-        Session.set("customers",getCustomersByDate())
-        sortOrder = "by_date"
+        Template.instance().sortOrder.set("by_date")
 
       },
       'click .by_name': function(event){
-          event.preventDefault();
-          Session.set("customers",getCustomersByName())
-          console.log("BY NAME")
-          sortOrder = "by_name"
+          Template.instance().sortOrder.set("by_name")
         }
    }
 )

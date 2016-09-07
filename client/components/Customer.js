@@ -1,12 +1,19 @@
 Template.Customer.created = function() {
   this.showDetails = new ReactiveVar(false)
   this.showEdit = new ReactiveVar(false)
+  this.showOrders = new ReactiveVar(false)
 }
 function setShowDetails(v) {
   Template.instance().showDetails.set(v)
 }
 function setShowEdit(v) {
   Template.instance().showEdit.set(v)
+}
+function setShowOrders(v) {
+  Template.instance().showOrders.set(v)
+}
+function getShowOrders() {
+  return Template.instance().showOrders.get()
 }
 function getShowEdit() {
   return Template.instance().showEdit.get()
@@ -23,10 +30,13 @@ Template.Customer.helpers({
   },
   shouldShowHeader:function() {
     //return true;
-    return !(getShowEdit()||getShowDetails())
+    return !(getShowEdit()||getShowDetails()||getShowOrders())
   },
   showEdit:()=> {
     return getShowEdit()
+  },
+  showOrders:()=> {
+    return getShowOrders()
   }
 })
 Template.Customer.events(
@@ -42,6 +52,11 @@ Template.Customer.events(
         setShowEdit(true)
 
     },
+     "click [orders]":function() {
+       setShowOrders(true)
+       setShowDetails(false)
+    }
+    ,
     'submit form.editCustomerForm ': function(event){
         var id = this.customer._id
         var name = event.target.name.value;

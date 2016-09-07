@@ -1,0 +1,20 @@
+<Template name="OrdersAdmin">
+
+  {{#if eq status "menu"}}
+  <table class="customerDetails table table-striped">
+  <tbody>
+    <tr>
+      <td class="desc">Customer name</td><td>{{customer.name}}</td>
+    </tr>
+    <tr>
+      <td class="desc">Adress</td><td>{{customer.address}}</td>
+    </tr>
+  </tbody>
+</table>
+  <button order class="btn largeButton">New</button>
+  <button allOrders class="btn largeButton">All orders</button>
+  {{/if}}
+  {{#if eq status "order"}}
+    {{>NewOrder}}
+  {{/if}}s
+</Template>

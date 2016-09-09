@@ -24,7 +24,6 @@ Template.Customer.events(
         setShowDetails(false)
         setShowEdit(false)
         setShowOrders(false)
-
     "click .customerClick":->toggleShowDetails()
     "click .customerDetails":->setShowDetails(false)
     "click [editCustomer]":->

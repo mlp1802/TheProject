@@ -38,3 +38,24 @@ users.route "/customers/new",
   name:"customers-new"
   action:->BlazeLayout.render "Customers",
               main:"NewCustomer"
+
+users.route "/orders",
+  name:"orders"
+  action:->BlazeLayout.render "Orders",
+              main:"OrderList"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#

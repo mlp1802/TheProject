@@ -1,4 +1,3 @@
 
-Meteor.publish("orders", ->
-    return Orders.find({})
-    )
+Meteor.publish("companies", ->Companies.find({}))
+Meteor.publish("orders", ->Orders.find({}))

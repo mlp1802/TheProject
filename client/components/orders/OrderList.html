@@ -1,0 +1,20 @@
+<template name="OrderList">
+  
+  <table class="table table-striped">
+    <tbody>
+    {{#each order in orders}}
+    <tr>
+      <td>
+      {{order.productName}}
+      </td>
+      <td>
+      {{order.quantity}}
+      </td>
+      <td>
+      {{order.amount}}
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</template>

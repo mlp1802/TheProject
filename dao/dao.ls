@@ -11,6 +11,7 @@ newOrder =  (order)->
       productName:order.productName
       amount:order.amount
       quantity:order.quantity
+      created_at:new Date()
     )
 updateCustomer = (id,name,address)->
   Companies.update(
@@ -26,6 +27,7 @@ Dao =
   createCompany:createCompany
   updateCustomer:updateCustomer
   getAllCompanies:getAllCompanies
+  newOrder:newOrder
 
 
 this.Dao = Dao

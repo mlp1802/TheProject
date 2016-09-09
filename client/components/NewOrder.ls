@@ -14,6 +14,7 @@ Template.NewOrder.created = ->
         quantity:0
 
 
+
   this.currentOrder = new ReactiveVar(currentOrder)
   this.orderStatus = new ReactiveVar("new")
 
@@ -26,7 +27,9 @@ Template.NewOrder.helpers(
 Template.NewOrder.events(
   'click [backToEditOrder]':->setOrderStatus("new")
   'click [confirmNewOrder]':(event)->
-      ()
+      console.log("NEW ORDER")
+      Meteor.call("newOrder",getCurrentOrder())
+
 
   'submit form':(event)->
       event.preventDefault()
@@ -43,4 +46,5 @@ Template.NewOrder.events(
           quantity:quantity
       setCurrentOrder(currentOrder)
       setOrderStatus("confirm")
+
 )

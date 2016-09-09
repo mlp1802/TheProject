@@ -18,7 +18,13 @@ Template.Customer.helpers(
   showEdit:->getShowEdit()
   showOrders:->getShowOrders()
 )
+
 Template.Customer.events(
+    "click [confirmNewOrder]":->
+        setShowDetails(false)
+        setShowEdit(false)
+        setShowOrders(false)
+
     "click .customerClick":->toggleShowDetails()
     "click .customerDetails":->setShowDetails(false)
     "click [editCustomer]":->

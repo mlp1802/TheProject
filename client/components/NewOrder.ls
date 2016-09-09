@@ -5,7 +5,16 @@ setCurrentOrder = (order)->Template.instance().currentOrder.set(order)
 
 
 Template.NewOrder.created = ->
-  this.currentOrder = new ReactiveVar()
+  currentOrder =
+        customerId:this.data.customer._id
+        customerName:this.data.customer.name
+        productName:""
+        address:this.data.customer.address
+        amount:0
+        quantity:0
+
+
+  this.currentOrder = new ReactiveVar(currentOrder)
   this.orderStatus = new ReactiveVar("new")
 
 Template.NewOrder.helpers(
@@ -16,20 +25,22 @@ Template.NewOrder.helpers(
 
 Template.NewOrder.events(
   'click [backToEditOrder]':->setOrderStatus("new")
+  'click [confirmNewOrder]':(event)->
+      ()
+
   'submit form':(event)->
       event.preventDefault()
       name = event.target.name.value
       address = event.target.address.value
-      amount= event.target.address.amount
-      quantity = event.target.address.quantity
+      amount= event.target.amount.value
+      quantity = event.target.quantity.value
       currentOrder =
           customerId:this.customer._id
-          customerName:this.customer.name
-          name:name
+          customerName:getCurrentOrder().customerName
+          productName:name
           address:address
           amount:amount
           quantity:quantity
-
       setCurrentOrder(currentOrder)
       setOrderStatus("confirm")
 )

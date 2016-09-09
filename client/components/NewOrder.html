@@ -2,14 +2,14 @@
 {{#if eq orderStatus "new"}}
 <h3>New order for {{customer.name}}</h3>
   <form>
-    <label>Name</label>
-    <input type="text" name="name">
+    <label>Product</label>
+    <input type="text" name="name" value="{{currentOrder.productName}}">
     <label>Quantity</label>
-    <input type="text" name="quantity">
+    <input type="text" name="quantity" value="{{currentOrder.quantity}}">
     <label>Amount</label>
-    <input type="text" name="quantity">
+    <input type="text" name="amount" value="{{currentOrder.amount}}">
     <label>Delivery address</label>
-    <input type="text" name="address" value="{{customer.address}}">
+    <input type="text" name="address" value="{{currentOrder.address}}">
     <input type="submit" class="btn btn-primary" value="SUBMIT">
   </form>
 {{/if}}
@@ -20,7 +20,7 @@
     <td class="desc">Customer</td><td>{{currentOrder.customerName}}</td>
   </tr>
   <tr>
-    <td class="desc">Name</td><td>{{currentOrder.name}}</td>
+    <td class="desc">Product name</td><td>{{currentOrder.productName}}</td>
   </tr>
   <tr>
     <td class="desc">Quantity</td><td>{{currentOrder.quantity}}</td>
@@ -33,7 +33,7 @@
   </tr>
 </tbody>
 </table>
-<button class="btn btn-primary mediumButton">Confirm</button>
+<button confirmNewOrder class="btn btn-primary mediumButton">Confirm</button>
 <button backToEditOrder class="btn btn-default mediumButton">Back</button>
 {{/if}}
 </template>

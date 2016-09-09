@@ -27,9 +27,9 @@ function getAllCompanies() {
 Meteor.methods({
     'createCompany':function(name,address) {
       console.log("create company "+name+" "+address)
-      createCompany(name,address)
+      Dao.createCompany(name,address)
     },
     'updateCustomer':function(id,name,address) {
-      updateCustomer(id,name,address)
+      Dao.updateCustomer(id,name,address)
     }
 });

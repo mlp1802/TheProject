@@ -28,6 +28,7 @@ Template.Customer.events(
        setShowOrders(true)
        setShowDetails(false)
     "submit form.editCustomerForm":(event)->
+        event.preventDefault()
         id = this.customer._id
         name = event.target.name.value;
         address = event.target.address.value

@@ -19,9 +19,6 @@ let loggedIn = FlowRouter.group({
   triggersEnter:[checkLogin]
 })
 
-
-
-
 exposed.route("/",{
   name:"home",
   action() {

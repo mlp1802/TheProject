@@ -1,6 +1,0 @@
-
-Template.CustomerDetails.events(
-  {
-
-   }
-)

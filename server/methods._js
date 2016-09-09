@@ -15,7 +15,6 @@ function updateCustomer(id,name,address) {
       {
         name: name,
         address: address
-
       }
    }
  )

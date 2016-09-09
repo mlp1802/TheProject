@@ -32,3 +32,4 @@ session
 momentjs:moment
 random
 webtempest:animate
+vasaka:livescript-compiler

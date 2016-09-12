@@ -1,0 +1,132 @@
+
+@import (less) "common";
+@media screen and (max-width: 1000px) {
+
+.panel>.panel-heading>h {
+  font-size: 30px;
+
+}
+.panel  {
+  margin-top: 40px;
+
+}
+.panel>.panel-body {
+  font-size: 20px;
+
+}
+  .navbar-brand {
+    font-size:40px
+  }
+  .navbar-default .navbar-nav > li > a {
+
+  }
+  .navbar-default .navbar-nav > li > a {
+    font-size:70px;
+  }
+  .navbar-default .navbar-nav > li {
+
+    margin-bottom:  100px;
+  }
+  .navbar-default .navbar-nav > li>span {
+
+    font-size:   70px;
+    float:left;
+    margin-right: 50px;
+    margin-left: 100dpx;
+    color:lightBlue;
+  }
+  .navbar-default .navbar-nav > ul {
+    margin-top:  40px;
+    margin-bottom: 40px;
+  }
+
+  .navbar-default .navbar-toggle .icon-bar {
+      font-size:100px;
+      width: 70px;
+      height: 10px;
+      margin-top: 10px;
+      margin-bottom: : 10px;
+
+
+  }
+
+    //navbar
+    .navbar-header {
+      float: none;
+  }
+  .navbar-left,.navbar-right {
+      float: none !important;
+  }
+  .navbar-toggle {
+      display: block;
+  }
+  .navbar-collapse {
+      border-top: 1px solid transparent;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .navbar-fixed-top {
+      top: 0;
+      border-width: 0 0 1px;
+  }
+  .navbar-collapse.collapse {
+      display: none!important;
+  }
+  .navbar-nav {
+      float: none!important;
+      margin-top: 7.5px;
+  }
+  .navbar-nav>li {
+      float: none;
+  }
+  .navbar-nav>li>a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  .collapse.in{
+      display:block !important;
+  }
+    main {
+      margin-left:5%;
+      margin-bottom: 10%
+
+    }
+      nav.sideNav {
+        left:0;
+        bottom: 0;
+
+        position:fixed;
+        width: 100%;
+        height:200px;
+        z-index: 5;
+        padding-top:0%;
+        box-shadow: inset -2px 7px 9px -7px
+      }
+      .sideNav>ul {
+        list-style:none;
+        display:flex;
+        flex-direction: row;
+        margin-top: 30px;
+
+      }
+      .sideNav ul>li {
+        margin-bottom: 30px;
+        height: 300px;
+        margin-right: 5%;
+
+      }
+      .sideNav ul>li>a>.glyphicon {
+        font-size:100px;
+        color:@nav-text-color;
+        position: relative;
+        margin-left:auto;
+        margin-right:auto;
+        text-align: center;
+        width: 100%;
+      }
+
+      .sideNav ul>li>a>p {
+        font-size:30px;
+        color:@nav-text-color;
+        text-align: center;
+      }
+   }

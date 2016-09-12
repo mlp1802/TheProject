@@ -1,23 +1,21 @@
 <template name="OrdersMenu">
 
-<nav class="side-nav">
-<ul>
-  <li>
-    <a href="/main">
-      <div class="menuitem glyphicon glyphicon-home"  ></div>
-      <span class="menuText">
-      Home
-      </span>
-    </a>
-  </li>
-  <li>
-    <a href="/create_order">
-      <div class="menuitem glyphicon glyphicon-plus"  ></div>
-      <span class="menuText">
-      Add order
-      </span>
-    </a>
-  </li>
-</ul>
+<nav class="sideNav">
+    <ul>
+        <li>
+            <a href="/orders" style="display:inline">
+            <div class="menuIcon glyphicon glyphicon-home"></div>
+            <p class="menuText">Orders</p>
+          </a>
+        </li>
+        <li>
+          <a href="/orders/add">
+            <div class="glyphicon glyphicon-plus"></div>
+            <p class="menuText">New</p>
+          </a>
+
+        </li>
+    </ul>
 </nav>
+
 </template>

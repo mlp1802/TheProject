@@ -1,0 +1,57 @@
+
+@import (less) "common";
+
+@media screen and (min-width: 1000px) {
+  @sideNavWidth:200px;
+  @marginRight: 150px;
+  @marginLeft: 50px;
+
+    .navbar {
+      margin-right: @marginRight;
+      margin-left: @marginLeft;
+    }
+    main {
+      margin-left:@sideNavWidth+20+@marginLeft;
+      margin-bottom: 10%;
+      margin-right: @marginRight
+
+    }
+
+      nav.sideNav {
+        left:0;
+        bottom: 0;
+        position:fixed;
+        width: 200px;
+        height:100%;
+        z-index: 5;
+        padding-top:10%;
+        margin-left: @marginLeft;
+        box-shadow: inset -2px 7px 9px -7px
+      }
+      .sideNav>ul {
+        list-style:none;
+        display:flex;
+        flex-direction: column;;
+        margin-top: 30px;
+
+      }
+      .sideNav ul>li {
+        margin-bottom: 30px;
+        margin-right: 40px;
+      }
+      .sideNav ul>li>.glyphicon {
+        font-size:70px;
+        color:@nav-text-color;
+        position: relative;
+        margin-left:auto;
+        margin-right:auto;
+        text-align: center;
+        width: 100%;
+      }
+
+      .sideNav ul>li>p {
+        font-size:20px;
+        color:@nav-text-color;
+        text-align: center;
+      }
+   }

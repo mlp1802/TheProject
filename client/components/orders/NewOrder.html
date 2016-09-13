@@ -1,20 +1,42 @@
 <template name="NewOrder">
 {{#if eq orderStatus "new"}}
-<h3>New order for {{customer.name}}</h3>
-  <form>
-    <label>Product</label>
-    <input type="text" name="name" value="{{currentOrder.productName}}">
-    <label>Quantity</label>
-    <input type="text" name="quantity" value="{{currentOrder.quantity}}">
-    <label>Amount</label>
-    <input type="text" name="amount" value="{{currentOrder.amount}}">
-    <label>Delivery address</label>
-    <input type="text" name="address" value="{{currentOrder.address}}">
-    <input type="submit" class="btn btn-primary" value="SUBMIT">
-  </form>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h class="panel-title">New order for {{customer.name}}</h>
+        {{>CloseButton closeButtonSelector="closeNewOrder"}}
+    </div>
+    <div class="panel-body">
+        <form >
+            <div class="form-group">
+                <label for="product">Product</label>
+                <input type="text" name="name" value="{{currentOrder.productName}}" class="form-control" placeholder="Product name">
+            </div>
+            <div class="form-group">
+                <label for="address">Quantity</label>
+                <input id="address" type="text" class="form-control" value="{{currentOrder.quantity}}" name="quantity" placeholder="Quantity">
+            </div>
+            <div class="form-group">
+                <label for="address">Amount</label>
+                <input id="address" type="text" class="form-control" value="{{currentOrder.amount}}" name="amount" placeholder="Amount">
+            </div>
+            <div class="form-group">
+                <label for="address">Amount</label>
+                <input id="address" type="text" class="form-control" value="{{currentOrder.address}}" name="address" placeholder="Address">
+            </div>
+
+            <button type="submit" class="btn btn-primary mediumButton ">Submit</button>
+        </form>
+    </div>
+</div>
 {{/if}}
 {{#if eq orderStatus "confirm"}}
-<table class="customerDetails table table-striped">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h class="panel-title">CONFIRM ORDER  for {{customer.name}}</h>
+    </div>
+    <div class="panel-body">
+
+<table class="table table-striped">
 <tbody>
   <tr>
     <td class="desc">Customer</td><td>{{currentOrder.customerName}}</td>
@@ -35,5 +57,7 @@
 </table>
 <button confirmNewOrder class="btn btn-primary mediumButton">Confirm</button>
 <button backToEditOrder class="btn btn-default mediumButton">Back</button>
+</div>
+</div>
 {{/if}}
 </template>

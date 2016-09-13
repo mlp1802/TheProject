@@ -1,5 +1,5 @@
 <template name="Customer">
-  {{#transition in="zoomIn" out="bounceOut"}}
+  {{#transition in="zoomIn:500" out="zoomOut:500"}}
 {{#if shouldShowHeader}}
   <div class="customerClick">
     <div class="panel panel-default">
@@ -15,24 +15,24 @@
 </div>
   {{/if}}
  {{#if showDetails}}
- <div>
-
+ <div class="margin-top-down-medium">
   {{>CustomerDetails customer=customer}}
-  </div>
   {{#unless showOrders}}
     <button orders class="btn btn-primary mediumButton">Orders</button> <button editCustomer class="btn btn-primary mediumButton">Edit</button>
   {{/unless}}
+  </div>
   {{/if}}
   {{#if showEdit}}
-    <div>
-      <div style="float:right;margin-right:30px">
-      <button class="cancelEditCustomer btn glyphicon  glyphicon-remove">Close</button>
-    </div>
+    {{>CloseButton closeButtonSelector="closeEditCustomer"}}
+    <div class="margin-top-down-medium">
      {{>EditCustomer customer=customer}}
-     </div>
+   </div>
+
    {{/if}}
    {{#if showOrders}}
+   <div class="margin-top-down-medium">
     {{>OrdersAdmin customer=customer}}
+  </div>
    {{/if}}
    {{/transition}}
 </template>

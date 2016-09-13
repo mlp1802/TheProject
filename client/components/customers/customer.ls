@@ -25,7 +25,7 @@ Template.Customer.events(
         setShowEdit(false)
         setShowOrders(false)
     "click .customerClick":->toggleShowDetails()
-    "click .customerDetails":->setShowDetails(false)
+    "click [closeCustomerDetails]":->setShowDetails(false)
     "click [editCustomer]":->
         setShowDetails(false)
         setShowEdit(true)
@@ -40,9 +40,15 @@ Template.Customer.events(
         Meteor.call("updateCustomer",id,name,address)
         setShowDetails(false)
         setShowEdit(false)
-    "click .cancelEditCustomer":->
+    "click [closeEditCustomer]":->
       setShowDetails(false)
       setShowEdit(false)
+    "click [closeOrderAdmin],[closeNewOrder]":->
+      setShowDetails(false)
+      setShowEdit(false)
+      setShowOrders(false)
+
+
 )
 
 

@@ -1,14 +1,14 @@
 getCustomersByName=->
     Companies.find({},
               sort:
-                  name:-1
-              ).fetch()
+                  name:1
+              )
 
 getCustomersByDate=->
     Companies.find({},
               sort:
                   created_at:-1
-              ).fetch()
+              )
 
 Template.CustomerList.created = ->
     this.subscribe("companies")

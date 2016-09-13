@@ -1,16 +1,18 @@
-
 <template name="Customer">
   {{#transition in="zoomIn" out="bounceOut"}}
 {{#if shouldShowHeader}}
   <div class="customerClick">
-  <h3>{{customer.name}}</h3>
-    <span class="ingredient">
-      {{customer.address}}
-      <div class="createdAt"> Created {{>FromNow date=customer.created_at}}
-      <br>
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h class="panel-title">{{customer.name}}</h>
     </div>
-    </span>
+  <div class="panel-body">
+    <p>{{customer.address}}</p>
+    <div class="createdAt"> Created {{>FromNow date=customer.created_at}}
   </div>
+</div>
+</div>
+</div>
   {{/if}}
  {{#if showDetails}}
  <div>

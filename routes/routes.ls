@@ -1,14 +1,19 @@
 
-checkLogin = ->
-        Meteor.userId!=null
+loggedIn = ->
+        !!Meteor.userId()
 
 
-Accounts.onLogin (user)->FlowRouter.go("main")
-Accounts.onLogin (user)->FlowRouter.go("home")
+Accounts.onLogin (user)->FlowRouter.go("customers")
 exposed = FlowRouter.group()
-users = FlowRouter.group()
+
+users = FlowRouter.group(
+    triggersEnter:[->
+                    console.log("Triggered "+Meteor.userId())
+                    if loggedIn() is false
+                      FlowRouter.go("/")]
+    )
 exposed.route  "/",
-              name:"main"
+              name:"home"
               action:->BlazeLayout.render "Home"
 
 users.route "/customers",

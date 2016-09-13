@@ -4,6 +4,7 @@ loggedIn = ->
 
 
 Accounts.onLogin (user)->FlowRouter.go("customers")
+Accounts.onLogout (user)->FlowRouter.go("home")
 exposed = FlowRouter.group()
 
 users = FlowRouter.group(

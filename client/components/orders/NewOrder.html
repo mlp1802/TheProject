@@ -1,12 +1,35 @@
 <template name="NewOrder">
-{{#if eq orderStatus "new"}}
+{{#if eq orderStatus "main"}}
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h class="panel-title">New order for {{customer.name}}</h>
+        <h class="panel-title">Order for {{customer.name}} - total amount {{totalAmount}}</h>
         {{>CloseButton closeButtonSelector="closeNewOrder"}}
     </div>
+
+    <div>
+
+      {{>OrderItems orderItems=currentOrder.orderItems showRemove="true"}}
+
+   <span class="panel-body">
+     <div style="margin-left:10px;margin-right:10px">
+     <span  addOrderItem class="mediumButton btn btn-primary">New item</span>
+     <span  style="float:right" submitOrder class="mediumButton btn btn-default">Submit order</span>
+    </div>
+   </span>
+
+
+  </div>
+
+</div>
+{{/if}}
+{{#if eq orderStatus "orderItem"}}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h class="panel-title">Add order item for order {{customer.name}}</h>
+        {{>CloseButton closeButtonSelector="closeOrderItem"}}
+    </div>
     <div class="panel-body">
-        <form >
+        <form newOrderItem>
             <div class="form-group">
                 <label for="product">Product</label>
                 <input type="text" name="name" value="{{currentOrder.productName}}" class="form-control" placeholder="Product name">
@@ -19,12 +42,8 @@
                 <label for="address">Amount</label>
                 <input id="address" type="text" class="form-control" value="{{currentOrder.amount}}" name="amount" placeholder="Amount">
             </div>
-            <div class="form-group">
-                <label for="address">Amount</label>
-                <input id="address" type="text" class="form-control" value="{{currentOrder.address}}" name="address" placeholder="Address">
-            </div>
 
-            <button type="submit" class="btn btn-primary mediumButton ">Submit</button>
+            <button type="Add" class="btn btn-primary mediumButton ">Add</button>
         </form>
     </div>
 </div>
@@ -42,19 +61,12 @@
     <td class="desc">Customer</td><td>{{currentOrder.customerName}}</td>
   </tr>
   <tr>
-    <td class="desc">Product name</td><td>{{currentOrder.productName}}</td>
-  </tr>
-  <tr>
-    <td class="desc">Quantity</td><td>{{currentOrder.quantity}}</td>
-  </tr>
-  <tr>
-    <td class="desc">Amount</td><td>{{currentOrder.amount}}</td>
-  </tr>
-  <tr>
     <td class="desc">Address</td><td>{{currentOrder.address}}</td>
   </tr>
+
 </tbody>
 </table>
+{{>OrderItems orderItems=currentOrder.orderItems showRemove="false"}}
 <button confirmNewOrder class="btn btn-primary mediumButton">Confirm</button>
 <button backToEditOrder class="btn btn-default mediumButton">Back</button>
 </div>

@@ -5,45 +5,46 @@ setCurrentOrder = (order)->Template.instance().currentOrder.set(order)
 
 
 Template.NewOrder.created = ->
+
   currentOrder =
         customerId:this.data.customer._id
         customerName:this.data.customer.name
-        productName:""
+
         address:this.data.customer.address
-        amount:0
-        quantity:0
 
-
-
+        orderItems:[]
   this.currentOrder = new ReactiveVar(currentOrder)
-  this.orderStatus = new ReactiveVar("new")
+  this.orderStatus = new ReactiveVar("orderItem")
+  this.totalAmount = new ReactiveVar(0)
+
 
 Template.NewOrder.helpers(
   "orderStatus":-> getOrderStatus()
   "eq":(a,b)-> a is b
   "currentOrder":-> getCurrentOrder()
+  "totalAmount":->Template.instance().totalAmount.get()
 )
 
+
 Template.NewOrder.events(
-  'click [backToEditOrder]':->setOrderStatus("new")
+  'click [submitOrder]':->setOrderStatus("confirm")
+  'click [addOrderItem]':->setOrderStatus("orderItem")
+  'click [backToEditOrder]':->setOrderStatus("main")
   'click [confirmNewOrder]':(event)->
       Meteor.call("newOrder",getCurrentOrder())
-
-
-  'submit form':(event)->
+  'submit form[newOrderItem]':(event)->
       event.preventDefault()
+      order = getCurrentOrder()
       name = event.target.name.value
-      address = event.target.address.value
       amount= event.target.amount.value
       quantity = event.target.quantity.value
-      currentOrder =
-          customerId:this.customer._id
-          customerName:getCurrentOrder().customerName
+
+      orderItem =
+          _id:Random.id()
           productName:name
-          address:address
           amount:amount
           quantity:quantity
-      setCurrentOrder(currentOrder)
-      setOrderStatus("confirm")
+      order.orderItems.push(orderItem)
+      setOrderStatus("main")
 
 )

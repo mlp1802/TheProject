@@ -3,4 +3,5 @@ Template.OrderList.created = ->
 
 Template.OrderList.helpers(
     orders:->Orders.find({})
+    "eq":(a,b)->a is b
     )

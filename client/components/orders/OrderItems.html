@@ -1,0 +1,29 @@
+<Template name="OrderItems">
+<table class="table table-striped">
+
+  <th>Product name</th>
+  <th>Quantity</th>
+  <th>Amount</th>
+<tbody>
+  {{#each item in getOrderItems}}
+  <tr>
+    <td>{{item.productName}}</td>
+    <td>{{item.quantity}}</td>
+    <td>{{item.amount}}</td>
+    {{#if eq "true" showRemove}}
+    <td><button removeOrderItem value={{item._id}} class="btn btn-danger">Remove</button></td>
+    {{/if}}
+  </tr>
+
+  {{/each}}
+  </tbody>
+  <tfoot>
+    <tr>
+      <td></td>
+      <td></td>
+      <td><b>Total {{totalAmount}}</b></td>
+    </tr>
+  </tfoot>
+
+</table>
+</Template>

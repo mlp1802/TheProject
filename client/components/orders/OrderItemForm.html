@@ -1,0 +1,18 @@
+<Template name="OrderItemForm">
+<form newOrderItem>
+    <div class="form-group">
+        <label for="product">Product</label>
+        <input type="text" name="name" value="{{orderItem.productName}}" class="form-control" placeholder="Product name">
+    </div>
+    <div class="form-group">
+        <label for="address">Quantity</label>
+        <input id="address" type="text" class="form-control" value="{{orderItem.quantity}}" name="quantity" placeholder="Quantity">
+    </div>
+    <div class="form-group">
+        <label for="address">Amount</label>
+        <input id="address" type="text" class="form-control" value="{{orderItem.amount}}" name="amount" placeholder="Amount">
+    </div>
+
+    <button type="Add" class="btn btn-primary mediumButton ">Add</button>
+</form>
+</Template>

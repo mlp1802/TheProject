@@ -1,0 +1,49 @@
+<Template name="Order">
+{{#transition in="zoomIn:500" }}
+{{#if eq status "overview"}}
+<div Order-orderPanel class="panel panel-default">
+<div class="panel-heading">
+  <h class="panel-title">{{order.customerName}}</h>
+</div>
+<div  class="panel-body">
+  <div style="display:flex ">
+  <table class="table table-striped">
+    <tbody>
+    <tr>
+      <td>
+        <b>Amount</b>
+      </td>
+      <td>
+          {{>Currency currency=order.currency amount=order.totalAmount}}
+      </td>
+    </tr>
+    <tr>
+      <td><b>Created</b></td>
+      <td>
+        {{>DefaultDate date=order.created_at}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+          <b>Status</b>
+      </td>
+      <td>
+          {{order.status}}
+      </td>
+    </tr>
+
+  </tbody>
+  </table>
+</div>
+</div>
+</div>
+{{/if}}
+{{#if eq status "editOrder"}}
+  <div class="edit-focus">
+    {{#transition in="zoomIn:500" }}
+  {{>NewOrder order=order}}
+    {{/transition}}
+  </div>
+{{/if}}
+{{/transition}}
+</Template>

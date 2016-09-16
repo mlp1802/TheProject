@@ -15,7 +15,7 @@
 </div>
   {{/if}}
  {{#if showDetails}}
- <div class="margin-top-down-medium">
+ <div class="edit-focus">
   {{>CustomerDetails customer=customer}}
   {{#unless showOrders}}
     <button orders class="btn btn-primary mediumButton">Orders</button> <button editCustomer class="btn btn-primary mediumButton">Edit</button>
@@ -24,14 +24,16 @@
   {{/if}}
   {{#if showEdit}}
     {{>CloseButton closeButtonSelector="closeEditCustomer"}}
-    <div class="margin-top-down-medium">
+    <div class="edit-focus">
      {{>EditCustomer customer=customer}}
    </div>
 
    {{/if}}
    {{#if showOrders}}
-   <div class="margin-top-down-medium">
-    {{>OrdersAdmin customer=customer}}
+   <div class="edit-focus">
+     {{#transition in="zoomIn:500" }}
+      {{>OrdersAdmin customer=customer}}
+      {{/transition}}
   </div>
    {{/if}}
    {{/transition}}

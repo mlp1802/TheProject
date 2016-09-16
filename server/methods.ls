@@ -7,5 +7,7 @@ methods =
       Dao.updateCustomer(id,name,address)
   "newOrder":(order)->
       Dao.newOrder(order)
+  "updateOrder":(order)->
+      Dao.updateOrder(order)
 
 Meteor.methods(methods)

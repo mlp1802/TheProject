@@ -20,10 +20,8 @@ Template.Customer.helpers(
 )
 
 Template.Customer.events(
-    "click [confirmNewOrder]":->
-        setShowDetails(false)
-        setShowEdit(false)
-        setShowOrders(false)
+
+
     "click .customerClick":->toggleShowDetails()
     "click [closeCustomerDetails]":->setShowDetails(false)
     "click [editCustomer]":->
@@ -43,7 +41,7 @@ Template.Customer.events(
     "click [closeEditCustomer]":->
       setShowDetails(false)
       setShowEdit(false)
-    "click [closeOrderAdmin],[closeNewOrder]":->
+    "click [closeOrderAdmin],[NewOrder-closeNewOrder]":->
       setShowDetails(false)
       setShowEdit(false)
       setShowOrders(false)

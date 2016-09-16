@@ -1,12 +1,12 @@
 getTotalAmount = ->
-   Template.instance().data.orderItems.map((item)~>Number(item.amount)).reduce((n,m)->n+m)
+  Functions.getTotalAmount(Template.instance().data.order)
 
 
 Template.OrderItems.created =
     ->
-      orderItems = Template.instance().data.orderItems
+      order = Template.instance().data.order
       this.totalAmount = new ReactiveVar(Template.instance().data.totalAmount)
-      this.getOrderItems = new ReactiveVar(orderItems)
+      this.getOrderItems = new ReactiveVar(order.orderItems)
       Tracker.autorun(~>this.totalAmount.set getTotalAmount())
 
 
@@ -21,12 +21,11 @@ Template.OrderItems.events (
 
     "click [removeOrderItem]":(event)->
         id = event.target.value
-        newItems = this.orderItems.filter((item)->item._id!=id)
-
-        this.orderItems.splice(0, this.orderItems.length)
-        newItems.forEach((item)~>item.name="skod")
-        newItems.forEach((item)~>this.orderItems.push(item))
-        Template.instance().getOrderItems.set(this.orderItems)
+        orderItems = this.order.orderItems
+        newItems = orderItems.filter((item)->item._id!=id)
+        orderItems.splice(0, orderItems.length)
+        newItems.forEach((item)~>orderItems.push(item))
+        Template.instance().getOrderItems.set(orderItems)
         Template.instance().totalAmount.set(getTotalAmount())
         #console.log("CLICKED "+event.target.value)
 

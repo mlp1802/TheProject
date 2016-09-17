@@ -1,6 +1,8 @@
-this.Companies= new Mongo.Collection("companies")
-console.log("CREATING COMPANIES ls")
-this.Companies.allow(
+Companies= new Mongo.Collection("companies")
+Companies.allow(
     insert:(userId)->!userId
     update:(userId)->!userId
     )
+
+module.exports =
+    "Companies":Companies

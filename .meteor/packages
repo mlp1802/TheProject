@@ -36,3 +36,4 @@ vasaka:livescript-compiler
 modules
 less
 ronenm:currency
+practicalmeteor:mocha

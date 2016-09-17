@@ -1,4 +1,6 @@
-
+#import {Companies} from "../collections/company.ls"
+{Companies} = require("../collections/company.ls")
+{Orders} = require("../collections/order.ls")
 createCompany = (name,address)->
   Companies.insert(
       name:name,
@@ -26,9 +28,6 @@ newOrder =  (o)->
     order.currency = "THB"
     Orders.insert(order)
 
-
-
-
 updateCustomer = (id,name,address)->
   Companies.update(
     {_id: id}
@@ -50,7 +49,20 @@ updateOrder = (o)->
       status:o.status
     )
 
-getAllCompanies =->Mongo.Companies.find({})
+getAllCompanies =->Companies.find({})
+getCustomersByName = ->
+    Companies.find({},
+              sort:
+                  name:1
+              )
+
+getCustomersByDate=->
+    Companies.find({},
+              sort:
+                  created_at:-1
+              )
+
+
 
 Dao =
   createCompany:createCompany
@@ -58,7 +70,9 @@ Dao =
   getAllCompanies:getAllCompanies
   newOrder:newOrder
   updateOrder:updateOrder
+  getCustomersByName:getCustomersByName
+  getCustomersByDate:getCustomersByDate
 
-
-this.Dao = Dao
-console.log("DAO = "+Dao)
+module.exports = {
+  Dao:Dao
+}

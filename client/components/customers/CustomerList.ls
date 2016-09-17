@@ -1,32 +1,20 @@
+{ClientDao} = require("../../clientDao/clientDao.ls")
 getCustomersByName=->
-    Companies.find({},
-              sort:
-                  name:1
-              )
+    Template.instance().customers.set(ClientDao.getCustomersByName())
 
 getCustomersByDate=->
-    Companies.find({},
-              sort:
-                  created_at:-1
-              )
+    Template.instance().customers.set(ClientDao.getCustomersByDate())
 
 Template.CustomerList.created = ->
     this.subscribe("companies")
-    this.sortOrder = new ReactiveVar("by_name")
-    console.log("CSCREATED LOL")
+    this.customers = new ReactiveVar()
+    getCustomersByName()
 
 Template.CustomerList.helpers(
-  companies:->
-      console.log("COMP LOL")
-      sortOrder = Template.instance().sortOrder.get()
-      if sortOrder == "by_name"
-          getCustomersByName()
-      else
-          getCustomersByDate()
+  companies:->Template.instance().customers.get()
 )
 Template.CustomerList.events(
-  "click .by_date":(event)->
-      Template.instance().sortOrder.set("by_date")
-  "click .by_name":(event)->
-      Template.instance().sortOrder.set("by_name")
+  "click .by_date":(event)->getCustomersByDate()
+
+  "click .by_name":(event)->getCustomersByName()
 )

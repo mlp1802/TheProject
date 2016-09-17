@@ -1,5 +1,4 @@
-
-
+{Dao} = require "./dao.ls"
 methods =
   "createCompany":(name,address)->
       Dao.createCompany(name,address)
@@ -9,5 +8,15 @@ methods =
       Dao.newOrder(order)
   "updateOrder":(order)->
       Dao.updateOrder(order)
+
+  "getCustomersByName":->Dao.getCustomersByName().fetch()
+
+
+  "getCustomersByDate":->Dao.getCustomersByDate().fetch()
+
+
+  "lol":->
+      "LOLZ"
+
 
 Meteor.methods(methods)

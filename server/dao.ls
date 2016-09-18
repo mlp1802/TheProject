@@ -1,12 +1,12 @@
 #import {Companies} from "../collections/company.ls"
 {Companies} = require("../collections/company.ls")
 {Orders} = require("../collections/order.ls")
-createCompany = (name,address)->
-  Companies.insert(
-      name:name,
-      address:address,
-      created_at:new Date()
-      )
+createCompany = (company)->
+  c =
+    name:company.name,
+    address:company.address,
+    created_at:new Date()
+  Companies.insert(c)
 
 
 transformOrderItem = (i)->
@@ -16,8 +16,6 @@ transformOrderItem = (i)->
     amount:i.amount
 
 newOrder =  (o)->
-
-
     order =
       customerId:o.customerId
       customerName:o.customerName
@@ -56,13 +54,15 @@ getCustomersByName = ->
                   name:1
               )
 
+getCustomer=(id)->
+    Companies.findOne({_id:id})
+
+
 getCustomersByDate=->
     Companies.find({},
               sort:
                   created_at:-1
               )
-
-
 
 Dao =
   createCompany:createCompany
@@ -72,6 +72,7 @@ Dao =
   updateOrder:updateOrder
   getCustomersByName:getCustomersByName
   getCustomersByDate:getCustomersByDate
+  getCustomer:getCustomer
 
 module.exports = {
   Dao:Dao

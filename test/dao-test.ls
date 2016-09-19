@@ -4,12 +4,11 @@ expect = chai.expect
 sinonChai = require("sinon-chai")
 CollectionMock = require("./meteorMock").CollectionMock
 sinon = require "sinon"
-console.log(CollectionMock)
+{Dao} = require '../server/dao'
 chai.use sinonChai
 chai.should()
-{Dao} = require '../server/dao'
 global.It = it
-describe "CreateCompany",
+describe "NewOrder",
     ->
       It 'Calls insert',sinon.test ->
         save = this.spy(CollectionMock,"insert")
@@ -19,6 +18,7 @@ describe "CreateCompany",
             customerName:"bob"
             orderItems:[]
           })
+
         save.should.have.callCount(1)
         args = save.getCall(0).args
         order = args[0]
@@ -27,4 +27,4 @@ describe "CreateCompany",
         expect(order.totalAmount).to.equal(0)
         expect(order.customerName).to.equal("bob")
         expect(order.customerId).to.equal("cust_id")
-        expect(save).to.have.callCount(1)
+        expect(order.created_at).to.not.equal(undefined)

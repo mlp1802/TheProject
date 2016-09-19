@@ -5,13 +5,12 @@ setupCurrentOrder= ->
   data = Template.instance().data
   order = data.order
   if order == undefined
-          console.log("NEW ORDER LOL")
+          console.log("NEW ORDER LOL2")
           customerId:data.customer._id
           customerName:data.customer.name
           address:data.customer.address
           orderItems:[]
   else
-          console.log("UPDATE ORDER LOL")
           order
 
 updateOrder = -> Meteor.call("updateOrder",getCurrentOrder())

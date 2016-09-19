@@ -1,6 +1,7 @@
 #import {Companies} from "../collections/company.ls"
 {Companies} = require("../collections/company.ls")
 {Orders} = require("../collections/order.ls")
+{Functions} = require("./functions.ls")
 createCompany = (company)->
   c =
     name:company.name,
@@ -16,11 +17,17 @@ transformOrderItem = (i)->
     amount:i.amount
 
 newOrder =  (o)->
+    getOrderItems = (items)->
+        if items is undefined
+            []
+        else
+            items.map(transformOrderItem)
+
     order =
       customerId:o.customerId
       customerName:o.customerName
       created_at:new Date()
-      orderItems:o.orderItems.map(transformOrderItem)
+      orderItems:getOrderItems(o.orderItems)
     order.totalAmount = Functions.getTotalAmount(order)
     order.status = "not_paid"
     order.currency = "THB"

@@ -4,6 +4,7 @@ Fiber = Npm.require("fibers")
 {resetDatabase} = require 'meteor/xolvio:cleaner'
 global.It = it
 fiber = (f)->Fiber(f).run()
+
 describe "Dao",
     ->
       beforeEach(->resetDatabase)

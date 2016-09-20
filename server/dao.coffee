@@ -1,7 +1,7 @@
 #import {Companies} from "../collections/company.ls"
-{Companies} = require("../collections/company.ls")
-{Orders} = require("../collections/order.ls")
-{Functions} = require("./functions.ls")
+{Companies} = require("../collections/company")
+{Orders} = require("../collections/order")
+{Functions} = require("./functions")
 createCompany = (company)->
   c =
     name:company.name,

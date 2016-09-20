@@ -1,3 +1,5 @@
+console.log("test")
+
 chai = require 'chai'
 assert = chai.assert
 expect = chai.expect
@@ -7,10 +9,9 @@ sinon = require "sinon"
 {Dao} = require '../server/dao'
 chai.use sinonChai
 chai.should()
-global.It = it
 describe "NewOrder",
     ->
-      It 'Calls insert',sinon.test ->
+      it 'Calls insert',sinon.test ->
         save = this.spy(CollectionMock,"insert")
         Dao.newOrder(
           {

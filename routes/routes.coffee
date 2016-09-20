@@ -1,4 +1,4 @@
-
+console.log("routes lol")
 loggedIn = ->
         !!Meteor.userId()
 

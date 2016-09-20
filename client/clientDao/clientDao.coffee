@@ -1,5 +1,5 @@
-{Companies} = require("../../collections/company.ls")
-{Orders} = require("../../collections/order.ls")
+{Companies} = require("../../collections/company")
+{Orders} = require("../../collections/order")
 getCustomersByName = ->
     console.log("BY NAME LOL")
     Companies.find({},

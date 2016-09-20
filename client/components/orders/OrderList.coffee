@@ -1,4 +1,4 @@
-{ClientDao} = require("../../clientDao/clientDao.ls")
+{ClientDao} = require("../../clientDao/clientDao")
 Template.OrderList.created = ->
     this.subscribe("orders")
 

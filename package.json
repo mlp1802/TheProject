@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "test": "mocha --compilers ls:livescript"
+    "test": "mocha tests"
   },
   "dependencies": {
     "bcrypt": "^0.8.7",

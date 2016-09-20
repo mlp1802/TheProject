@@ -1,4 +1,4 @@
-{Dao} = require './dao.ls'
+{Dao} = require './dao'
 Fiber = Npm.require("fibers")
 {chai, assert,expect } = require 'meteor/practicalmeteor:chai'
 {resetDatabase} = require 'meteor/xolvio:cleaner'

@@ -1,4 +1,4 @@
-{ClientDao} = require("../../clientDao/clientDao.ls")
+{ClientDao} = require("../../clientDao/clientDao")
 getCustomersByName=->
     Template.instance().customers.set(ClientDao.getCustomersByName())
 

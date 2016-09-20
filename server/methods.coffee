@@ -1,4 +1,4 @@
-{Dao} = require "./dao.ls"
+{Dao} = require "./dao"
 methods =
   "createCompany":(name,address)->
       Dao.createCompany(name,address)

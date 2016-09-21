@@ -35,7 +35,12 @@ Template.Customer.events(
         id = this.customer._id
         name = event.target.name.value;
         address = event.target.address.value
-        Meteor.call("updateCustomer",id,name,address)
+        customer =
+            _id:id
+            name:name
+            address:address
+
+        Meteor.call("updateCustomer",customer)
         setShowDetails(false)
         setShowEdit(false)
     "click [closeEditCustomer]":->

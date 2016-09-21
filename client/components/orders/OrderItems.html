@@ -13,11 +13,25 @@
     <td>{{item.quantity}}</td>
     <td class="money" style="width:20%">{{>Currency currency="THB" amount=item.amount}}</td>
     {{#if eq "true" showRemove}}
-    <td ><button style="float:right" removeOrderItem value={{item._id}} class="btn btn-danger">Remove</button></td>
+    <td ><button style="float:right" OrderItems-removeOrderItem value={{item._id}} class="btn btn-danger">Remove</button></td>
     {{/if}}
   </tr>
 
   {{/each}}
+
+  {{#each extra in getOrderExtras}}
+    <tr>
+    <td><i>{{extra.name}}</i></td>
+    <td></td>
+    <td class="money" style="width:20%"><i>{{extra.amount}}</i></td>
+    {{#if eq "true" showRemove}}
+    <td ><button style="float:right" OrderItems-removeExtra value={{extra._id}} class="btn btn-danger">Remove</button></td>
+    {{/if}}
+  </tr>    
+  {{/each}}
+
+
+
   </tbody>
   <tfoot>
     <tr>

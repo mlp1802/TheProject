@@ -4,17 +4,19 @@ getCurrentOrder = ->Template.instance().currentOrder.get()
 setupCurrentOrder= ->
   data = Template.instance().data
   order = data.order
+  customer = data.customer
   if order == undefined
-          console.log("NEW ORDER LOL2")
-          customerId:data.customer._id
-          customerName:data.customer.name
-          address:data.customer.address
+
+          customerId:customer._id
+          customerName:customer.name
+          address:customer.address
           orderItems:[]
+          orderExtras:[]
   else
           order
 
 updateOrder = -> Meteor.call("updateOrder",getCurrentOrder())
-newOrder = -> Meteor.call("newOrder",getCurrentOrder())
+newOrder = -> Meteor.call("saveNewOrder",getCurrentOrder())
 saveOrder = (order)->
     if(order._id==undefined)
       newOrder()
@@ -38,6 +40,7 @@ Template.NewOrder.helpers(
 Template.NewOrder.events(
   'click [submitOrder]':->setOrderStatus("confirm")
   'click [NewOrder-addOrderItem]':->setOrderStatus("orderItem")
+  'click [NewOrder-addExtra]':->setOrderStatus("addExtra")
   'click [NewOrder-backToEditOrder]':->setOrderStatus("main")
   'click [NewOrder-closeOrderItem]':->setOrderStatus("main")
   'click [NewOrder-confirmNewOrder]':(event)->
@@ -54,6 +57,20 @@ Template.NewOrder.events(
           amount:amount
           quantity:quantity
       order.orderItems.push(orderItem)
+      setOrderStatus("main")
+
+  'submit form[AddExtraForm-form]':(event)->
+      event.preventDefault()
+      order = getCurrentOrder()
+      name = event.target.name.value
+      amount= event.target.amount.value
+      extra =
+          _id:Random.id()
+          name:name
+          amount:amount
+      order.orderExtras.push(extra)
+      console.log("Adding extra")
+      console.log(order.orderExtras)
       setOrderStatus("main")
 
 )

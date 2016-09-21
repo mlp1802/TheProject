@@ -3,6 +3,9 @@ Template.NewCustomer.events(
         event.preventDefault()
         name = event.target.name.value
         address = event.target.address.value
-        Meteor.call('createCompany', name,address)
+        company =
+            name:name
+            address:address
+        Meteor.call('createCompany', company)
         FlowRouter.go("customers")
         )

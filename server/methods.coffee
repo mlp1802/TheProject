@@ -1,11 +1,12 @@
-{Dao} = require "./dao"
+Dao = require "./dao"
+{getTotalAmount}= require "./orderFunctions"
 methods =
-  "createCompany":(name,address)->
-      Dao.createCompany(name,address)
-  "updateCustomer":(id,name,address)->
-      Dao.updateCustomer(id,name,address)
-  "newOrder":(order)->
-      Dao.newOrder(order)
+  "createCompany":(company)->
+      Dao.createCompany(company)
+  "updateCustomer":(customer)->
+      Dao.updateCustomer(customer)
+  "saveNewOrder":(order)->
+      Dao.saveNewOrder(order)
   "updateOrder":(order)->
       Dao.updateOrder(order)
 
@@ -14,9 +15,10 @@ methods =
 
   "getCustomersByDate":->Dao.getCustomersByDate().fetch()
 
+  "getTotalAmount":(order)->
+      getTotalAmount(order)
 
-  "lol":->
-      "LOLZ"
+
 
 
 Meteor.methods(methods)

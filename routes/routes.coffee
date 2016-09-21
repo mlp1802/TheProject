@@ -1,4 +1,3 @@
-console.log("routes lol")
 loggedIn = ->
         !!Meteor.userId()
 
@@ -9,7 +8,6 @@ exposed = FlowRouter.group()
 
 users = FlowRouter.group(
     triggersEnter:[->
-                    console.log("Triggered "+Meteor.userId())
                     if loggedIn() is false
                       FlowRouter.go("/")]
     )

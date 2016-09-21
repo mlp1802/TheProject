@@ -1,7 +1,6 @@
 {Companies} = require("../../collections/company")
 {Orders} = require("../../collections/order")
 getCustomersByName = ->
-    console.log("BY NAME LOL")
     Companies.find({},
               sort:
                   name:1

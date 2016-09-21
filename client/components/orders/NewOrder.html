@@ -10,6 +10,7 @@
    <span class="panel-body">
      <div style="margin-left:10px;margin-right:10px">
      <span  NewOrder-addOrderItem class="mediumButton btn btn-primary">New item</span>
+     <span  NewOrder-addExtra class="mediumButton btn btn-primary">Add extra</span>
      <span  style="float:right" submitOrder class="mediumButton btn btn-default">Submit order</span>
     </div>
    </span>
@@ -25,6 +26,18 @@
     <div class="panel-body">
         {{>OrderItems order=currentOrder showRemove="true"}}
         {{>OrderItemForm}}
+    </div>
+</div>
+{{/if}}
+{{#if eq orderStatus "addExtra"}}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h class="panel-title">Add extra </h>
+        {{>CloseButton closeButtonSelector="NewOrder-closeOrderItem"}}
+    </div>
+    <div class="panel-body">
+        {{>OrderItems order=currentOrder showRemove="true"}}
+        {{>AddExtraForm}}
     </div>
 </div>
 {{/if}}

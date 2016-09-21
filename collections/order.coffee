@@ -6,5 +6,6 @@ Orders.allow(
     update:(userId)->!userId
     )
 
-module.exports =
-    "Orders":Orders
+module.exports = {
+    Orders
+    }

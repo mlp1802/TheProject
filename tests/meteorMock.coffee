@@ -1,5 +1,10 @@
 td = require 'testdouble';
 Meteor = td.object(["methods", "call"])
+Random = {
+    id:->
+        "random_id"
+}
+td.replace("meteor/random", { Random })
 
 CollectionMock =
     insert:(a)->

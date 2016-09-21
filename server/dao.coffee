@@ -1,7 +1,9 @@
 #import {Companies} from "../collections/company.ls"
 {Companies} = require("../collections/company")
 {Orders} = require("../collections/order")
-{Functions} = require("./functions")
+
+orderFunctions = require("./orderFunctions")
+
 createCompany = (company)->
   c =
     name:company.name,
@@ -9,36 +11,19 @@ createCompany = (company)->
     created_at:new Date()
   Companies.insert(c)
 
-
-transformOrderItem = (i)->
-    _id:Random.id()
-    productName:i.productName
-    quantity:i.quantity
-    amount:i.amount
-
-newOrder =  (o)->
-    getOrderItems = (items)->
-        if items is undefined
-            []
-        else
-            items.map(transformOrderItem)
-
-    order =
-      customerId:o.customerId
-      customerName:o.customerName
-      created_at:new Date()
-      orderItems:getOrderItems(o.orderItems)
-    order.totalAmount = Functions.getTotalAmount(order)
-    order.status = "not_paid"
-    order.currency = "THB"
+saveNewOrder =  (o)->
+    order = orderFunctions.createOrder(o)
+    console.log("NEW ORDER")
+    console.log(order)
+    order.totalAmount = orderFunctions.getTotalAmount(order)
     Orders.insert(order)
 
-updateCustomer = (id,name,address)->
+updateCustomer = (customer)->
   Companies.update(
-    {_id: id}
+    {_id: customer._id}
     $set:
-        name: name
-        address: address
+        name: customer.name
+        address: customer.address
     )
 
 updateOrder = (o)->
@@ -48,13 +33,15 @@ updateOrder = (o)->
       customerId:o.customerId
       customerName:o.customerName
       created_at:o.created_at
-      orderItems:o.orderItems.map(transformOrderItem)
-      totalAmount: Functions.getTotalAmount(o)
+      orderItems:orderFunctions.copyOrderItems(o.orderItems)
+      orderExtras:orderFunctions.copyOrderExtras(o.orderExtras)
+      totalAmount: orderFunctions.getTotalAmount(o)
       currency:o.currency
       status:o.status
     )
 
 getAllCompanies =->Companies.find({})
+
 getCustomersByName = ->
     Companies.find({},
               sort:
@@ -71,16 +58,13 @@ getCustomersByDate=->
                   created_at:-1
               )
 
-Dao =
-  createCompany:createCompany
-  updateCustomer:updateCustomer
-  getAllCompanies:getAllCompanies
-  newOrder:newOrder
-  updateOrder:updateOrder
-  getCustomersByName:getCustomersByName
-  getCustomersByDate:getCustomersByDate
-  getCustomer:getCustomer
-
 module.exports = {
-  Dao:Dao
+  createCompany,
+  updateCustomer,
+  getAllCompanies,
+  saveNewOrder,
+  updateOrder,
+  getCustomersByName,
+  getCustomersByDate,
+  getCustomer
 }

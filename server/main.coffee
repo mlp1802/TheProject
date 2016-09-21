@@ -1,1 +1,1 @@
-Meteor.startup(->console.log("startup ls"))
+Meteor.startup(->)

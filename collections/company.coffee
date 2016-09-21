@@ -8,4 +8,6 @@ Companies.allow(
     )
 
 module.exports =
-    "Companies":Companies
+    {
+    Companies
+    }

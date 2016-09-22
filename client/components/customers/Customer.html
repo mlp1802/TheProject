@@ -7,7 +7,7 @@
       <h class="panel-title">{{customer.name}}</h>
     </div>
   <div class="panel-body">
-    <p>{{customer.address}}</p>
+    <p>{{customer.address.country}}</p>
     <div class="createdAt"> Created {{>FromNow date=customer.created_at}}
   </div>
 </div>

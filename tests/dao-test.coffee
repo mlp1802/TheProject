@@ -10,13 +10,26 @@ Dao = require '../server/dao'
 orderFunctions = require("../server/orderFunctions")
 chai.use sinonChai
 chai.should()
+test = sinon.test
 newOrder = ->
   customerId:"cust_id"
   customerName:"bob"
   orderItems:[]
+  orderExtras:[]
+
+describe "Dao.CreateCompany", ->
+      it "Total amount gets called", test ->
+        company  = 
+                name:"test"
+        insert = this.spy(CollectionMock,"insert")
+        Dao.createCompany(company)
+        insert.should.have.callCount(1)
+                
+
+
 describe "Dao.SaveNewOrder",
     ->
-      it "Total amount gets called", sinon.test ->
+      it "Total amount gets called", test ->
           getTotalAmount = this.spy(orderFunctions,"getTotalAmount")
           Dao.saveNewOrder newOrder()
           getTotalAmount.should.have.callCount(1)

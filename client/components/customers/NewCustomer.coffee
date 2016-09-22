@@ -1,11 +1,15 @@
-Template.NewCustomer.events(
+{getAddressFormFields} = require("../misc/AddressFormFieldsFunctions")
+
+Template.NewCustomer.events
+    
     'submit form': ->
         event.preventDefault()
         name = event.target.name.value
-        address = event.target.address.value
+        #console.log("getAddressFormFields = "+getAddressFormFields)
         company =
             name:name
-            address:address
+            address:getAddressFormFields(event.target)
+
         Meteor.call('createCompany', company)
         FlowRouter.go("customers")
-        )
+        

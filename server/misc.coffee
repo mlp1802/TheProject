@@ -1,4 +1,5 @@
 {Random} = require("meteor/random")
+
 setIdIfEmpty = (object)->
   if object._id is undefined
       console.log("setting id")

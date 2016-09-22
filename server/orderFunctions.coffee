@@ -1,38 +1,9 @@
 {setIdIfEmpty} = require("./misc.coffee")
 {isNumber,getPct} = require("./misc.coffee")
 
-copyOrderItem = (i)->
-    #setIdIfEmpty(i)
-    _id :i._id
-    productName:i.productName
-    quantity:i.quantity
-    amount:i.amount
 
-copyOrderExtra = (extra)->
-    _id :extra._id
-    name:extra.name
-    amount:extra.amount
-
-copyOrderItems = (items)->
-    if items is undefined
-        []
-    else
-        items.map(copyOrderItem)
-
-copyOrderExtras = (extras)->
-    if extras is undefined
-        []
-    else
-        extras.map(copyOrderExtra)
-
-createOrder =  (o)->
-    console.log(o.orderItems)
-    order =
-      customerId:o.customerId
-      customerName:o.customerName
-      created_at:new Date()
-      orderItems:copyOrderItems(o.orderItems)
-      orderExtras:copyOrderExtras(o.orderExtras)
+createOrder =  (order)->
+    order.created_at = new Date()
     order.totalAmount = getTotalAmount(order)
     order.status = "not_paid"
     order.currency = "THB"
@@ -50,9 +21,7 @@ getAmountForExtra=(amount,value)->
        amount
 
 
-
 getTotalAmountForExtras = (totalAmount,extras)->
-    
     for extra in extras
         totalAmount = getAmountForExtra(totalAmount,extra.amount)
     totalAmount
@@ -68,12 +37,9 @@ getTotalAmount =  (order) ->
      totalAmount
    else
      0
+
 module.exports = {
     createOrder,
-    copyOrderExtras,
-    copyOrderExtra,
-    copyOrderItems,
-    copyOrderItem,
     getTotalAmount,
     getTotalAmountForItems,
     getAmountForExtra,

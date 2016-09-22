@@ -23,6 +23,7 @@ describe "OrderFunctions.GetTotalAmount",
                 ]
             order =
                 orderItems:orderItems
+                orderExtras:[]
             total = orderFunctions.getTotalAmount(order)
             expect(total).to.equal(45)
 

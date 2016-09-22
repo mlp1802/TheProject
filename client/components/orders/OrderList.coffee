@@ -4,8 +4,7 @@ Template.OrderList.created = ->
 
 #Template.OrderList.created =
 
-Template.OrderList.helpers(
+Template.OrderList.helpers
     orders:->ClientDao.getOrders()
-
     "eq":(a,b)->a is b
-    )
+    

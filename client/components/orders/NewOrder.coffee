@@ -6,7 +6,6 @@ setupCurrentOrder= ->
   order = data.order
   customer = data.customer
   if order == undefined
-
           customerId:customer._id
           customerName:customer.name
           address:customer.address
@@ -30,21 +29,20 @@ Template.NewOrder.created = ->
   this.totalAmount = new ReactiveVar(0)
 
 
-Template.NewOrder.helpers(
+Template.NewOrder.helpers
   "orderStatus":-> getOrderStatus()
   "eq":(a,b)-> a is b
   "currentOrder":-> getCurrentOrder()
   "totalAmount":->Template.instance().totalAmount.get()
-  )
 
-Template.NewOrder.events(
+
+Template.NewOrder.events
   'click [submitOrder]':->setOrderStatus("confirm")
   'click [NewOrder-addOrderItem]':->setOrderStatus("orderItem")
   'click [NewOrder-addExtra]':->setOrderStatus("addExtra")
   'click [NewOrder-backToEditOrder]':->setOrderStatus("main")
   'click [NewOrder-closeOrderItem]':->setOrderStatus("main")
-  'click [NewOrder-confirmNewOrder]':(event)->
-      saveOrder getCurrentOrder()
+  'click [NewOrder-confirmNewOrder]':(event)->saveOrder getCurrentOrder()
   'submit form[newOrderItem]':(event)->
       event.preventDefault()
       order = getCurrentOrder()
@@ -69,8 +67,5 @@ Template.NewOrder.events(
           name:name
           amount:amount
       order.orderExtras.push(extra)
-      console.log("Adding extra")
       console.log(order.orderExtras)
       setOrderStatus("main")
-
-)

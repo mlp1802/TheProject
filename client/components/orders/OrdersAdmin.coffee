@@ -5,13 +5,13 @@ Template.OrdersAdmin.created = ->
   this.status = new ReactiveVar("menu")
 
 
-Template.OrdersAdmin.helpers(
+Template.OrdersAdmin.helpers
   "status":->getStatus()
   "eq":(a,b)->a is b
-)
 
-Template.OrdersAdmin.events(
+
+Template.OrdersAdmin.events
   "click [NewOrder-confirmNewOrder]":->setStatus("menu")
   "click [OrdersAdmin-order]":(event)->setStatus("order")
   "click [OrdersAdmin-allOrders]":(event)->setStatus("allOrders")
-)
+

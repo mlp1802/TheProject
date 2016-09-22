@@ -4,14 +4,14 @@ Template.Order.created = ->
     this.status = new ReactiveVar("overview")
 
 
-Template.Order.events(
+Template.Order.events
   "click [Order-orderPanel]":->setStatus("editOrder")
-)
-Template.Order.events(
+
+Template.Order.events
   "click [Order-orderPanel]":->setStatus("editOrder")
   "click [NewOrder-confirmNewOrder],[NewOrder-closeNewOrder]":->setStatus("overview")
-)
-Template.Order.helpers(
+
+Template.Order.helpers
   "status":->getStatus()
   "eq":(a,b)->a is b
-)
+

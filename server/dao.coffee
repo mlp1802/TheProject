@@ -5,40 +5,21 @@
 orderFunctions = require("./orderFunctions")
 
 createCompany = (company)->
-  c =
-    name:company.name,
-    address:company.address,
-    created_at:new Date()
-  Companies.insert(c)
+  company.created_at = new Date()
+  Companies.insert(company)
 
 saveNewOrder =  (o)->
     order = orderFunctions.createOrder(o)
-    console.log("NEW ORDER")
-    console.log(order)
     order.totalAmount = orderFunctions.getTotalAmount(order)
     Orders.insert(order)
 
 updateCustomer = (customer)->
-  Companies.update(
-    {_id: customer._id}
-    $set:
-        name: customer.name
-        address: customer.address
-    )
-
+  console.log("Updating customer on server")
+  Companies.update({_id:customer._id},customer)
+   
 updateOrder = (o)->
-  Orders.update(
-    {_id: o._id}
-    $set:
-      customerId:o.customerId
-      customerName:o.customerName
-      created_at:o.created_at
-      orderItems:orderFunctions.copyOrderItems(o.orderItems)
-      orderExtras:orderFunctions.copyOrderExtras(o.orderExtras)
-      totalAmount: orderFunctions.getTotalAmount(o)
-      currency:o.currency
-      status:o.status
-    )
+  Orders.update o
+    
 
 getAllCompanies =->Companies.find({})
 

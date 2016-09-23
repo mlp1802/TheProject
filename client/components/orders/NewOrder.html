@@ -1,8 +1,9 @@
 <template name="NewOrder">
 {{#if eq orderStatus "main"}}
 <div class="panel panel-default">
+    <form NewOrder-submitOrder>
     <div class="panel-heading">
-        <h class="panel-title">Order for {{customer.name}}</h>
+        <h class="panel-title">Order for {{order.customerName}}</h>
         {{>CloseButton closeButtonSelector="NewOrder-closeNewOrder"}}
     </div>
     <div>
@@ -11,10 +12,25 @@
      <div style="margin-left:10px;margin-right:10px">
      <span  NewOrder-addOrderItem class="mediumButton btn btn-primary">New item</span>
      <span  NewOrder-addExtra class="mediumButton btn btn-primary">Add extra</span>
-     <span  style="float:right" submitOrder class="mediumButton btn btn-default">Submit order</span>
+     <input type="submit"  style="float:right" class="mediumButton btn btn-default" value="Submit order">
+     
+     <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+         Delivery address..
+       </a>
+       
+
+     <div class="collapse" id="collapseExample">
+       <div class="card card-block">
+        
+        {{>AddressFormFields address=order.address}}
+        
+       </div>
+      </div> 
     </div>
+        
    </span>
   </div>
+  </form>
 </div>
 {{/if}}
 {{#if eq orderStatus "orderItem"}}

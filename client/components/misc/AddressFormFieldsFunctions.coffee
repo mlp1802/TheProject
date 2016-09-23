@@ -1,5 +1,7 @@
 
 getAddressFormFields = (target)->
+        console.dir(target)
+        console.log("TARGET ="+target.address1)
         address = 
             address1:target.address1.value    
             address2:target.address2.value

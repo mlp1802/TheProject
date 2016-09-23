@@ -33,7 +33,7 @@ Template.Customer.events
     "submit form[EditCustomer-Form]":(event)->
         event.preventDefault()
         
-        customer = ne
+        customer = 
             _id:this.customer._id
             name:event.target.name.value    
             address:getAddressFormFields(event.target)

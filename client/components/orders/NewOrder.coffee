@@ -1,10 +1,15 @@
+{getAddressFormFields} = require("../misc/AddressFormFieldsFunctions")
 getOrderStatus = ->Template.instance().orderStatus.get()
 setOrderStatus = (v)-> Template.instance().orderStatus.set(v)
 getCurrentOrder = ->Template.instance().currentOrder.get()
+getCustomer= () -> customer = Template.instance().data.customer
+        
+        
+                
 setupCurrentOrder= ->
   data = Template.instance().data
   order = data.order
-  customer = data.customer
+  customer = getCustomer()
   if order == undefined
           customerId:customer._id
           customerName:customer.name
@@ -37,7 +42,11 @@ Template.NewOrder.helpers
 
 
 Template.NewOrder.events
-  'click [submitOrder]':->setOrderStatus("confirm")
+  'submit form[NewOrder-submitOrder]':(event)->
+      event.preventDefault()
+      console.log(Template.instance())
+      getCurrentOrder().address = getAddressFormFields(event.target)
+      setOrderStatus("confirm")
   'click [NewOrder-addOrderItem]':->setOrderStatus("orderItem")
   'click [NewOrder-addExtra]':->setOrderStatus("addExtra")
   'click [NewOrder-backToEditOrder]':->setOrderStatus("main")

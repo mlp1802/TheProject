@@ -17,8 +17,10 @@ updateCustomer = (customer)->
   console.log("Updating customer on server")
   Companies.update({_id:customer._id},customer)
    
-updateOrder = (o)->
-  Orders.update o
+updateOrder = (order)->
+  console.log("UPDATING ORDER")
+  
+  Orders.update order._id,order
     
 
 getAllCompanies =->Companies.find({})

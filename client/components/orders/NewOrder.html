@@ -13,16 +13,23 @@
      <span  NewOrder-addOrderItem class="mediumButton btn btn-primary">New item</span>
      <span  NewOrder-addExtra class="mediumButton btn btn-primary">Add extra</span>
      <input type="submit"  style="float:right" class="mediumButton btn btn-default" value="Submit order">
-     
      <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-         Delivery address..
+         Delivery date and address..
        </a>
        
 
      <div class="collapse" id="collapseExample">
        <div class="card card-block">
-        
-        {{>AddressFormFields address=order.address}}
+	 <div class="form-group">
+	   <label for="address1">Delivery date</label>
+
+	   <input type="text" readonly id="deliveryDate" class="form-control" value="">
+
+	 </div>
+	 
+	  
+	 
+        {{>AddressFormFields address=currentOrder.address}}
         
        </div>
       </div> 

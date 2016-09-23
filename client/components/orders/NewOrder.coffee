@@ -6,6 +6,19 @@ getCustomer= () -> customer = Template.instance().data.customer
         
         
                 
+Template.NewOrder.rendered = ->
+        date = getCurrentOrder().deliveryDate 
+        getDate = ->
+              if date == undefined
+                new Date()
+              else
+                getCurrentOrder().deliveryDate
+        d = this.$('#deliveryDate')
+        d.datepicker
+            autoclose:true
+            startDate:new Date()
+        d.datepicker("setDate",getDate())
+      
 setupCurrentOrder= ->
   data = Template.instance().data
   order = data.order
@@ -44,8 +57,10 @@ Template.NewOrder.helpers
 Template.NewOrder.events
   'submit form[NewOrder-submitOrder]':(event)->
       event.preventDefault()
-      console.log(Template.instance())
-      getCurrentOrder().address = getAddressFormFields(event.target)
+      target = event.target
+      order = getCurrentOrder()
+      order.deliveryDate = new Date(target.deliveryDate.value)  
+      order.address = getAddressFormFields(target)
       setOrderStatus("confirm")
   'click [NewOrder-addOrderItem]':->setOrderStatus("orderItem")
   'click [NewOrder-addExtra]':->setOrderStatus("addExtra")

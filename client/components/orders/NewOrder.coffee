@@ -13,7 +13,7 @@ Template.NewOrder.rendered = ->
                 new Date()
               else
                 getCurrentOrder().deliveryDate
-        d = this.$('#deliveryDate')
+        d = this.$('#thedate')
         d.datepicker
             autoclose:true
             startDate:new Date()

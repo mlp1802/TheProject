@@ -11,7 +11,8 @@ Template.OrdersAdmin.helpers
 
 
 Template.OrdersAdmin.events
-  "click [NewOrder-confirmNewOrder]":->setStatus("menu")
+  "submit [NewOrder-submitOrder]":(event)->setStatus("menu")
+  #"click [NewOrder-confirmNewOrder]":->setStatus("menu")
   "click [OrdersAdmin-order]":(event)->setStatus("order")
   "click [OrdersAdmin-allOrders]":(event)->setStatus("allOrders")
 

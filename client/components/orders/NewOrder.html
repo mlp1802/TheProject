@@ -1,7 +1,15 @@
 <template name="NewOrder">
-{{#if eq orderStatus "main"}}
+  <div class="form-group">
+	   <label for="address1">Delivery date</label>
+ 
+	   <div class="input-append date" id="thedate" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+	     <input  size="16" id="deliveryDate" type="text"  class="datepicker">
+	     <span class="add-on"><i class="icon-th"></i></span>
+	   </div>
+ </div>
+  {{#if eq orderStatus "main"}}
+  <form NewOrder-submitOrder>
 <div class="panel panel-default">
-    <form NewOrder-submitOrder>
     <div class="panel-heading">
         <h class="panel-title">Order for {{order.customerName}}</h>
         {{>CloseButton closeButtonSelector="NewOrder-closeNewOrder"}}
@@ -12,36 +20,23 @@
      <div style="margin-left:10px;margin-right:10px">
      <span  NewOrder-addOrderItem class="mediumButton btn btn-primary">New item</span>
      <span  NewOrder-addExtra class="mediumButton btn btn-primary">Add extra</span>
-     <input type="submit"  style="float:right" class="mediumButton btn btn-default" value="Submit order">
+     <input _NewOrder-submitButton type="submit"  style="float:right" class="mediumButton btn btn-default" value="Submit order">
+
      <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
          Delivery date and address..
        </a>
-       
-
      <div class="collapse" id="collapseExample">
        <div class="card card-block">
-	 <div class="form-group">
-	   <label for="address1">Delivery date</label>
- 
-	   <div class="input-append date" id="thedate" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-	     <input  size="16" id="deliveryDate" type="text"  class="datepicker">
-	     <span class="add-on"><i class="icon-th"></i></span>
-	    </div>
-
-	 </div>
-	 
-	  
 	 
         {{>AddressFormFields address=currentOrder.address}}
-        
        </div>
       </div> 
     </div>
         
    </span>
   </div>
-  </form>
 </div>
+</form>
 {{/if}}
 {{#if eq orderStatus "orderItem"}}
 <div class="panel panel-default">
@@ -87,6 +82,7 @@
 </table>
 {{>OrderItems order=currentOrder showRemove="false"}}
 <button NewOrder-confirmNewOrder class="btn btn-primary mediumButton">Confirm</button>
+
 <button NewOrder-backToEditOrder class="btn btn-default mediumButton">Back</button>
 </div>
 </div>

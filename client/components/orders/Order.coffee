@@ -9,7 +9,8 @@ Template.Order.events
 
 Template.Order.events
   "click [Order-orderPanel]":->setStatus("editOrder")
-  "click [NewOrder-confirmNewOrder],[NewOrder-closeNewOrder]":->setStatus("overview")
+  "click [NewOrder-confirm],[NewOrder-closeNewOrder]":->setStatus("overview")
+  "submit [NewOrder-submitOrder]":->setStatus("overview") 
 
 Template.Order.helpers
   "status":->getStatus()

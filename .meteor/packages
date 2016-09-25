@@ -40,5 +40,5 @@ practicalmeteor:mocha-core
 xolvio:cleaner
 nooitaf:colors
 coffeescript
-tsega:bootstrap3-datetimepicker
-rajit:bootstrap3-datepicker
+#tsega:bootstrap3-datetimepicker
+#rajit:bootstrap3-datepicker

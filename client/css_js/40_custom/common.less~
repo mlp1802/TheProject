@@ -12,7 +12,15 @@
   margin-bottom:100px;
 }
 
-
+.navbar-fixed-top{
+  z-index:5;
+}
+.navbar-fixed-bottom {
+  z-index:5;
+}
+.navbar .nav > li {
+	z-index: 5
+ }
 .money {
   text-align: right;
 }

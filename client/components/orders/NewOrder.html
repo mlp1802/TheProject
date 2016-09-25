@@ -1,12 +1,5 @@
 <template name="NewOrder">
-  <div class="form-group">
-	   <label for="address1">Delivery date</label>
- 
-	   <div class="input-append date" id="thedate" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-	     <input  size="16" id="deliveryDate" type="text"  class="datepicker">
-	     <span class="add-on"><i class="icon-th"></i></span>
-	   </div>
- </div>
+  
   {{#if eq orderStatus "main"}}
   <form NewOrder-submitOrder>
 <div class="panel panel-default">
@@ -14,6 +7,15 @@
         <h class="panel-title">Order for {{order.customerName}}</h>
         {{>CloseButton closeButtonSelector="NewOrder-closeNewOrder"}}
     </div>
+    <div class="form-group">
+	   <label for="address1">Payment date</label>
+ 
+	   <div  class="input-append date" id="thedate" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+	     <input  size="16" style="z-index:20"  id="deliveryDate" type="text"  class="datepicker">
+	     <span class="add-on"><i class="icon-th"></i></span>
+	   </div>
+    </div>
+    <hr>
     <div>
       {{>OrderItems order=currentOrder showRemove="true"}}
    <span class="panel-body">

@@ -27,7 +27,7 @@ Template.OrderItems.helpers
 
 Template.OrderItems.events 
     "click [OrderItems-removeOrderItem]":(event)->
-        id = event.target.value
+        id = event.currentTarget.attributes["OrderItems-removeOrderItem"].value 
         orderItems = this.order.orderItems
         newItems = orderItems.filter((item)->item._id!=id)
         orderItems.splice(0, orderItems.length)
@@ -36,13 +36,13 @@ Template.OrderItems.events
         updateTotalAmount(Template.instance())
 
     "click [OrderItems-removeExtra]":(event)->
-        console.log("click remove")
-        id = event.target.value
+        id = event.currentTarget.attributes["OrderItems-removeExtra"].value 
         orderExtras = this.order.orderExtras
         newItems = orderExtras.filter((item)->item._id!=id)
         orderExtras.splice(0, orderExtras.length)
         newItems.forEach((item)->orderExtras.push(item))
         Template.instance().getOrderExtras.set(orderExtras)
+        
         updateTotalAmount(Template.instance())
 
       

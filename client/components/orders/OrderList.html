@@ -1,5 +1,6 @@
 <template name="OrderList">
-  {{#each order in orders}}
+{{>ShowTemplate name="OrderList"}}
+{{#each order in orders}}
     {{>Order order=order}}
   {{/each}}
 </template>

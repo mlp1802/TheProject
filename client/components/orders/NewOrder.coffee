@@ -6,7 +6,7 @@ getCustomer= () -> customer = Template.instance().data.customer
         
        
 Template.NewOrder.rendered = ->
-        date = getCurrentOrder().deliveryDate 
+        date = getCurrentOrder().paymentDate
         getDate = ->
                 if date == undefined then new Date() else date
         d = this.$('#thedate')
@@ -57,7 +57,7 @@ Template.NewOrder.events
       event.preventDefault()
       target = event.target
       order = getCurrentOrder()
-      order.deliveryDate  = getSelectedDate()
+      order.paymentDate  = getSelectedDate()
       order.address = getAddressFormFields(target)
       saveOrder order
       setOrderStatus("main")

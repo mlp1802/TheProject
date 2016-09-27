@@ -34,8 +34,15 @@ setupCurrentOrder= ->
   else
           order
 
-updateOrder = -> Meteor.call("updateOrder",getCurrentOrder())
-newOrder = -> Meteor.call("saveNewOrder",getCurrentOrder())
+updateOrder = ->
+        order = getCurrentOrder()
+        Meteor.call("updateOrder",order)
+        PubSub.publish("orderUpdated",order)
+        
+newOrder = ->
+        order = getCurrentOrder()
+        Meteor.call("saveNewOrder",order)
+        PubSub.publish("orderCreated",order)
 saveOrder = (order)->if(order._id==undefined) then newOrder() else updateOrder()
 
 

@@ -1,6 +1,64 @@
 <template name="OrderList">
 {{>ShowTemplate name="OrderList"}}
+
+<table class="table table-striped">
+<tbody>
+    <tr>
+	<td>Company</td>
+	<td>Amount</td>
+	<td>Created</td>
+	<td>Payment date</td>
+	
+    </tr>
+    {{#each order in orders}}
+    
+
+
+
+       <tr class="{{#if isSelected order._id }}success{{/if}} " OrderList-orderRow="{{order._id}}" data-toggle="modal" data-target="#editOrder_{{order._id}}">
+
+
+    	
+    
+    
+
+	<td>
+	 {{order.customerName}}   
+	</td>
+	<td>
+	 {{>Currency currency="THB" amount=order.totalAmount}}   
+	</td>
+	<td>
+	 {{>DefaultDate date= order.created_at}}   
+	</td>
+	<td>
+	 {{>DefaultDate date=order.paymentDate}}   
+	</td>
+	
+    </tr>
+    
+    {{/each}}
+
+</tbody>
+</table>
 {{#each order in orders}}
-    {{>Order order=order}}
-  {{/each}}
+<div class="modal fade" id="editOrder_{{order._id}}">
+    <div class="modal-dialog" role="document">
+	<div class="modal-content">
+	    <div class="modal-header">
+		<button type="button" id="closeOrder_{{order._id}}" class="close" data-dismiss="modal" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		</button>
+		<h4 class="modal-title">Edit order</h4>
+	    </div>
+	    <div class="modal-body">
+		{{>NewOrder order=order}}
+	    </div>
+	</div>
+    </div>
+    </div>
+<div style="display:none">
+
+  </div>
+    {{/each}}
 </template>

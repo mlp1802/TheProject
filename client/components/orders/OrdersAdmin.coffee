@@ -1,8 +1,12 @@
 getStatus =->Template.instance().status.get()
 setStatus =(v)->Template.instance().status.set(v)
 
+subscribeToCreateOrder = (msg,order)->
+   this.$("#closeOrder").click()
+
 Template.OrdersAdmin.created = ->
   this.status = new ReactiveVar("menu")
+  PubSub.subscribe("orderCreated",subscribeToCreateOrder)
 
 
 Template.OrdersAdmin.helpers
@@ -11,7 +15,7 @@ Template.OrdersAdmin.helpers
 
 
 Template.OrdersAdmin.events
-  "submit [NewOrder-submitOrder]":(event)->setStatus("menu")
+  #"submit [NewOrder-submitOrder]":(event)->setStatus("menu")
   #"click [NewOrder-confirmNewOrder]":->setStatus("menu")
   "click [OrdersAdmin-order]":(event)->setStatus("order")
   "click [OrdersAdmin-allOrders]":(event)->setStatus("allOrders")

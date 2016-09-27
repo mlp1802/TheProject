@@ -25,7 +25,6 @@ meteortoys:allthings
 aldeed:collection2
 fortawesome:fontawesome
 stolinski:stylus-multi
-twbs:bootstrap
 gwendall:auth-client-callbacks
 kadira:blaze-layout
 session
@@ -40,5 +39,4 @@ practicalmeteor:mocha-core
 xolvio:cleaner
 nooitaf:colors
 coffeescript
-#tsega:bootstrap3-datetimepicker
-#rajit:bootstrap3-datepicker
+

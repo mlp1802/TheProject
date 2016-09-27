@@ -14,12 +14,10 @@ saveNewOrder =  (o)->
     Orders.insert(order)
 
 updateCustomer = (customer)->
-  console.log("Updating customer on server")
   Companies.update({_id:customer._id},customer)
    
 updateOrder = (order)->
-  console.log("UPDATING ORDER")
-  
+  order.totalAmount = orderFunctions.getTotalAmount(order)      
   Orders.update order._id,order
     
 

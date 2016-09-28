@@ -1,39 +1,20 @@
 <template name="Customer">
     {{>ShowTemplate name="Customer" }}
   {{#transition in="zoomIn:200"}}
-{{#if shouldShowHeader}}
-  <div class="customerClick">
-    <div class="panel panel-default">
-    <div class="panel-heading">
-      <h class="panel-title">{{customer.name}}</h>
-    </div>
-  <div class="panel-body">
-    <p>{{customer.address.country}}</p>
-    <div class="createdAt"> Created {{>FromNow date=customer.created_at}}
-  </div>
-</div>
-</div>
-</div>
-  {{/if}}
+
  {{#if showDetails}}
- <div class="edit-focus">
+ <div>
   {{>CustomerDetails customer=customer}}
-  {{#unless showOrders}}
-    <button orders class="btn btn-primary mediumButton">Orders</button> <button editCustomer class="btn btn-primary mediumButton">Edit</button>
-  {{/unless}}
+
+<button Customer-editCustomer class="btn btn-primary mediumButton">Edit</button>
+
   </div>
   {{/if}}
   {{#if showEdit}}
-    {{>CloseButton closeButtonSelector="closeEditCustomer"}}
-    <div class="edit-focus">
+  {{>CloseButton closeButtonSelector="closeEditCustomer"}}
      {{>EditCustomer customer=customer}}
-   </div>
-
-   {{/if}}
-   {{#if showOrders}}
-   <div class="edit-focus">
+  {{/if}}
+  <br>
       {{>OrdersAdmin customer=customer}}
-  </div>
-   {{/if}}
    {{/transition}}
 </template>

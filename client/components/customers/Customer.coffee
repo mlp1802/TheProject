@@ -1,7 +1,7 @@
 {getAddressFormFields} = require("../misc/AddressFormFieldsFunctions")
 
 Template.Customer.created = ->
-    this.showDetails = new ReactiveVar(false)
+    this.showDetails = new ReactiveVar(true)
     this.showEdit = new ReactiveVar(false)
     this.showOrders = new ReactiveVar(false)
 
@@ -22,32 +22,26 @@ Template.Customer.helpers
 
 
 Template.Customer.events
-    "click .customerClick":->toggleShowDetails()
     "click [closeCustomerDetails]":->setShowDetails(false)
-    "click [editCustomer]":->
+    "click [Customer-editCustomer]":->
         setShowDetails(false)
         setShowEdit(true)
-    "click [orders]":->
-       setShowOrders(true)
-       setShowDetails(false)
-    "submit form[EditCustomer-Form]":(event)->
+
+    "submit form[EditCustomer-form]":(event)->
         event.preventDefault()
-        
         customer = 
             _id:this.customer._id
             name:event.target.name.value    
             address:getAddressFormFields(event.target)
 
         Meteor.call("updateCustomer",customer)
-        setShowDetails(false)
+        setShowDetails(true)
         setShowEdit(false)
     "click [closeEditCustomer]":->
-      setShowDetails(false)
+      console.log("CLOSE EDIT")
+      setShowDetails(true)
       setShowEdit(false)
-    "click [closeOrderAdmin],[NewOrder-closeNewOrder]":->
-      setShowDetails(false)
-      setShowEdit(false)
-      setShowOrders(false)
+
 
 
 

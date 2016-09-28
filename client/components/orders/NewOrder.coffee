@@ -4,7 +4,6 @@ setOrderStatus = (v)-> Template.instance().orderStatus.set(v)
 getCurrentOrder = ->Template.instance().currentOrder.get()
 getCustomer= () -> customer = Template.instance().data.customer
         
-       
 Template.NewOrder.rendered = ->
         date = getCurrentOrder().paymentDate
         getDate = ->
@@ -30,10 +29,18 @@ setupCurrentOrder= ->
           customerName:customer.name
           address:customer.address
           orderItems:[]
+          paid:false
           orderExtras:[]
   else
           order
 
+togglePaid = ->
+      paid = Template.instance().paid
+      paid.set(!paid.get())
+      order = getCurrentOrder()
+      order.paid = paid.get()
+      console.log("PAID "+order.paid)
+     
 updateOrder = ->
         order = getCurrentOrder()
         Meteor.call("updateOrder",order)
@@ -47,28 +54,37 @@ saveOrder = (order)->if(order._id==undefined) then newOrder() else updateOrder()
 
 
 Template.NewOrder.created = ->
-  this.currentOrder = new ReactiveVar(setupCurrentOrder())
+  order = setupCurrentOrder()
+  this.currentOrder = new ReactiveVar(order)
   this.orderStatus = new ReactiveVar("main")
   this.totalAmount = new ReactiveVar(0)
+  this.paid = new ReactiveVar(order.paid)
 
 
 Template.NewOrder.helpers
+  "concat":(a,b)->a+b
   "orderStatus":-> getOrderStatus()
   "eq":(a,b)-> a is b
   "currentOrder":-> getCurrentOrder()
   "totalAmount":->Template.instance().totalAmount.get()
-
-
+  "checkedPaid":(v)-> if v==true then "checked" else ""
+        
 Template.NewOrder.events
+   
   'submit [NewOrder-submitOrder]':(event)->
       event.preventDefault()
       target = event.target
       order = getCurrentOrder()
       order.paymentDate  = getSelectedDate()
       order.address = getAddressFormFields(target)
+      order.paid = target.paid.checked
       saveOrder order
+      console.log("PAID ="+order.paid)
       setOrderStatus("main")
-  'click [NewOrder-addOrderItem]':->setOrderStatus("orderItem")
+  "click [NewOrder-togglePaid]":->togglePaid()
+  'click [NewOrder-addOrderItem]':->
+      console.log("ADD ORDER ITEM")
+      setOrderStatus("orderItem")
   'click [NewOrder-addExtra]':->setOrderStatus("addExtra")
   'click [NewOrder-backToEditOrder]':->setOrderStatus("main")
   'click [NewOrder-closeOrderItem]':->setOrderStatus("main")
@@ -79,11 +95,13 @@ Template.NewOrder.events
       name = event.target.name.value
       amount= event.target.amount.value
       quantity = event.target.quantity.value
+
       orderItem =
           _id:Random.id()
           productName:name
           amount:amount
           quantity:quantity
+
       order.orderItems.push(orderItem)
       setOrderStatus("main")
 

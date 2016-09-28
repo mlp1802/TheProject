@@ -1,5 +1,8 @@
 <template name="CustomerList">
-    {{>ShowTemplate name="CustomerList" }}
+ {{>ShowTemplate name="CustomerList"}}   
+{{#transition in="zoomIn:200"}}
+  {{#unless isCustomerSelected}}
+  {{>ShowTemplate name="CustomerList" }}
 <h1>Customers</h1>
     <div>
       <div style="text-align:right">
@@ -25,10 +28,30 @@
     </div>
     </div>
 <br>
+
+<table class="table table-striped table-hover">
+<tbody>
+    <tr>
+	<td>Name</td>
+	<td>Created</td>
+     </tr>
     {{#each company in companies}}
-      <article class="recipe">
-        {{>Customer customer=company}}
-      </article>
+       <tr CustomerList-customerRow="{{company._id}}" class="{{#if isSelected company._id }}success{{/if}} ">
+	<td>
+	 {{company.name}}   
+	</td>
+	<td>
+	  {{>DefaultDate date = company.created_at}}   
+	</td>
+    </tr>
     {{/each}}
-    <br>
+</tbody>
+</table>
+{{/unless}}
+{{#if isCustomerSelected}}
+  {{#Panel closeTarget="CustomerList-closeCustomer" title=getSelectedCustomer.name}}
+    {{>Customer customer=getSelectedCustomer}}
+   {{/Panel}}
+{{/if}}
+{{/transition}}
 </template>

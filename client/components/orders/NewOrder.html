@@ -1,28 +1,33 @@
 <template name="NewOrder">
    {{>ShowTemplate  name="NewOrder"}}
-  <div class="form-group">
-	   <label for="address1">Payment date</label>
- 
-	   <div  class="input-append date" id="thedate" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-	     <input  size="16" style="z-index:20"  id="deliveryDate" type="text"  class="datepicker">
-	     <span class="add-on"><i class="icon-th"></i></span>
-	   </div>
+  
+  
+    <label for="address1">Payment date</label>
+    <div  class="input-append date" id="thedate" data-date-format="dd-mm-yyyy">
+	<input  size="16" style="z-index:20"  id="deliveryDate" type="text"  class="datepicker">
+	<span class="add-on"><i class="icon-th"></i></span>
+
     </div>
+  
   {{#if eq orderStatus "main"}}
   <form NewOrder-submitOrder>
 <div class="panel panel-default">
     <div class="panel-heading">
         <h class="panel-title">Order for {{order.customerName}}</h>
     </div>
-    
+
     <hr>
-    <div>
+    <label class="checkbox-inline">
+		    
+	<input name="paid" type="checkbox" {{checkedPaid order.paid}} is-paid="{{order.paid}}" >Is paid</label>
+    <br>
+	<div>
       {{>OrderItems order=currentOrder showRemove="true"}}
    <span class="panel-body">
      <div style="margin-left:10px;margin-right:10px">
      <span  NewOrder-addOrderItem class="mediumButton btn btn-primary">New item</span>
      <span  NewOrder-addExtra class="mediumButton btn btn-primary">Add extra</span>
-     <input _NewOrder-submitButton type="submit"  style="float:right" class="mediumButton btn btn-default" value="Submit order">
+     <input type="submit"  style="float:right" class="mediumButton btn btn-default" value="Submit order">
 
      <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
          Delivery address
@@ -33,36 +38,24 @@
         {{>AddressFormFields address=currentOrder.address}}
        </div>
       </div> 
-    </div>
-        
+     </div>             
    </span>
   </div>
 </div>
 </form>
 {{/if}}
 {{#if eq orderStatus "orderItem"}}
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h class="panel-title">Add order item for order {{customer.name}}</h>
-        {{>CloseButton closeButtonSelector="NewOrder-closeOrderItem"}}
-    </div>
-    <div class="panel-body">
-        {{>OrderItems order=currentOrder showRemove="true"}}
-        {{>OrderItemForm}}
-    </div>
-</div>
+    {{#Panel title=(concat "Add order item for" currentOrder.customerName) closeTarget="NewOrder-closeOrderItem"}}
+     {{>OrderItems order=currentOrder showRemove="true"}}
+     {{>OrderItemForm}}
+{{/Panel}}
+
 {{/if}}
 {{#if eq orderStatus "addExtra"}}
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h class="panel-title">Add extra </h>
-        {{>CloseButton closeButtonSelector="NewOrder-closeOrderItem"}}
-    </div>
-    <div class="panel-body">
-        {{>OrderItems order=currentOrder showRemove="true"}}
-        {{>AddExtraForm}}
-    </div>
-</div>
+    {{#Panel title=(concat "Add extra for " currentOrder.customerName) closeTarget="NewOrder-closeOrderItem"}}
+       {{>OrderItems order=currentOrder showRemove="true"}}
+       {{>AddExtraForm}}
+    {{/Panel}}
 {{/if}}
 {{#if eq orderStatus "confirm"}}
 <div class="panel panel-default">
@@ -79,7 +72,6 @@
   <tr>
     <td class="desc">Address</td><td>{{currentOrder.address}}</td>
   </tr>
-
 </tbody>
 </table>
 {{>OrderItems order=currentOrder showRemove="false"}}

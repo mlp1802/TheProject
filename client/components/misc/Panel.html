@@ -1,0 +1,20 @@
+<template name="Panel">
+  <div class="modal-dialog" style="width:100%"  role="document">
+	<div class="modal-content">
+	    <div class="modal-header">
+		{{# if closeTarget }}
+		<button type="button" {{closeTarget}}  class="close" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		</button>
+		{{/if}}
+		{{#if title}}
+		<h4 class="modal-title">{{title}}</h4>
+		{{/if}}
+	    </div>
+	    <div class="modal-body">
+                 {{>UI.contentBlock}}
+	    </div>
+	</div>
+    </div>
+
+</Template>

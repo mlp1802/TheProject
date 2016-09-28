@@ -1,11 +1,16 @@
 {Companies} = require("../../collections/company")
 {Orders} = require("../../collections/order")
  
+getCustomer = (id) ->
+    Companies.findOne({_id:id})
+              
+        
 getCustomersByName = ->
     Companies.find({},
               sort:
                   name:1
               )
+
 
 getOrders = ->
   Orders.find({},
@@ -23,6 +28,7 @@ ClientDao =
     getCustomersByName:getCustomersByName
     getCustomersByDate:getCustomersByDate
     getOrders:getOrders
+    getCustomer:getCustomer
     
 module.exports =
     ClientDao:ClientDao

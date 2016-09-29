@@ -14,7 +14,7 @@
     <td>{{item.quantity}}</td>
     <td class="money" style="width:20%">{{>Currency currency="THB" amount=item.amount}}</td>
     {{#if eq "true" showRemove}}
-    <td ><a href="#" style="float:right" OrderItems-removeOrderItem={{item._id}} class="btn btn-danger">Remove</a></td>
+    <td ><span href="#" style="float:right" OrderItems-removeOrderItem={{item._id}} class="btn btn-danger">Remove</span></td>
     {{/if}}
   </tr>
 
@@ -26,7 +26,7 @@
     <td></td>
     <td class="money" style="width:20%"><i>{{extra.amount}}</i></td>
     {{#if eq "true" showRemove}}
-    <td ><a href="#" style="float:right" OrderItems-removeExtra={{extra._id}} class="btn btn-danger">Remove</a></td>
+    <td ><span href="#" style="float:right" OrderItems-removeExtra={{extra._id}} class="btn btn-danger">Remove</span></td>
     {{/if}}
   </tr>    
   {{/each}}

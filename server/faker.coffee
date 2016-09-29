@@ -1,4 +1,5 @@
 dao = require("./dao")
+{shuffle} = require("./shuffleArray")
 {resetDatabase} = require 'meteor/xolvio:cleaner'
 createCompany = (c)->
         #console.log(c)
@@ -37,6 +38,7 @@ fakeOrder = (company)->
             orderItems:makerOrderItems()
             orderExtras:[]
         createOrder(order)    
+
 fakeCompany = ()->
     company = 
         name:faker.company.companyName()
@@ -50,18 +52,15 @@ fakeCompany = ()->
     
         
 
-fakeOrdersForCompany =(company)->
-    for x in [0..randomUpTo(4)]
-        fakeOrder(company)
 fakeit = ->
-    
     resetDatabase()
-    for c in [1..5]
+    for c in [1..10] 
             fakeCompany()
-    
-    customers = dao.getAllCompanies()
-    for c in customers.fetch()
-        fakeOrdersForCompany(c)
+
+    for c in [1..10] 
+        customers = shuffle(dao.getAllCompanies().fetch().map((x)->x))
+        for c in customers
+            fakeOrder(c)
 #fakeit()
 module.exports = 
     fakeit:fakeit    

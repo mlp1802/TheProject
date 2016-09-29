@@ -79,11 +79,9 @@ Template.NewOrder.events
       order.address = getAddressFormFields(target)
       order.paid = target.paid.checked
       saveOrder order
-      console.log("PAID ="+order.paid)
       setOrderStatus("main")
   "click [NewOrder-togglePaid]":->togglePaid()
   'click [NewOrder-addOrderItem]':->
-      console.log("ADD ORDER ITEM")
       setOrderStatus("orderItem")
   'click [NewOrder-addExtra]':->setOrderStatus("addExtra")
   'click [NewOrder-backToEditOrder]':->setOrderStatus("main")
@@ -95,7 +93,6 @@ Template.NewOrder.events
       name = event.target.name.value
       amount= event.target.amount.value
       quantity = event.target.quantity.value
-
       orderItem =
           _id:Random.id()
           productName:name

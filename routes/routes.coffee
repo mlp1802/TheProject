@@ -1,3 +1,4 @@
+
 loggedIn = ->
         !!Meteor.userId()
 
@@ -14,6 +15,9 @@ users = FlowRouter.group(
 exposed.route  "/",
               name:"home"
               action:->BlazeLayout.render "Home"
+exposed.route  "/fakeit",
+    name:"fakeit"
+    action:->fakeit()
 
 users.route "/customers",
   name:"customers"

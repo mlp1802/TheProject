@@ -1,5 +1,6 @@
 <Template name="OrderItems">
  {{>ShowTemplate name="OrderItems"}}
+{{#transition in="zoomIn:1000" out="zoomOut:300"}}
  <table class="table">
 
 <tr>
@@ -43,4 +44,5 @@
   </tfoot>
 
 </table>
+{{/transition}}
 </Template>

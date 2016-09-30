@@ -9,7 +9,12 @@ Template.OrderList.created = ->
     this.prevSelectedOrderId = new ReactiveVar()
     this.subscribe("orders")
     sel = this.selectedOrderId
-    PubSub.subscribe("orderUpdated",->sel.set(undefined))
+    PubSub.subscribe "orderUpdated",->
+        el = "#OrderList-orderRow_"+sel.get()
+        sel.set(undefined)
+        
+        $(window).scrollTop( $(el).offset().top-500);
+        
               
 Template.OrderList.helpers
     #orders:->Template.instance().orders
@@ -32,7 +37,9 @@ Template.OrderList.events
         selectedId = event.currentTarget.attributes["OrderList-orderRow"].value
         setSelectedId(selectedId)
         setPrevSelectedId(selectedId)
-        #console.log("CLICKED ROW "+event.currentTarget.attributes["OrderList-orderRow"].value)
+        el = "#OrderList-orderRow_"+selectedId
+        $(window).scrollTop( $(el).offset().top-100);
+        #0console.log("CLICKED ROW "+event.currentTarget.attributes["OrderList-orderRow"].value)
         
         
     

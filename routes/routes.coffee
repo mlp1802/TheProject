@@ -15,14 +15,17 @@ users = FlowRouter.group(
 exposed.route  "/",
               name:"home"
               action:->BlazeLayout.render "Home"
-exposed.route  "/fakeit",
-    name:"fakeit"
-    action:->fakeit()
 
+users.route "/ScrollToTest",
+    name:"ScrollToTest"
+    action:->BlazeLayout.render "ScrollToTest",
+             main:"CustomerList"
+         
 users.route "/customers",
   name:"customers"
   action:->BlazeLayout.render "Customers",
               main:"CustomerList"
+
 
 users.route "/customers/new",
   name:"customers-new"

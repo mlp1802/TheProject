@@ -1,19 +1,26 @@
 {ClientDao} = require("../../clientDao/clientDao")
+instance =  ->Template.instance()
 getSelectedId = ->Template.instance().selectedOrderId.get()
 setSelectedId = (id)->Template.instance().selectedOrderId.set(id)
 setPrevSelectedId = (id)->Template.instance().prevSelectedOrderId.set(id)
 getPrevSelectedId = ->Template.instance().prevSelectedOrderId.get()
 isSelected = ->getSelectedId()!=undefined
+getSelectedYPos = ->instance().selectedYPos.get()
+setSelectedYPos = (y)->instance().selectedYPos.set(y)
 Template.OrderList.created = ->
     this.selectedOrderId = new ReactiveVar()
     this.prevSelectedOrderId = new ReactiveVar()
     this.subscribe("orders")
-    sel = this.selectedOrderId
+    this.selectedYPos = new ReactiveVar()
+    selId = this.selectedOrderId
+    selYPos = this.selectedYPos
     PubSub.subscribe "orderUpdated",->
-        el = "#OrderList-orderRow_"+sel.get()
-        sel.set(undefined)
+        el = "#OrderList-orderRow_"+selId.get()
+        selId.set(undefined)
+        y = selYPos.get()
+        console.log("SELECTED Y ="+y)
+        Meteor.setTimeout((->$(window).scrollTop($(el).offset().top-y)),10)
         
-        $(window).scrollTop( $(el).offset().top-500);
         
               
 Template.OrderList.helpers
@@ -37,8 +44,9 @@ Template.OrderList.events
         selectedId = event.currentTarget.attributes["OrderList-orderRow"].value
         setSelectedId(selectedId)
         setPrevSelectedId(selectedId)
-        el = "#OrderList-orderRow_"+selectedId
-        $(window).scrollTop( $(el).offset().top-100);
+        pos = $("#OrderList-orderRow_"+selectedId)[0].getBoundingClientRect()
+        setSelectedYPos(pos.top)
+        #$(window).scrollTop( $(el).offset().top-100);
         #0console.log("CLICKED ROW "+event.currentTarget.attributes["OrderList-orderRow"].value)
         
         

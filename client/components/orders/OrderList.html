@@ -1,9 +1,7 @@
 <template name="OrderList">
 
 {{>ShowTemplate name="OrderList"}}
-
-
-
+{{#if not isSelected}}
 <table class="table table-striped table-hover">
 <tbody>
     <tr>
@@ -14,19 +12,10 @@
 	
     </tr>
     {{#each order in orders}}
-       <tr id="OrderList-orderRow_{{order._id}}" class="{{getSelectedClass order._id}}" OrderList-orderRow="{{order._id}}" data-toggle="modal" data-target="#editOrder_{{order._id}}">
+    <tr id="OrderList-orderRow_{{order._id}}" class="{{getSelectedClass order._id}}" OrderList-orderRow="{{order._id}}" data-toggle="modal" data-target="#editOrder_{{order._id}}">
        
-       {{#if eq order._id selectedId}}
-       {{#transition in="zoomIn:1000" out="zoomOut:300"}}
-       <td colspan="4" >
-       <div style="z-index:100">
-       {{#Panel closeTarget="OrderList-closeOrder"}}
-        {{>NewOrder order=selectedOrder}}
-        {{/Panel}}
-        </div>
-       </td>
-       {{/transition}}    
-      {{else}}
+    
+    
 	<td>
 	 {{order.customerName}}   
 	</td>
@@ -39,9 +28,19 @@
 	<td>
 	 {{>DefaultDate date=order.paymentDate}}   
 	</td>
-	{{/if}}
     </tr>
     {{/each}}
 </tbody>
 </table>
+{{/if}}
+{{#if isSelected}}
+
+<div style="z-index:100">
+{{#Panel closeTarget="OrderList-closeOrder"}}
+ {{>NewOrder order=selectedOrder}}
+{{/Panel}}
+ </div>
+
+ {{/if}}
+
 </template>

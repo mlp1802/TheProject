@@ -1,6 +1,5 @@
 <template name="OrderList">
 {{>ShowTemplate name="OrderList"}}
-
 {{#if isSelected}}
 {{#transition in="zoomIn:200"}}
 <div id="OrderList-NewOrder">
@@ -11,6 +10,7 @@
 {{/transition}}
 {{/if}}
 {{#if not isSelected}}
+{{#RememberScrollPosition scrollId="orderlistTable"}}
 <table class="table table-striped table-hover">
 <tbody>
     <tr>
@@ -38,6 +38,7 @@
     {{/each}}
 </tbody>
 </table>
+{{/RememberScrollPosition}}
 {{/if}}
 
 

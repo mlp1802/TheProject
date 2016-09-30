@@ -1,6 +1,6 @@
 <Template name="OrderItems">
  {{>ShowTemplate name="OrderItems"}}
-{{#transition in="zoomIn:1000" out="zoomOut:300"}}
+
  <table class="table">
 
 <tr>
@@ -9,8 +9,9 @@
   <th class="money">Amount</th>
 </tr>
 <tbody>
+    {{#transition out="bounceOut:20"}}
   {{#each item in getOrderItems}}
-  <tr>
+  <tr class="animated out" id="{{item._id}}">
     <td>{{item.productName}}</td>
     <td>{{item.quantity}}</td>
     <td class="money" style="width:20%">{{>Currency currency="THB" amount=item.amount}}</td>
@@ -22,7 +23,7 @@
   {{/each}}
 
   {{#each extra in getOrderExtras}}
-    <tr>
+    <tr class="animated out">
     <td><i>{{extra.name}}</i></td>
     <td></td>
     <td class="money" style="width:20%"><i>{{extra.amount}}</i></td>
@@ -31,10 +32,9 @@
     {{/if}}
   </tr>    
   {{/each}}
-
-
-
+  {{/transition}}
   </tbody>
+  
   <tfoot>
     <tr>
       <td></td>
@@ -44,5 +44,5 @@
   </tfoot>
 
 </table>
-{{/transition}}
+
 </Template>

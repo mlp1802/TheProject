@@ -21,6 +21,11 @@ users.route "/ScrollToTest",
     action:->BlazeLayout.render "ScrollToTest",
              main:"CustomerList"
          
+users.route "/HideSomething",
+    name:"HideSomething"
+    action:->BlazeLayout.render "HideSomething",
+             main:"CustomerList"
+         
 users.route "/customers",
   name:"customers"
   action:->BlazeLayout.render "Customers",

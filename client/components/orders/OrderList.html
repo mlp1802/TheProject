@@ -14,20 +14,17 @@
 	
     </tr>
     {{#each order in orders}}
-       <tr class="{{getSelectedClass order._id}}" OrderList-orderRow="{{order._id}}" data-toggle="modal" data-target="#editOrder_{{order._id}}">
+       <tr id="OrderList-orderRow_{{order._id}}" class="{{getSelectedClass order._id}}" OrderList-orderRow="{{order._id}}" data-toggle="modal" data-target="#editOrder_{{order._id}}">
        
        {{#if eq order._id selectedId}}
        {{#transition in="zoomIn:1000" out="zoomOut:300"}}
        <td colspan="4" >
-       
+       <div style="z-index:100">
        {{#Panel closeTarget="OrderList-closeOrder"}}
-        
-           {{>NewOrder order=selectedOrder}}
-         
-       {{/Panel}}
-       
+        {{>NewOrder order=selectedOrder}}
+        {{/Panel}}
+        </div>
        </td>
-       
        {{/transition}}    
       {{else}}
 	<td>
@@ -37,9 +34,7 @@
 	 {{>Currency currency="THB" amount=order.totalAmount}}   
 	</td>
 	<td>
-	   
-        
-	 {{>DefaultDate date= order.created_at}}   
+	   {{>DefaultDate date= order.created_at}}   
 	</td>
 	<td>
 	 {{>DefaultDate date=order.paymentDate}}   
@@ -49,6 +44,4 @@
     {{/each}}
 </tbody>
 </table>
-
-
 </template>

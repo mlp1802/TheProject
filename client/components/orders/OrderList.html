@@ -14,7 +14,7 @@
 	
     </tr>
     {{#each order in orders}}
-       <tr OrderList-orderRow="{{order._id}}" data-toggle="modal" data-target="#editOrder_{{order._id}}">
+       <tr class="{{getSelectedClass order._id}}" OrderList-orderRow="{{order._id}}" data-toggle="modal" data-target="#editOrder_{{order._id}}">
        
        {{#if eq order._id selectedId}}
        {{#transition in="zoomIn:1000" out="zoomOut:300"}}

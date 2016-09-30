@@ -32,7 +32,7 @@ users.route "/customers/new",
 users.route "/orders",
   name:"orders"
   action:->BlazeLayout.render "Orders",
-              main:"OrderList"
+              main:"MainOrderList"
 
 
 

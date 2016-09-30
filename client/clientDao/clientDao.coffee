@@ -3,6 +3,10 @@
  
 getOrder = (id) ->
     Orders.findOne({_id:id})
+getOrdersByCustomerName = (name) ->
+    #db.users.find({"name": /.*m.*/})
+    s = RegExp("^.*"+name+".*$","i")
+    Orders.find({customerName:{ $regex: s}})
 getCustomer = (id) ->
     Companies.findOne({_id:id})
               
@@ -32,6 +36,7 @@ ClientDao =
     getOrders:getOrders
     getOrder:getOrder
     getCustomer:getCustomer
+    getOrdersByCustomerName:getOrdersByCustomerName
     
 module.exports =
     ClientDao:ClientDao

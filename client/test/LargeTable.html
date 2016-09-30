@@ -1,0 +1,16 @@
+<template name="LargeTable">
+<table class="table table-striped table-hover">
+    <tbody>
+       {{#each el in elements}}
+       <tr scroll-element="{{el}}">
+           <td>
+               LOLZ
+           </td>
+           <td>
+              {{el}}
+           </td>
+       </tr>
+       {{/each}}
+    </tbody>
+    </table>
+</template>

@@ -54,14 +54,14 @@ fakeCompany = ()->
 
 fakeit = ->
     resetDatabase()
-    for c in [1..10] 
+    for c in [1..100] 
             fakeCompany()
 
-    for c in [1..10] 
+    for c in [1..1] 
         customers = shuffle(dao.getAllCompanies().fetch().map((x)->x))
         for c in customers
             fakeOrder(c)
-#fakeit()
+# in fakeit()
 module.exports = 
     fakeit:fakeit    
     

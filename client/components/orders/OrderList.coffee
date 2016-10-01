@@ -26,7 +26,7 @@ Template.OrderList.events
     "click [OrderList-orderRow]":(event)->
         selectedId = event.currentTarget.attributes["OrderList-orderRow"].value
         setSelectedId(selectedId)
-        Meteor.setTimeout((->$(window).scrollTop($("#OrderList-NewOrder").offset().top-600)),100)
+        #Meteor.setTimeout((->$(window).scrollTop($("#OrderList-NewOrder").offset().top-600)),100)
         
         
     

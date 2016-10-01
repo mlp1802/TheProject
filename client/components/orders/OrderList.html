@@ -21,7 +21,7 @@
     	<td>Payment date</td>
     </tr>
     {{#each order in orders}}
-    <tr RememberSelectedId={{order._id}} id="OrderList-orderRow_{{order._id}}" OrderList-orderRow="{{order._id}}" data-toggle="modal" data-target="#editOrder_{{order._id}}">
+    <tr RememberSelectedId={{order._id}} id="OrderList-orderRow_{{order._id}}" OrderList-orderRow="{{order._id}}">
     <td>
 	 {{order.customerName}}   
 	</td>

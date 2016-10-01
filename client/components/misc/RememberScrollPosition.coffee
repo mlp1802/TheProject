@@ -1,7 +1,7 @@
-getId = ->Template.instance().data.scrollId
-getYPos = ()->Session.get(getId+"yPos")
+getId = ->"RememberScrollPosition_"+Template.instance().data.scrollId
+getYPos = ()->Session.get(getId())
 setYPos = (yPos)->
-    Session.set(getId+"yPos",yPos)
+    Session.set(getId(),yPos)
         
 updateScroll = ->
     pos = document.body.scrollTop

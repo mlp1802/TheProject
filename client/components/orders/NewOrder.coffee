@@ -39,17 +39,20 @@ togglePaid = ->
       paid.set(!paid.get())
       order = getCurrentOrder()
       order.paid = paid.get()
-      console.log("PAID "+order.paid)
-     
+      
 updateOrder = ->
         order = getCurrentOrder()
         Meteor.call("updateOrder",order)
         PubSub.publish("orderUpdated",order)
+        toastr.success("Order updated","Order")
         
 newOrder = ->
+        
         order = getCurrentOrder()
         Meteor.call("saveNewOrder",order)
         PubSub.publish("orderCreated",order)
+        toastr.success("Order added")
+        
 saveOrder = (order)->if(order._id==undefined) then newOrder() else updateOrder()
 
 
@@ -80,6 +83,7 @@ Template.NewOrder.events
       order.paid = target.paid.checked
       saveOrder order
       setOrderStatus("main")
+      
   "click [NewOrder-togglePaid]":->togglePaid()
   'click [NewOrder-addOrderItem]':->
       setOrderStatus("orderItem")
@@ -113,3 +117,6 @@ Template.NewOrder.events
           amount:amount
       order.orderExtras.push(extra)
       setOrderStatus("main")
+
+
+

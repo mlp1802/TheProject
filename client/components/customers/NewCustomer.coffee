@@ -11,5 +11,6 @@ Template.NewCustomer.events
             address:getAddressFormFields(event.target)
 
         Meteor.call('createCompany', company)
+        toastr.success("Customer added","Customer")
         FlowRouter.go("customers")
         

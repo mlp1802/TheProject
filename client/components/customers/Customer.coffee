@@ -35,6 +35,7 @@ Template.Customer.events
             address:getAddressFormFields(event.target)
 
         Meteor.call("updateCustomer",customer)
+        toastr.success("Customer updated","Customer")
         setShowDetails(true)
         setShowEdit(false)
     "click [closeEditCustomer]":->

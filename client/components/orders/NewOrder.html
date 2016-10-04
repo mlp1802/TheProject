@@ -12,32 +12,40 @@
   {{#if eq orderStatus "main"}}
   <form NewOrder-submitOrder>
 <div class="panel panel-default">
-    <div class="panel-heading">
-        <h class="panel-title">Order for {{order.customerName}}</h>
-    </div>
-
     <hr>
-    <label class="checkbox-inline">
-		    
-	<input name="paid" type="checkbox" {{checkedPaid order.paid}} is-paid="{{order.paid}}" >Is paid</label>
+    <div>
+    
+    {{#if currentOrder.paid}}
+    <span class="mediumButton btn btn-success" NewOrder-togglePaid>Is paid</span>
+    {{/if}}
+    {{#if not currentOrder.paid}}
+    <span class="mediumButton btn btn-danger" NewOrder-togglePaid>Not paid</span>
+    {{/if}}
+	</div>
     <br>
+    
 	<div>
       {{>OrderItems order=currentOrder showRemove="true"}}
    <span class="panel-body">
      <div style="margin-left:10px;margin-right:10px">
-     <span  NewOrder-addOrderItem class="mediumButton btn btn-primary">New item</span>
-     <span  NewOrder-addExtra class="mediumButton btn btn-primary">Add extra</span>
-     <input type="submit"  style="float:right" class="mediumButton btn btn-default" value="Submit order">
-
-     <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-         Delivery address
-       </a>
-     <div class="collapse" id="collapseExample">
+     <span  NewOrder-addOrderItem class="mediumButton btn btn-default">New item</span>
+     <span  NewOrder-addExtra class="mediumButton btn btn-default">Add extra</span>
+     
+      <span id="NewOrderDeliveryAndSubmitArea">
+      <span  class="btn mediumButton btn-default" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+           Delivery address
+         </span>
+       <input type="submit"  class="mediumButton subitOrderButton btn btn-primary" value="Submit order">
+       <div class="collapse" id="collapseExample">
        <div class="card card-block">
-	 
+     
         {{>AddressFormFields address=currentOrder.address}}
        </div>
-      </div> 
+      </div>
+      </span>
+      
+       
+     
      </div>             
    </span>
   </div>
@@ -45,14 +53,14 @@
 </form>
 {{/if}}
 {{#if eq orderStatus "orderItem"}}
-    {{#Panel title=(concat "Add order item for" currentOrder.customerName) closeTarget="NewOrder-closeOrderItem"}}
+    {{#Panel title="Add order item" closeTarget="NewOrder-closeOrderItem"}}
      {{>OrderItems order=currentOrder showRemove="true"}}
      {{>OrderItemForm}}
 {{/Panel}}
 
 {{/if}}
 {{#if eq orderStatus "addExtra"}}
-    {{#Panel title=(concat "Add extra for " currentOrder.customerName) closeTarget="NewOrder-closeOrderItem"}}
+    {{#Panel title="Add extra"  closeTarget="NewOrder-closeOrderItem"}}
        {{>OrderItems order=currentOrder showRemove="true"}}
        {{>AddExtraForm}}
     {{/Panel}}
@@ -76,7 +84,6 @@
 </table>
 {{>OrderItems order=currentOrder showRemove="false"}}
 <button NewOrder-confirmNewOrder class="btn btn-primary mediumButton">Confirm</button>
-
 <button NewOrder-backToEditOrder class="btn btn-default mediumButton">Back</button>
 </div>
 </div>

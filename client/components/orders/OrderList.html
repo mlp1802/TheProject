@@ -3,7 +3,7 @@
 {{#if isSelected}}
 {{#transition in="zoomIn:200"}}
 <div id="OrderList-NewOrder">
-    {{#Panel closeTarget="OrderList-closeOrder"}}
+    {{#Panel title=selectedOrder.customerName closeTarget="OrderList-closeOrder"}}
      {{>NewOrder order=selectedOrder}}
 {{/Panel}}
 </div>
@@ -11,7 +11,7 @@
 {{/if}}
 {{#if not isSelected}}
 {{#RememberScrollPosition scrollId="orderlistTable"}}
-    {{#RememberSelected selectId="orderlistTable" selectedClass="active"}}
+    {{#RememberSelected selectId="orderlistTable" selectedClass="success"}}
         <table class="table table-striped table-hover">
             <tbody>
                 <tr>

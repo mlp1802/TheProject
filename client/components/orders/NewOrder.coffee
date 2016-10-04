@@ -2,6 +2,7 @@
 getOrderStatus = ->Template.instance().orderStatus.get()
 setOrderStatus = (v)-> Template.instance().orderStatus.set(v)
 getCurrentOrder = ->Template.instance().currentOrder.get()
+setCurrentOrder = (o)->Template.instance().currentOrder.set(o)
 getCustomer= () -> customer = Template.instance().data.customer
         
 Template.NewOrder.rendered = ->
@@ -39,6 +40,7 @@ togglePaid = ->
       paid.set(!paid.get())
       order = getCurrentOrder()
       order.paid = paid.get()
+      setCurrentOrder(order)
       
 updateOrder = ->
         order = getCurrentOrder()
@@ -70,17 +72,18 @@ Template.NewOrder.helpers
   "eq":(a,b)-> a is b
   "currentOrder":-> getCurrentOrder()
   "totalAmount":->Template.instance().totalAmount.get()
-  "checkedPaid":(v)-> if v==true then "checked" else ""
+  
+  
         
 Template.NewOrder.events
    
+  
   'submit [NewOrder-submitOrder]':(event)->
       event.preventDefault()
       target = event.target
       order = getCurrentOrder()
       order.paymentDate  = getSelectedDate()
       order.address = getAddressFormFields(target)
-      order.paid = target.paid.checked
       saveOrder order
       setOrderStatus("main")
       

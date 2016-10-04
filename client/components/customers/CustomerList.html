@@ -2,9 +2,6 @@
  {{>ShowTemplate name="CustomerList"}}   
 {{#transition in="zoomIn:200"}}
   {{#unless isCustomerSelected}}
-  {{>ShowTemplate name="CustomerList" }}
-   
-
 <h1>Customers</h1>
 <div>
       <div style="text-align:right">
@@ -31,7 +28,7 @@
     </div>
 <br>    
 {{#RememberScrollPosition scrollId="CustomerList-table"}}
-{{#RememberSelected selectId="CustomerList" selectedClass="active"}}
+{{#RememberSelected selectId="CustomerList" selectedClass="success"}}
 <table class="table table-striped table-hover">
 <tbody>
     <tr>

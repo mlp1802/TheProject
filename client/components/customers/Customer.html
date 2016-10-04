@@ -6,7 +6,7 @@
  <div>
   {{>CustomerDetails customer=customer}}
 
-<button Customer-editCustomer class="btn btn-primary mediumButton">Edit</button>
+<button Customer-editCustomer class="btn mediumButton btn-primary mediumButton">Edit</button>
 
   </div>
   {{/if}}
@@ -15,6 +15,8 @@
      {{>EditCustomer customer=customer}}
   {{/if}}
   <br>
+  <h1>Orders</h1>
       {{>OrdersAdmin customer=customer}}
    {{/transition}}
 </template>
+

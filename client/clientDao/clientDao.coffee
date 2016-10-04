@@ -15,6 +15,7 @@ getCustomersByName = ->
     Companies.find({},
               sort:
                   name:1
+              limit:20
               )
 
 
@@ -22,12 +23,14 @@ getOrders = ->
   Orders.find({},
             sort:
                 created_at:-1
+            limit:20
             )
 
 getCustomersByDate=->
     Companies.find({},
               sort:
                   created_at:-1
+              limit:20
               )
 
 ClientDao =

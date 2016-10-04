@@ -15,7 +15,7 @@ rnd = -> Math.random()
 randomDate = ->if rnd<0.5 then faker.date.past() else faker.date.future()
 randomUpTo = (n)->Math.floor((rnd() * n) + 1);
 makerOrderItems = ->
-        n = randomUpTo(10)
+        n = randomUpTo(10)+2
         [0..n].map((x)->makeOrderItem())
 
 makeOrderItem = ()->
@@ -61,7 +61,7 @@ fakeit = ->
         customers = shuffle(dao.getAllCompanies().fetch().map((x)->x))
         for c in customers
             fakeOrder(c)
-# in fakeit()
+#fakeit()
 module.exports = 
     fakeit:fakeit    
     

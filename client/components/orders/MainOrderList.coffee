@@ -13,12 +13,17 @@ Template.MainOrderList.created =  ->
         
 Template.MainOrderList.helpers 
     "showSearch":->getShowSearch()
+    "getSearchClass": -> if getShowSearch() then "" else "hidden"
+            
+            
+        
     "getOrders":->
         orders = getOrders()
         console.log(orders)
         orders
 
 Template.MainOrderList.events
+    
     "click [OrderList-orderRow]":(event)->setShowSearch(false)
     "click [OrderList-closeOrder]":(event)->setShowSearch(true)
     "submit [MainOrderList-searchForm]":(event)->

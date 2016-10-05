@@ -1,5 +1,12 @@
 <Template name="OrdersAdmin">
 {{>ShowTemplate name="OrdersAdmin"}}
+  
+  {{#if eq status "allOrders"}}
+  {{#Panel title="Orders" closeTarget="OrdersAdmin-closeCustomerOrders"}}
+    {{>OrderList orders = customerOrders}}
+  {{/Panel}}
+ {{/if}}
+  
   {{#if eq status "menu"}}
   <div class="panel panel-default">
       <div class="panel-body">
@@ -22,7 +29,6 @@
 		<h4 class="modal-title">New order for {{customer.name}}</h4>
 	    </div>
 	    <div class="modal-body">
-	        
 		{{>NewOrder customer=customer}}
 	    </div>
 	</div>

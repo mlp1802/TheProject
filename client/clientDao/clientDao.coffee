@@ -3,10 +3,27 @@
  
 getOrder = (id) ->
     Orders.findOne({_id:id})
+
 getOrdersByCustomerName = (name) ->
     #db.users.find({"name": /.*m.*/})
     s = RegExp("^.*"+name+".*$","i")
-    Orders.find({customerName:{ $regex: s}})
+    Orders.find(
+        {customerName:{ $regex: s}},
+            sort:
+                customerName:1
+            limit:40
+            
+            
+            )
+
+getOrdersByCustomerId = (id) ->
+    Orders.find(
+            {customerId:id},
+            sort:
+                created_at:-1
+            limit:40
+            )
+
 getCustomer = (id) ->
     Companies.findOne({_id:id})
               
@@ -23,7 +40,7 @@ getOrders = ->
   Orders.find({},
             sort:
                 created_at:-1
-            limit:20
+            limit:40
             )
 
 getCustomersByDate=->
@@ -40,7 +57,9 @@ ClientDao =
     getOrder:getOrder
     getCustomer:getCustomer
     getOrdersByCustomerName:getOrdersByCustomerName
+    getOrdersByCustomerId:getOrdersByCustomerId
     
 module.exports =
     ClientDao:ClientDao
+    
         

@@ -7,12 +7,12 @@ getCustomer= () -> customer = Template.instance().data.customer
         
 Template.NewOrder.rendered = ->
         date = getCurrentOrder().paymentDate
+        console.log("PAYMENT DATE = "+date)
         getDate = ->
                 if date == undefined then new Date() else date
         d = this.$('#thedate')
         d.datepicker
             autoclose:true
-            startDate:new Date()
         d.datepicker("setDate",getDate())
         
         

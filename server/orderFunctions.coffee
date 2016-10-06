@@ -1,9 +1,27 @@
 {setIdIfEmpty} = require("./misc.coffee")
 {isNumber,getPct} = require("./misc.coffee")
+{Orders} = require("../collections/order")
 
 
+twoDigit= (d) ->
+    d=""+d
+    if d.length>1
+        d
+    else
+        "0"+d
+        
+getInvoiceNumber = ->
+    date = new Date()
+    d1 = date.getYear()
+    d2 = twoDigit(date.getMonth())
+    d3 = twoDigit(date.getDate())
+    d4 = twoDigit(Orders.find().count())
+    d1+d2+d3+d4
+    
+     
 createOrder =  (order)->
     order.created_at = new Date()
+    order.invoiceNumber = getInvoiceNumber()
     order.totalAmount = getTotalAmount(order)
     order.status = "not_paid"
     order.currency = "THB"
@@ -44,5 +62,6 @@ module.exports = {
     getTotalAmountForItems,
     getAmountForExtra,
     isNumber,
-    getPct
+    getPct,
+    getInvoiceNumber
 }

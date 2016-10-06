@@ -29,8 +29,7 @@ Template.MainOrderList.events
     "submit [MainOrderList-searchForm]":(event)->
             event.preventDefault()
             searchString = event.target.MainOrderListSearchString.value
-            console.log(searchString)
-            orders = ClientDao.getOrdersByCustomerName(searchString)
+            orders = ClientDao.searchOrders(searchString)
             console.log(orders)
             setOrders(orders)
             

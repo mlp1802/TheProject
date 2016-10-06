@@ -8,6 +8,8 @@ createCompany = (company)->
   company.created_at = new Date()
   Companies.insert(company)
 
+
+        
 saveNewOrder =  (o)->
     order = orderFunctions.createOrder(o)
     order.totalAmount = orderFunctions.getTotalAmount(order)

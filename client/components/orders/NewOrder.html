@@ -1,14 +1,14 @@
 <template name="NewOrder">
    {{>ShowTemplate  name="NewOrder"}}
   
-  
+   <h2>{{currentOrder.customerName}}</h2>
     <label for="address1">Payment date</label>
     <div  class="input-append date" id="thedate" data-date-format="dd-mm-yyyy">
 	<input  size="16" style="z-index:20"  id="deliveryDate" type="text"  class="datepicker">
 	<span class="add-on"><i class="icon-th"></i></span>
 
     </div>
-  
+    
   {{#if eq orderStatus "main"}}
   <form NewOrder-submitOrder>
 <div class="panel panel-default">

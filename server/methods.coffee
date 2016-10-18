@@ -1,22 +1,22 @@
 Dao = require "./dao"
+Actions = require "./actions"
 {getTotalAmount}= require "./orderFunctions"
 methods =
   "createCompany":(company)->
-      Dao.createCompany(company)
+      Actions.createCompany(company)
   "updateCustomer":(customer)->
-      Dao.updateCustomer(customer)
+      Actions.updateCustomer(customer)
   "saveNewOrder":(order)->
-      Dao.saveNewOrder(order)
+      Actions.newOrder(order)
   "updateOrder":(order)->
       Dao.updateOrder(order)
 
-  "getCustomersByName":->Dao.getCustomersByName().fetch()
-
-
-  "getCustomersByDate":->Dao.getCustomersByDate().fetch()
-
   "getTotalAmount":(order)->
       getTotalAmount(order)
+  "registerClient":(user)->
+        Dao.registerClient user
+        
+        
 
 
 

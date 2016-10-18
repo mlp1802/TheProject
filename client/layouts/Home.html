@@ -5,9 +5,12 @@
       <h1>
         Welcome to The System
       </h1>
-
+      
       <div class="well">
         <h2>It will change your life forever..</h2>
+        {{#if not currentUser}}
+        {{>Register}}
+        {{/if}}
       </div>
     </main>
 

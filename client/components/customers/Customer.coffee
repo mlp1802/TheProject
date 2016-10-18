@@ -29,12 +29,10 @@ Template.Customer.events
 
     "submit form[EditCustomer-form]":(event)->
         event.preventDefault()
-        customer = 
-            _id:this.customer._id
-            name:event.target.name.value    
-            address:getAddressFormFields(event.target)
+        this.customer.name = event.target.name.value    
+        this.customer.address = getAddressFormFields(event.target)
 
-        Meteor.call("updateCustomer",customer)
+        Meteor.call("updateCustomer",this.customer)
         toastr.success("Customer updated","Customer")
         setShowDetails(true)
         setShowEdit(false)

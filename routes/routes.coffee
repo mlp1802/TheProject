@@ -2,19 +2,30 @@
 loggedIn = ->
         !!Meteor.userId()
 
+Accounts.onLogin (user)->
+    FlowRouter.go("home")
 
-Accounts.onLogin (user)->FlowRouter.go("customers")
 Accounts.onLogout (user)->FlowRouter.go("home")
 exposed = FlowRouter.group()
+          
 
 users = FlowRouter.group(
     triggersEnter:[->
                     if loggedIn() is false
-                      FlowRouter.go("/")]
+                      FlowRouter.go("/login")]
     )
-exposed.route  "/",
+
+users.route  "/",
               name:"home"
               action:->BlazeLayout.render "Home"
+
+exposed.route  "/register",
+    name:"register"
+    action:->BlazeLayout.render "Register"
+
+exposed.route  "/login",
+    name:"login"
+    action:->BlazeLayout.render "Login"
 
 users.route "/ScrollToTest",
     name:"ScrollToTest"

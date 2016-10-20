@@ -12,13 +12,12 @@ updateCustomer = (customer)->
     
 newOrder = (order)->
         Dao.saveNewOrder(getClientId(),order)
-        
-        
-        
 
 allCompanies = ->
     Dao.getAllCompanies(getClientId())
         
+newUser = (user)->
+    Dao.newUser user
 updateOrder = (order)->
     Dao.updateOrder(customer)
     

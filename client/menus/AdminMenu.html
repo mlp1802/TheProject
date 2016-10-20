@@ -1,23 +1,21 @@
 <template name="AdminMenu">
 
-<nav class="side-nav">
-<ul>
-  <li>
-    <a href="/main">
-      <div class="menuitem glyphicon glyphicon-home"  ></div>
-      <span class="menuText">
-      Home
-      </span>
-    </a>
-  </li>
-  <li>
-    <a href="/new_employee">
-      <div class="menuitem glyphicon glyphicon-plus"  ></div>
-      <span class="menuText">
-      New employee
-      </span>
-    </a>
-  </li>
-</ul>
+<nav class="navbar navbar-default sideNav">
+    <ul>
+        <li>
+          <a href="/admin/settings">
+            <div class="glyphicon glyphicon-cog"></div>
+            <p class="menuText">Settings</p>
+          </a>
+
+        </li>
+        <li>
+            <a href="/admin/newuser" style="display:inline">
+            <div class="menuIcon glyphicon glyphicon-user"></div>
+            <p class="menuText">New user</p>
+          </a>
+        </li>
+        
+    </ul>
 </nav>
 </template>

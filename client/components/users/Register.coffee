@@ -12,8 +12,8 @@ Template.Register.events
                profile:
                    firstName:firstName
                    lastName:lastName
+                   companyName:companyName
         Meteor.call("registerClient",user)       
-        console.log("LOGGIN IN")
         Meteor.loginWithPassword(email, password, (error)->
             FlowRouter.go("/"))
         

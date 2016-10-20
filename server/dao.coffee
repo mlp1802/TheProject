@@ -1,7 +1,7 @@
 #import {Companies} from "../collections/company.ls"
 {Companies} = require("../collections/company")
 {Orders} = require("../collections/order")
-{Clients} = require("../collections/order")
+{Clients} = require("../collections/client")
 
 orderFunctions = require("./orderFunctions")
 
@@ -44,11 +44,28 @@ getCustomersByDate=(clientId)->
               )
 
 registerClient  = (user) ->
+        #create client
         user.profile.isClient = true
-        user.profile.clientId = Random.id()
-        Accounts.createUser(user)
+        user.profile.isAmin = true
+        client = 
+                name:user.profile.companyName
+        clientId = Clients.insert(client)
+        #create user
+        user.profile.clientId = clientId
+        insertUser user
         
-                        
+insertUser = (user)->
+        user.profile.activated = false
+        Accounts.createUser user 
+
+newUser = (user)->
+        user.profile.clientId = Meteor.user().profile.clientId
+        insert user
+
+updateProfile = (profile)->
+        Meteor.users.update(Meteor.userId(), {$set: {profile: profile}});
+    
+
 
 module.exports = {
   createCompany,
@@ -59,8 +76,9 @@ module.exports = {
   getCustomersByName,
   getCustomersByDate,
   getCustomer,
-  registerClient
-  
+  registerClient,
+  updateProfile,
+  newUser
 }
 
 

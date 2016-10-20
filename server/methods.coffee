@@ -13,10 +13,13 @@ methods =
 
   "getTotalAmount":(order)->
       getTotalAmount(order)
+   "updateProfile":(profile)->
+     Dao.updateProfile(profile)
   "registerClient":(user)->
         Dao.registerClient user
         
-        
+   "newUser":(user)->
+        Actions.newUser user
 
 
 

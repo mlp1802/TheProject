@@ -3,11 +3,29 @@ loggedIn = ->
         !!Meteor.userId()
 
 Accounts.onLogin (user)->
-    FlowRouter.go("home")
+    console.log("ON LOGIN 1")
+    if !Meteor.user().profile.activated 
+            FlowRouter.go("/login")
+        else
+            FlowRouter.go("home")
+            
+        
+    
+    
 
 Accounts.onLogout (user)->FlowRouter.go("home")
+
 exposed = FlowRouter.group()
           
+
+exposed.route  "/register",
+    name:"register"
+    action:->BlazeLayout.render "Register"
+
+exposed.route  "/login",
+    name:"login"
+    action:->BlazeLayout.render "Login"
+
 
 users = FlowRouter.group(
     triggersEnter:[->
@@ -18,14 +36,6 @@ users = FlowRouter.group(
 users.route  "/",
               name:"home"
               action:->BlazeLayout.render "Home"
-
-exposed.route  "/register",
-    name:"register"
-    action:->BlazeLayout.render "Register"
-
-exposed.route  "/login",
-    name:"login"
-    action:->BlazeLayout.render "Login"
 
 users.route "/ScrollToTest",
     name:"ScrollToTest"
@@ -42,6 +52,11 @@ users.route "/customers",
   action:->BlazeLayout.render "Customers",
               main:"CustomerList"
 
+users.route "/profile",
+    name:"profile"
+    action:->BlazeLayout.render "Profile"
+                
+
 
 users.route "/customers/new",
   name:"customers-new"
@@ -53,6 +68,14 @@ users.route "/orders",
   action:->BlazeLayout.render "Orders",
               main:"MainOrderList"
 
+users.route "/admin",
+  name:"admin"
+  action:->BlazeLayout.render "Admin"
+
+users.route "/admin/newuser",
+  name:"admin"
+  action:->BlazeLayout.render "Admin",
+                main:"NewUser"
 
 
 

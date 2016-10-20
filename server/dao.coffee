@@ -17,6 +17,8 @@ saveNewOrder =  (clientId,o)->
     order.totalAmount = orderFunctions.getTotalAmount(order)
     Orders.insert(order)
 
+getUser = (id)->
+    Meteor.users.findOne({_id:id})
 updateCustomer = (customer)->
     Companies.update({_id:customer._id},customer)
    
@@ -45,27 +47,34 @@ getCustomersByDate=(clientId)->
 
 registerClient  = (user) ->
         #create client
-        user.profile.isClient = true
-        user.profile.isAmin = true
+        user.profile.isClientOwner = true
+        user.profile.isAdmin = true
+        user.profile.activated = true
         client = 
                 name:user.profile.companyName
+                email:user.email
         clientId = Clients.insert(client)
         #create user
         user.profile.clientId = clientId
-        insertUser user
-        
-insertUser = (user)->
-        user.profile.activated = false
-        Accounts.createUser user 
+        Accounts.createUser user
+
+
 
 newUser = (user)->
         user.profile.clientId = Meteor.user().profile.clientId
-        insert user
+        user.profile.activated = false
+        user.profile.isAdmin = false
+        user.profile.isClientOwner = false
+        Accounts.createUser user
 
-updateProfile = (profile)->
-        Meteor.users.update(Meteor.userId(), {$set: {profile: profile}});
+updateProfile = (id,profile)->
+        Meteor.users.update(id, {$set: {profile: profile}});
     
 
+activateUser = (userId)->
+    profile = (getUser userId).profile
+    profile.activated = true
+    updateProfile(userId,profile)
 
 module.exports = {
   createCompany,
@@ -78,10 +87,17 @@ module.exports = {
   getCustomer,
   registerClient,
   updateProfile,
-  newUser
+  newUser,
+  activateUser,
+  getUser
 }
 
+#id = "SzM4cKMgh7k8jGzX6"
 
+#activateUser(id)
+#a = getUser(id)
+#console.log("LOL A LOL")
+#console.log(a)
 
 
 

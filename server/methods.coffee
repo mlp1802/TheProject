@@ -2,26 +2,24 @@ Dao = require "./dao"
 Actions = require "./actions"
 {getTotalAmount}= require "./orderFunctions"
 methods =
-  "createCompany":(company)->
+   "createCompany":(company)->
       Actions.createCompany(company)
-  "updateCustomer":(customer)->
+   "updateCustomer":(customer)->
       Actions.updateCustomer(customer)
-  "saveNewOrder":(order)->
+   "saveNewOrder":(order)->
       Actions.newOrder(order)
-  "updateOrder":(order)->
+   "updateOrder":(order)->
       Dao.updateOrder(order)
 
-  "getTotalAmount":(order)->
+   "getTotalAmount":(order)->
       getTotalAmount(order)
-   "updateProfile":(profile)->
-     Dao.updateProfile(profile)
-  "registerClient":(user)->
+   
+   "registerClient":(user)->
         Dao.registerClient user
         
    "newUser":(user)->
         Actions.newUser user
-
-
-
+   "activateUser":(id)->
+        Actions.activateUser id
 
 Meteor.methods(methods)

@@ -21,12 +21,16 @@ newUser = (user)->
 updateOrder = (order)->
     Dao.updateOrder(customer)
     
+activateUser = (id)->
+    Dao.activateUser id
 module.exports =  {
     createCompany,
     allCompanies,
     updateCustomer,
     updateOrder,
-    newOrder
+    newOrder,
+    newUser,
+    activateUser
     
     
 }

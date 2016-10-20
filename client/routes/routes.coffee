@@ -15,8 +15,16 @@ Accounts.onLogin (user)->
 
 Accounts.onLogout (user)->FlowRouter.go("home")
 
+
 exposed = FlowRouter.group()
           
+
+exposed.route '/activate/:userId', 
+    name:"activate"
+    action: (params, queryParams)-> 
+        Meteor.call("activateUser",params.userId)
+
+    
 
 exposed.route  "/register",
     name:"register"

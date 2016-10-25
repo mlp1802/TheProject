@@ -1,7 +1,12 @@
-Meteor.startup(->)
-Accounts.onLogin (user)->
-        if !Meteor.user().profile.activated 
-            Meteor.logout()
+Meteor.startup ->
+   
+    Accounts.urls.resetPassword = (token)-> 
+            Meteor.absoluteUrl('reset-password/' + token);
+  
+
+
+
+        
         
         
 

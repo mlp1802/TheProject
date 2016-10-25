@@ -1,0 +1,28 @@
+<template name="Users">
+<h1>Users</h1>
+
+        <table class="table table-striped table-hover">
+            <tbody>
+                <tr>
+                	<td>Name</td>
+                	<td>Email</td>
+                	<td>Email verified</td>
+                </tr>
+            </tbody>
+           
+           {{#each user in Users}} 
+           <tr>
+               <td>
+               {{user.firstName}}&nbsp;{{user.lastName}}
+               </td>
+               <td>
+               {{user.email}}
+               </td>
+               <td>
+               {{>Boolean str=user.emailVerified}}
+               </td>
+           </tr>
+           {{/each}}
+        </table>
+
+</template>

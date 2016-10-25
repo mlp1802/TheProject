@@ -1,17 +1,8 @@
+{checkRedirects} = require("./enterRedirects")
 
-loggedIn = ->
-        !!Meteor.userId()
-
-Accounts.onLogin (user)->
-    console.log("ON LOGIN 1")
-    if !Meteor.user().profile.activated 
-            FlowRouter.go("/login")
-        else
-            FlowRouter.go("home")
-            
-        
-    
-    
+Accounts.onLogin ()->
+    console.log("ON LOGIN")
+    FlowRouter.go("home")
 
 Accounts.onLogout (user)->FlowRouter.go("home")
 
@@ -19,12 +10,18 @@ Accounts.onLogout (user)->FlowRouter.go("home")
 exposed = FlowRouter.group()
           
 
-exposed.route '/activate/:userId', 
+exposed.route '/verify-email/:token', 
     name:"activate"
     action: (params, queryParams)-> 
-        Meteor.call("activateUser",params.userId)
+        args = {"token":params.token}
+        BlazeLayout.render "Activate", args 
+        #Accounts.verifyEmail params.token,(error) ->
+        #    if !error 
+        #        toastr.success("Account activated","Account")
+        #    else
+        #        toastr.error("Account could not be activated: "+error.reason,"Account")
+        #    FlowRouter.go("login")    
 
-    
 
 exposed.route  "/register",
     name:"register"
@@ -35,15 +32,24 @@ exposed.route  "/login",
     action:->BlazeLayout.render "Login"
 
 
+
+
+        
+   
 users = FlowRouter.group(
-    triggersEnter:[->
-                    if loggedIn() is false
-                      FlowRouter.go("/login")]
+    triggersEnter:[
+                    checkRedirects
+                  ]
     )
 
 users.route  "/",
               name:"home"
               action:->BlazeLayout.render "Home"
+
+users.route  "/notverified",
+              name:"notverified"
+              action:->BlazeLayout.render "NotVerified"
+
 
 users.route "/ScrollToTest",
     name:"ScrollToTest"
@@ -59,6 +65,11 @@ users.route "/customers",
   name:"customers"
   action:->BlazeLayout.render "Customers",
               main:"CustomerList"
+
+
+users.route "/resetPassword",
+  name:"resetPassword"
+  action:->BlazeLayout.render "ResetPassword"
 
 users.route "/profile",
     name:"profile"
@@ -85,6 +96,10 @@ users.route "/admin/newuser",
   action:->BlazeLayout.render "Admin",
                 main:"NewUser"
 
+users.route "/admin/users",
+  name:"admin"
+  action:->BlazeLayout.render "Admin",
+                main:"Users"
 
 
 

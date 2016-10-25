@@ -3,11 +3,21 @@ Template.Login.events(
          event.preventDefault()
          email = $('[name=email]').val()
          password = $('[name=password]').val()
-         Meteor.loginWithPassword(email, password, (error)->
-                if(error) 
-                    console.log(error.reason)
+         Meteor.call("doLogin",email, password, (success,result)->
+                console.log("RESULT")
+                console.log(result)
+                if(result) 
+                    Session.set("loggedIn",result)
+                    
+                    Meteor.call("getUserByEmail",email,(success,user)->
+                        ServerSession.set("currentUser",user)
+                        console.log("CURRENT USER") 
+                        console.log(user)
+                        Session.set("currentUser",user)
+                        FlowRouter.go("home")
+                    )
+                    
                 else 
-                    FlowRouter.go("home")
-             
+                    console.log("WRONG PASSWORD")
                 )
     )

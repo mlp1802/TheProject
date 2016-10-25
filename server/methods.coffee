@@ -1,25 +1,50 @@
-Dao = require "./dao"
-Actions = require "./actions"
-{getTotalAmount}= require "./orderFunctions"
+
+self = this
 methods =
    "createCompany":(company)->
-      Actions.createCompany(company)
+      self.Actions.createCompany(company)
    "updateCustomer":(customer)->
       Actions.updateCustomer(customer)
+   "reset":(customer)->
+      resetDatabase()
    "saveNewOrder":(order)->
       Actions.newOrder(order)
    "updateOrder":(order)->
-      Dao.updateOrder(order)
+      Orders.updateOrder(order)
 
    "getTotalAmount":(order)->
-      getTotalAmount(order)
+      Orders.getTotalAmount(order)
    
    "registerClient":(user)->
-        Dao.registerClient user
+        Company.registerClient user
         
+   
+   
+   "getUserByEmail":(email)-> Users.getUser(email)
+        
+   
+   "getAllUsers": -> Users.getAllUsers()
+   
    "newUser":(user)->
         Actions.newUser user
+    "doLogin":(email,password)->
+        Users.login email,password
    "activateUser":(id)->
         Actions.activateUser id
+   "updateCurrentProfile":(profile)->
+        Actions.updateCurrentProfile profile    
+   
+   "getCurrentUser":->ServerSession.get("currentUser")
+   
+   "resetCurrentPassword":->
+        Dao.resetCurrentPassword()
+   "doResetPassword":(id)->
+        Dao.resetPassword id
+   "getUserList":(clientId)->
+        Dao.getUserList(clientId)  
+   "getCurrentUserList":->
+        Actions.getCurrentUserList()
+   "getClientList":->
+        Dao.getClientList() 
 
 Meteor.methods(methods)

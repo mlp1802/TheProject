@@ -55,6 +55,7 @@ localstorage@1.0.11
 logging@1.1.15
 matb33:bootstrap-base@10.0.0
 matb33:bootstrap-glyphicons@10.0.0
+matteodem:server-session@0.4.2
 mdg:validation-error@0.2.0
 meteor@1.2.17
 meteor-base@1.0.4
@@ -83,6 +84,7 @@ modules-runtime@0.7.6
 momentjs:moment@2.15.0
 mongo@1.1.12
 mongo-id@1.0.5
+mongo-livedata@1.0.12
 msavin:jetsetter@2.0.0
 msavin:mongol@2.0.1
 nooitaf:colors@1.1.2_1

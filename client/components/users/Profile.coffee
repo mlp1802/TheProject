@@ -10,7 +10,7 @@ Template.Profile.events
             firstName:firstName
             lastName:lastName
             address:getAddressFormFields(event.target)
-        Meteor.call('updateProfile',profile)
+        Meteor.call('updateCurrentProfile',profile)
         toastr.success("Profile","Profile updated ")
         #FlowRouter.go("customers")
         

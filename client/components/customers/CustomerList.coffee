@@ -1,9 +1,9 @@
 {ClientDao} = require("../../clientDao/clientDao")
 getCustomersByName=->
-    Template.instance().customers.set(ClientDao.getCustomersByName())
+    Template.instance().customers.set(Actions.getCustomersByName())
 
 getCustomersByDate=->
-    Template.instance().customers.set(ClientDao.getCustomersByDate())
+    Template.instance().customers.set(Actions.getCustomersByDate())
 
 getSelectedCustomerId =->
       Template.instance().selectedCustomer.get()
@@ -21,7 +21,7 @@ Template.CustomerList.helpers
   companies:->Template.instance().customers.get()
   isSelected:(id)->getSelectedCustomerId()==id
   isCustomerSelected:()->getSelectedCustomerId()!=undefined
-  getSelectedCustomer:->ClientDao.getCustomer(getSelectedCustomerId())
+  getSelectedCustomer:->Company.getCustomer(getSelectedCustomerId())
 
 Template.CustomerList.events
   "click .by_date":(event)->getCustomersByDate()

@@ -4,20 +4,16 @@
 UserCollection = new Mongo.Collection("SystemUsers")
 Clients = new Mongo.Collection("clients")
 Passwords = new  Mongo.Collection("passwords")
-newUser = (email,password,clientId,firstName,lastName)->
-    user = 
-        email:email
-        firstName:firstName
-        lastName:lastName
-        clientId:clientId
-    id = UserCollection.insert(user)
-    Passwords.insert({userId:id,password:password})
+ResetPassword = new  Mongo.Collection("resetpassword")
+
+
 
 getAllUsers = ->
-    UserCollection.find().fetch()
+    UserCollection.find()
 
 getAllClients = ->
-    Clients.find().fetch()
+    Clients.find()
+
 getUser = (email) ->
     UserCollection.findOne({email:email})
 
@@ -25,14 +21,44 @@ getUser = (email) ->
 getPassword = (userId)->
     Passwords.findOne {userId:userId}
 
-newClient = (email,password,companyName,firstName,lastName)->
-    client = 
-        email:email
-        companyName:companyName
-        firstName:firstName
-        lastName:lastName
-    clientId = Clients.insert(client)
-    Users.newUser(email,password,clientId,firstName,lastName)     
+getResets = ->
+        ResetPassword.find()
+
+    #Passwords.insert({userId:id,password:password})
+
+
+setPassword = (userId,password)->
+    p = getPassword userId
+    if p 
+        Passwords.update({userId:userId},{userId:userId,password:password})
+    else
+        Passwords.insert({userId:userId,password:password})            
+
+resetPassword = (token,password)->
+    reset = ResetPassword.findOne {_id:token}
+    if reset
+        userId = reset.userId
+        setPassword userId,password
+        ResetPassword.remove({userId:userId})
+        true
+    else
+        false
+    
+
+newUser = (user)->
+    password = user.password
+    delete user.password
+    id = UserCollection.insert(user)
+    resetId = ResetPassword.insert({userId:id})
+    {
+        userId:id
+        resetId:resetId
+    }
+    
+
+newClient = (client,user)->
+    user.clientId = Clients.insert(client)
+    Users.newUser(user)     
 
 login = (email,password)->
     user = getUser(email)
@@ -58,6 +84,9 @@ this.Users =
     getAllClients:getAllClients
     getUser:getUser
     login:login
+    getResets:getResets
+    resetPassword:resetPassword
+    setPassword:setPassword
     getCurrentUser:->ServerSession.get("currentUser")
     getClientId:->ServerSession.get("currentUser").clientId
         
@@ -71,9 +100,23 @@ this.ForTest =
     createUser:->
         Users.newUser("mlp2305@gmail.com","skod","someClientId","Mikkel","Petersen")
     createClient:->
-        Users.newClient("mlp2305@gmail.com","skod","Microsoft","Mikkel","Petersen")
+        ForTest.cleardb()
+        user = 
+               email: "mlp2305@gmail.com"
+               firstName:"Mikkel"
+               lastName:"Petersen"
+               
+        client = 
+               email: "mlp2305@gmail.com"
+               companyName:"OB"
 
 
+        Actions.newClient(client,user)       
+        {
+            clients:Users.getAllClients().fetch()
+            users:Users.getAllUsers().fetch()
+            resets:Users.getResets().fetch()
+        }
 
 
 

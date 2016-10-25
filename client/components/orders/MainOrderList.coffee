@@ -1,4 +1,3 @@
-{ClientDao} = require("../../clientDao/clientDao")
 getOrders = ->Template.instance().orders.get()
 setOrders = (orders)->Template.instance().orders.set(orders)
 getShowSearch = ->Template.instance().showSearch.get()
@@ -6,7 +5,7 @@ setShowSearch = (show)->Template.instance().showSearch.set(show)
 
 Template.MainOrderList.created =  ->
         this.subscribe("orders")
-        this.orders = new ReactiveVar(ClientDao.getOrders())
+        this.orders = new ReactiveVar(Orders.getOrders())
         this.showSearch = new ReactiveVar(true)
         setShow = Template.instance().showSearch
         PubSub.subscribe("orderUpdated",(msg,obj)->setShow.set(true))

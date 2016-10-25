@@ -15,8 +15,8 @@ methods =
    "getTotalAmount":(order)->
       Orders.getTotalAmount(order)
    
-   "registerClient":(user)->
-        Company.registerClient user
+   "registerClient":(client,user)->
+        Actions.newClient client,user
         
    
    
@@ -29,17 +29,20 @@ methods =
         Actions.newUser user
     "doLogin":(email,password)->
         Users.login email,password
-   "activateUser":(id)->
-        Actions.activateUser id
+   
    "updateCurrentProfile":(profile)->
         Actions.updateCurrentProfile profile    
    
    "getCurrentUser":->ServerSession.get("currentUser")
    
-   "resetCurrentPassword":->
-        Dao.resetCurrentPassword()
-   "doResetPassword":(id)->
-        Dao.resetPassword id
+   "doResetPassword":(token,password)->
+      if  !Users.resetPassword token,password 
+        throw new Meteor.Error(500, 'Could not reset password', '');
+      else
+        "reset"
+      
+      
+   
    "getUserList":(clientId)->
         Dao.getUserList(clientId)  
    "getCurrentUserList":->

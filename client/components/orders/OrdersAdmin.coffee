@@ -1,4 +1,3 @@
-{ClientDao} = require("../../clientDao/clientDao")
 getStatus =->Template.instance().status.get()
 setStatus =(v)->Template.instance().status.set(v)
 
@@ -11,7 +10,7 @@ Template.OrdersAdmin.created = ->
 
 
 Template.OrdersAdmin.helpers
-  "customerOrders":->ClientDao.getOrdersByCustomerId(Template.instance().data.customer._id)
+  "customerOrders":->Orders.getOrdersByCustomerId(Template.instance().data.customer._id)
   "status":->getStatus()
   "eq":(a,b)->a is b
   

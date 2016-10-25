@@ -3,7 +3,11 @@ getOrderStatus = ->Template.instance().orderStatus.get()
 setOrderStatus = (v)-> Template.instance().orderStatus.set(v)
 getCurrentOrder = ->Template.instance().currentOrder.get()
 setCurrentOrder = (o)->Template.instance().currentOrder.set(o)
-getCustomer= () -> customer = Template.instance().data.customer
+getCustomer= () -> 
+    customer = Template.instance().data.customer
+    console.log("customer")
+    console.log(customer)
+    customer
         
 Template.NewOrder.rendered = ->
         date = getCurrentOrder().paymentDate

@@ -1,4 +1,3 @@
-{ClientDao} = require("../../clientDao/clientDao")
 instance =  ->Template.instance()
 getSelectedId = ->instance().selectedOrderId.get()
 setSelectedId = (id)->instance().selectedOrderId.set(id)
@@ -27,7 +26,7 @@ Template.OrderList.created = ->
 Template.OrderList.helpers
     "isSelected":(id)->isSelected()
     "selectedId":->getSelectedId()
-    "selectedOrder":->ClientDao.getOrder(getSelectedId())
+    "selectedOrder":->Orders.getOrder(getSelectedId())
     "getClass":(order)->getPaymentClass order
         
 

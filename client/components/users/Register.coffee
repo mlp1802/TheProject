@@ -9,11 +9,13 @@ Template.Register.events
         user = 
                email: email
                password: password
-               profile:
-                   firstName:firstName
-                   lastName:lastName
-                   companyName:companyName
-        Meteor.call("registerClient",user)       
+               firstName:firstName
+               lastName:lastName
+        client = 
+               email: email
+               companyName:companyName
+
+        Meteor.call("registerClient",client,user)       
         Meteor.loginWithPassword(email, password, (error)->
             FlowRouter.go("/"))
         

@@ -8,7 +8,6 @@ this.Company =
         Companies.findOne({_id:id})
     
     
-    
     createCompany:(clientId,company)->
         company.clientId = clientId    
         company.created_at = new Date()
@@ -20,8 +19,6 @@ this.Company =
     getAllCompanies:(clientId)->Companies.find({clientId:clientId})
 
     all:(clientId)->Companies.find()
-    
-
 
     getCustomer:(id)->
         Companies.findOne({_id:id})

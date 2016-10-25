@@ -1,27 +1,34 @@
 {Meteor} = require("meteor/meteor")
 {Mongo} = require("meteor/mongo")
-Orders= new Mongo.Collection("orders")
+OrderCollection= new Mongo.Collection("orders")
 
 this.Orders = 
     getOrder:(id) ->
-        Orders.findOne({_id:id})
+        OrderCollection.findOne({_id:id})
     
+    getOrdersByClientId:(clientId) ->
+        OrderCollection.find(
+                {clientId:clientId},
+                sort:
+                    created_at:-1
+                limit:40
+                )
     getOrdersByCustomerId:(id) ->
-        Orders.find(
+        OrderCollection.find(
                 {customerId:id},
                 sort:
                     created_at:-1
                 limit:40
                 )
     getOrders:  ->
-        Orders.find({},
+        OrderCollection.find({},
                     sort:
                         created_at:-1
                     limit:40
                     )
     searchOrders:(name) ->
         s = RegExp("^.*"+name+".*$","i")
-        Orders.find(
+        OrderCollection.find(
             {$or:
                 [{customerName:{ $regex: s}},{invoiceNumber:{ $regex: s}}]
             },
@@ -32,11 +39,19 @@ this.Orders =
                 
                 
                 )
+    createOrder:(order)->
+        order.created_at = new Date()
+        order.invoiceNumber = Orders.getInvoiceNumber()
+        order.totalAmount = Orders.getTotalAmount(order)
+        order.status = "not_paid"
+        order.currency = "THB"
+        order
+
     saveNewOrder:(clientId,o)->
-        order = orderFunctions.createOrder(o)
+        order = Orders.createOrder(o)
         order.clientId = clientId
-        order.totalAmount = orderFunctions.getTotalAmount(order)
-        Orders.insert(order)
+        order.totalAmount = Orders.getTotalAmount(order)
+        OrderCollection.insert(order)
 
     twoDigit: (d) ->
         d=""+d
@@ -48,19 +63,13 @@ this.Orders =
     getInvoiceNumber: ->
         date = new Date()
         d1 = date.getYear()
-        d2 = twoDigit(date.getMonth())
-        d3 = twoDigit(date.getDate())
-        d4 = twoDigit(Orders.find().count())
+        d2 = Orders.twoDigit(date.getMonth())
+        d3 = Orders.twoDigit(date.getDate())
+        d4 = Orders.twoDigit(OrderCollection.find().count())
         d1+d2+d3+d4
         
         
-    createOrder:(order)->
-        order.created_at = new Date()
-        order.invoiceNumber = getInvoiceNumber()
-        order.totalAmount = getTotalAmount(order)
-        order.status = "not_paid"
-        order.currency = "THB"
-        order
+    
 
 
     getAmountForExtra:(amount,value)->
@@ -76,7 +85,7 @@ this.Orders =
 
     getTotalAmountForExtras:(totalAmount,extras)->
         for extra in extras
-            totalAmount = getAmountForExtra(totalAmount,extra.amount)
+            totalAmount = Orders.getAmountForExtra(totalAmount,extra.amount)
         totalAmount
 
     getTotalAmountForItems:(orderItems)->
@@ -85,14 +94,14 @@ this.Orders =
     getTotalAmount:(order) ->
         orderItems = order.orderItems
         if orderItems? and orderItems.length > 0
-            totalAmount = getTotalAmountForItems(order.orderItems)
-            totalAmount = getTotalAmountForExtras(totalAmount,order.orderExtras)
+            totalAmount = Orders.getTotalAmountForItems(order.orderItems)
+            totalAmount = Orders.getTotalAmountForExtras(totalAmount,order.orderExtras)
             totalAmount
         else
             0
     updateOrder:(order)->
-        order.totalAmount = orderFunctions.getTotalAmount(order)      
-        Orders.update order._id,order
+        order.totalAmount = Orders.getTotalAmount(order)      
+        OrderCollection.update order._id,order
 
 
 

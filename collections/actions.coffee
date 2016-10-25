@@ -7,7 +7,6 @@ this.Actions =
 
     createCompany:(c) ->
         clientId = Actions.getClientId()
-        console.log("CREATING COMPANIES for client "+clientId)
         Company.createCompany(clientId,c)
         
     updateCustomer:(customer)->
@@ -19,12 +18,20 @@ this.Actions =
     allCompanies:->
         Company.getAllCompanies(Actions.getClientId())
             
-    newUser:(user)->
-        Users.newUser Meteor.user().profile.clientId,user
+    newClient:(client,user)->
+        createResult = Users.newClient client,user
+        link = "http://localhost:3000/activate/"+createResult.resetId
+        body = "Activate your account now please using this link <a href='#{link}'>#{link}</a>"
+        email = 
+                from:"admin@thesystem.com"
+                to:client.email
+                subject:"Activate your account"
+                html:body
+        Email.send email
+        createResult.userId
     updateOrder:(order)->
         Orders.updateOrder(customer)
         
-    
     updateCurrentProfile:(profile)->
         
     getCurrentUserList:->

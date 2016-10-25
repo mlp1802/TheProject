@@ -10,7 +10,7 @@ Accounts.onLogout (user)->FlowRouter.go("home")
 exposed = FlowRouter.group()
           
 
-exposed.route '/verify-email/:token', 
+exposed.route '/activate/:token', 
     name:"activate"
     action: (params, queryParams)-> 
         args = {"token":params.token}

@@ -4,8 +4,11 @@
 Meteor.publish "companies", ->
         Company.getAllCompanies(Users.getClientId())
     
-Meteor.publish("orders", ->
+Meteor.publish "orders", ->
     clientId = Users.getClientId()
-    Orders.find({clientId:clientId}))
+    #Orders.getOrdersByClientId(clientId)
+    Orders.getOrders()
+
+
 FlowRouter.go("home")
 

@@ -10,9 +10,10 @@ Template.Activate.events
             console.log(password2)
             Meteor.call "doResetPassword",token,password1,(error,result)->
                     if(error) 
-                        toastr.error("ERROR "+error.reason)
+                        toastr.error("ERROR: "+error.reason)
                     else
-                        toastr.success("Account activated")
+                        toastr.success("Password set")
+                        FlowRouter.go("login")
                 
         
         

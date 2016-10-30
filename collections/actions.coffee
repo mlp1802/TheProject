@@ -1,10 +1,9 @@
-#
+
 
 this.Actions = 
-    getClientId:->
-        ServerSession.get("currentUser").clientId
-        
-
+    getClientId:->Actions.getCurrentUser().clientId
+    setCurrentUser:(user)->ServerSession.set("currentUser",user)
+    getCurrentUser:->ServerSession.get("currentUser")
     createCompany:(c) ->
         clientId = Actions.getClientId()
         Company.createCompany(clientId,c)
@@ -19,24 +18,32 @@ this.Actions =
         Company.getAllCompanies(Actions.getClientId())
             
     newClient:(client,user)->
-        createResult = Users.newClient client,user
-        link = "http://localhost:3000/activate/"+createResult.resetId
-        body = "Activate your account now please using this link <a href='#{link}'>#{link}</a>"
-        email = 
-                from:"admin@thesystem.com"
-                to:client.email
-                subject:"Activate your account"
-                html:body
-        Email.send email
-        createResult.userId
+        result = Users.newClient client,user
+        if !result.error
+            Emails.sendResetEmail client.email,result.resetId
+        result
     updateOrder:(order)->
         Orders.updateOrder(customer)
         
-    updateCurrentProfile:(profile)->
-        
+    updateCurrentProfile:(u)->
+        user = Actions.getCurrentUser()
+        user.firstName = u.firstName
+        user.lastName = u.lastName
+        user.address = u.address
+        Users.updateUser(user)
+        Actions.setCurrentUser(Users.getUserByEmail(user.email))
+    newUser:(user)->
+        result = Users.newUser Actions.getClientId(),user
+        if !result.error
+            Emails.sendResetEmail user.email,result.resetId
+        result
+    
     getCurrentUserList:->
+        Users.getUsersByClientId(Actions.getClientId())
+
     getCustomersByName: ->
         Company.getCustomersByName(Users.getClientId())
+    
     getCustomersByDate:->
         Company.getCustomersByDate(Users.getClientId())                
     

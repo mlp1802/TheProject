@@ -6,7 +6,7 @@
                 <tr>
                 	<td>Name</td>
                 	<td>Email</td>
-                	<td>Email verified</td>
+                	<td>last login</td>
                 </tr>
             </tbody>
            
@@ -19,7 +19,7 @@
                {{user.email}}
                </td>
                <td>
-               {{>Boolean str=user.emailVerified}}
+               {{lastLogin user.lastLogin}}
                </td>
            </tr>
            {{/each}}

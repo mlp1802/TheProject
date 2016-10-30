@@ -1,6 +1,6 @@
 {Meteor} = require("meteor/meteor")
 {Mongo} = require("meteor/mongo")
-{resetDatabase} = require 'meteor/xolvio:cleaner'
+
 UserCollection = new Mongo.Collection("SystemUsers")
 Clients = new Mongo.Collection("clients")
 Passwords = new  Mongo.Collection("passwords")
@@ -14,8 +14,24 @@ getAllUsers = ->
 getAllClients = ->
     Clients.find()
 
-getUser = (email) ->
-    UserCollection.findOne({email:email})
+getClientByEmail = (email) ->
+    Clients.findOne({email:email})
+
+getUsersByClientId = (clientId)->
+    UserCollection.find ({clientId:clientId})
+
+getUserByEmail = (email) ->
+    UserCollection.findOne {email:email}
+
+updateUser = (user)->
+    console.log("UPDATING USER ")
+    console.log(user)
+    UserCollection.update {_id:user._id},user
+
+resetEmail =(email,password)->
+    user = getUserByEmail email
+    token = (ResetPassword.findOne {userId:user._id})._id
+    resetPassword token,password
 
 
 getPassword = (userId)->
@@ -45,33 +61,55 @@ resetPassword = (token,password)->
         false
     
 
-newUser = (user)->
-    password = user.password
-    delete user.password
-    id = UserCollection.insert(user)
-    resetId = ResetPassword.insert({userId:id})
-    {
-        userId:id
-        resetId:resetId
-    }
+newClient = (client,user)->
+    c = getClientByEmail(client.email)
+    u = getUserByEmail(user.email)
+    if c!=undefined || u!=undefined
+           {
+            error:true
+            reason:"Email is already in the system"
+           } 
+       else
+            user.clientId = Clients.insert(client)
+            Users.newUser(user.clientId,user)         
     
 
-newClient = (client,user)->
-    user.clientId = Clients.insert(client)
-    Users.newUser(user)     
+newReset = (userId)->
+    ResetPassword.remove({userId:userId})
+    ResetPassword.insert({userId:userId})    
+
+newUser = (clientId,user)->
+    u = getUserByEmail(user.email)
+    if u
+        error:true
+        reason:"Email is already in the system"
+    else
+        user.clientId = clientId
+        id = UserCollection.insert(user)
+        {
+            userId:id
+            resetId:newReset id
+        }
+    
+
+
 
 login = (email,password)->
-    user = getUser(email)
+    user = getUserByEmail(email)
     if(!user) 
         false
     else
         passwordCheck = getPassword user._id
-        if password==passwordCheck.password 
-            ServerSession.set("currentUser",getUser(email))
-            true
+        if(passwordCheck)
+            if password==passwordCheck.password 
+                ServerSession.set("currentUser",getUserByEmail(email))
+                user.lastLogin = new Date()
+                UserCollection.update({_id:user._id},user)
+                true
+            else
+                false
         else
             false
-    
 
 
 #login(email,password) = ->
@@ -82,41 +120,22 @@ this.Users =
     newClient:newClient
     getAllUsers:getAllUsers
     getAllClients:getAllClients
-    getUser:getUser
+    getUserByEmail:getUserByEmail
     login:login
     getResets:getResets
     resetPassword:resetPassword
     setPassword:setPassword
     getCurrentUser:->ServerSession.get("currentUser")
     getClientId:->ServerSession.get("currentUser").clientId
+    getUsersByClientId:getUsersByClientId,
+    resetEmail:resetEmail
+    updateUser:updateUser
         
 
 
     
 
-this.ForTest = 
-    cleardb:->resetDatabase()
-    getPasswords:->Passwords.find().fetch()
-    createUser:->
-        Users.newUser("mlp2305@gmail.com","skod","someClientId","Mikkel","Petersen")
-    createClient:->
-        ForTest.cleardb()
-        user = 
-               email: "mlp2305@gmail.com"
-               firstName:"Mikkel"
-               lastName:"Petersen"
-               
-        client = 
-               email: "mlp2305@gmail.com"
-               companyName:"OB"
 
-
-        Actions.newClient(client,user)       
-        {
-            clients:Users.getAllClients().fetch()
-            users:Users.getAllUsers().fetch()
-            resets:Users.getResets().fetch()
-        }
 
 
 

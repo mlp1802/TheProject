@@ -1,53 +1,64 @@
 
 self = this
 methods =
-   "createCompany":(company)->
+    "createCompany":(company)->
       self.Actions.createCompany(company)
-   "updateCustomer":(customer)->
+    "updateCustomer":(customer)->
       Actions.updateCustomer(customer)
-   "reset":(customer)->
+    "reset":(customer)->
       resetDatabase()
-   "saveNewOrder":(order)->
+    "saveNewOrder":(order)->
       Actions.newOrder(order)
-   "updateOrder":(order)->
+    "updateOrder":(order)->
       Orders.updateOrder(order)
 
-   "getTotalAmount":(order)->
+    "getTotalAmount":(order)->
       Orders.getTotalAmount(order)
    
-   "registerClient":(client,user)->
+    "registerClient":(client,user)->
         Actions.newClient client,user
         
-   
-   
-   "getUserByEmail":(email)-> Users.getUser(email)
+    "getUserByEmail":(email)-> Users.getUserByEmail(email)
         
    
-   "getAllUsers": -> Users.getAllUsers()
+    
+    "getAllUsers": -> Users.getAllUsers()
    
-   "newUser":(user)->
-        Actions.newUser user
+    "newUser":(user)->
+        result = Actions.newUser user
+        if !result.error
+          {
+            error:false
+            message:"User created"
+          }
+        else
+          result
+
+
     "doLogin":(email,password)->
         Users.login email,password
    
-   "updateCurrentProfile":(profile)->
+   
+    "doLogout":(email,password)->
+        ServerSession.set("currentUser",null)
+    
+    "updateCurrentProfile":(profile)->
         Actions.updateCurrentProfile profile    
    
-   "getCurrentUser":->ServerSession.get("currentUser")
+    "getCurrentUser":->ServerSession.get("currentUser")
    
-   "doResetPassword":(token,password)->
+    "doResetPassword":(token,password)->
       if  !Users.resetPassword token,password 
         throw new Meteor.Error(500, 'Could not reset password', '');
       else
         "reset"
-      
-      
    
-   "getUserList":(clientId)->
-        Dao.getUserList(clientId)  
-   "getCurrentUserList":->
-        Actions.getCurrentUserList()
-   "getClientList":->
-        Dao.getClientList() 
+   
+    "getCurrentUserList":->
+        Actions.getCurrentUserList().fetch()
+        
+
+    "getClientList":->
+        Actions.getClientList() 
 
 Meteor.methods(methods)

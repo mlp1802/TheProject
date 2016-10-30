@@ -1,9 +1,18 @@
 <template name="Login">
-    <h2>Login</h2>
-    <form class="login">
-        <p>Email: <input type="email" name="email"></p>
-        <p>Password: <input type="password" name="password"></p>
-        <p><input type="submit" value="Login"></p>
-    </form>
-    <p>Or <a href="/register">register here</a></p>
+    <h1>Login </h1>
+<form Login-form class="form bordered">
+    <div class="form-group">
+        <label for="name">Email</label>
+        <input type="email" name="email" class="form-control"  placeholder="Email">
+     </div>
+     <div class="form-group">
+        <label for="lastName">Password</label>
+        <input type="password" name="password" class="form-control"  placeholder="Password">
+     </div>
+      <button type="submit" class="btn mediumButton btn-default">Login</button>
+ </form>
+   <br>
+   
+   <h1>Or register</h1>
+   <a class="btn btn-success" href="/register">Register here</a>
 </template>

@@ -9,13 +9,19 @@ Template.NewUser.events
         email = event.target.email.value
         user = 
                email: email
-               password: "password"
-               profile:
-                   firstName:firstName
-                   lastName:lastName
+               firstName:firstName
+               lastName:lastName
                            
-        Meteor.call('newUser',user)
-        toastr.success("Admin","New user created")
+        Meteor.call 'newUser',user, (error,result)->
+          if error
+            toastr.error(error.reason)  
+          else
+            if result.error
+              toastr.error result.reason
+            else
+              toastr.success("Admin","New user created") 
+              FlowRouter.go("users")
+        
         #FlowRouter.go("customers")
         
 

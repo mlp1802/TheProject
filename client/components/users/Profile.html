@@ -11,7 +11,7 @@
         <label for="lastName">Last  name</label>
         <input type="text" name="lastName" value="{{theUser.lastName}}" class="form-control"  placeholder="Last name (required)">
      </div>
-      >AddressFormFields address=currentUser.profile.address
+      {{>AddressFormFields address=theUser.address}}
       <button type="submit" class="btn mediumButton btn-default">Submit</button>
     </form>
     </main>

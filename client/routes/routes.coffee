@@ -92,12 +92,12 @@ users.route "/admin",
   action:->BlazeLayout.render "Admin"
 
 users.route "/admin/newuser",
-  name:"admin"
+  name:"newuser"
   action:->BlazeLayout.render "Admin",
                 main:"NewUser"
 
 users.route "/admin/users",
-  name:"admin"
+  name:"users"
   action:->BlazeLayout.render "Admin",
                 main:"Users"
 

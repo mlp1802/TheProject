@@ -3,7 +3,7 @@
 Template.Header.events(
     'click [logout]': (event)->
         event.preventDefault()
-        Meteor.logout()
+        Meteor.call("doLogout")
         FlowRouter.go("/login")
 );
 Template.Header.created = ->

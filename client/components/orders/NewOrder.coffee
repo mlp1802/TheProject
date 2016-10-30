@@ -80,8 +80,6 @@ Template.NewOrder.helpers
   
         
 Template.NewOrder.events
-   
-  
   'submit [NewOrder-submitOrder]':(event)->
       event.preventDefault()
       target = event.target

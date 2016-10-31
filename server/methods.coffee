@@ -1,14 +1,18 @@
-
+Actions = require "./actions"
+Users = require "./users"
 self = this
 methods =
     "createCompany":(company)->
-      self.Actions.createCompany(company)
+      Actions.createCompany(company)
     "updateCustomer":(customer)->
       Actions.updateCustomer(customer)
     "reset":(customer)->
       resetDatabase()
     "saveNewOrder":(order)->
       Actions.newOrder(order)
+    
+    "getCustomersByName":->
+        Actions.getCustomersByName().fetch()
     "updateOrder":(order)->
       Orders.updateOrder(order)
 

@@ -1,14 +1,14 @@
 
 
 
-Meteor.publish "companies", ->
-        Company.getAllCompanies(Users.getClientId())
+#Meteor.publish "companies", ->
+#        Company.getAllCompanies(Users.getClientId())
     
-Meteor.publish "orders", ->
-    clientId = Users.getClientId()
-    #Orders.getOrdersByClientId(clientId)
-    Orders.getOrders()
+#Meteor.publish "orders", ->
+#    clientId = Users.getClientId()
+#Orders.getOrdersByClientId(clientId)
+#    Orders.getOrders()
 
 
-FlowRouter.go("home")
+#FlowRouter.go("home")
 

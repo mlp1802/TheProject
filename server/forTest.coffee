@@ -1,14 +1,24 @@
 {resetDatabase} = require 'meteor/xolvio:cleaner'
+users = require "./users"
+actions = require "./actions"
+
 this.ForTest = 
     cleardb:->resetDatabase()
     getPasswords:->Passwords.find().fetch()
+    login:(email,password)->users.login(email,password)
     createUser:->
-        Users.newUser("mlp2305@gmail.com","skod","someClientId","Mikkel","Petersen")
+        users.newUser("mlp2305@gmail.com","skod","someClientId","Mikkel","Petersen")
     resetEmail:(email,password)->
-        Users.resetEmail(email,password)
+        users.resetEmail(email,password)
 
+    
+    getAllUsers:->
+        users.getAllUsers().fetch()
+    
+    getAllCustomers: ->
+        actions.allCompanies().fetch()
     createClient:(email)->
-        Users.getUserByEmail()
+        users.getUserByEmail()
 
         #ForTest.cleardb()
         user = 
@@ -23,8 +33,8 @@ this.ForTest =
 
         result = Actions.newClient(client,user)       
         {
-            clients:Users.getAllClients().fetch()
-            users:Users.getAllUsers().fetch()
-            resets:Users.getResets().fetch()
+            clients:users.getAllClients().fetch()
+            users:users.getAllusers().fetch()
+            resets:users.getResets().fetch()
             result:result
         }

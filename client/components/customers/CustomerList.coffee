@@ -1,4 +1,4 @@
-{ClientDao} = require("../../clientDao/clientDao")
+
 getCustomersByName=->
     Template.instance().customers.set(Actions.getCustomersByName())
 
@@ -11,10 +11,13 @@ getSelectedCustomerId =->
 setSelectedCustomerId =(id) ->
     Template.instance().selectedCustomer.set(id)     
 Template.CustomerList.created = ->
-    this.subscribe("companies")
     this.selectedCustomer = new ReactiveVar()
     this.customers = new ReactiveVar()
-    getCustomersByName()
+    _cust = this.customers
+    Meteor.call "getCustomersByName",(error,customers) ->
+          console.log("CUSTOMERS")
+          console.log(customers)
+          _cust.set(customers)
 
 
 Template.CustomerList.helpers

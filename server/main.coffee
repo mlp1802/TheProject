@@ -1,7 +1,8 @@
+Startup = require "./startup"
 Meteor.startup ->
-   
-    Accounts.urls.resetPassword = (token)-> 
-            Meteor.absoluteUrl('reset-password/' + token);
+	Startup.start()   
+
+
   
 
 

@@ -28,6 +28,12 @@ updateUser = (user)->
     console.log(user)
     UserCollection.update {_id:user._id},user
 
+toShortUser = (user)->
+        u = 
+            "_id":user._id
+            "name":user.firstName+" "+user.lastName
+            "email":user.email
+
 resetEmail =(email,password)->
     user = getUserByEmail email
     token = (ResetPassword.findOne {userId:user._id})._id
@@ -115,7 +121,7 @@ login = (email,password)->
 #login(email,password) = ->
 
 
-this.Users = 
+module.exports = 
     newUser:newUser
     newClient:newClient
     getAllUsers:getAllUsers
@@ -130,6 +136,7 @@ this.Users =
     getUsersByClientId:getUsersByClientId,
     resetEmail:resetEmail
     updateUser:updateUser
+    toShortUser:toShortUser
         
 
 

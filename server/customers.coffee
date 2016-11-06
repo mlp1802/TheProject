@@ -19,8 +19,7 @@ getAllCompanies = (clientId)->Customers.find({clientId:clientId})
 
 all = (clientId)->Customers.find()
 
-getCustomer = (id)->
-    Customers.findOne({_id:id})
+
 
 getCustomersByName = (clientId)->
     Customers.find {clientId:clientId},

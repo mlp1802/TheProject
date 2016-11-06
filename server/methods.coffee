@@ -1,5 +1,7 @@
 Actions = require "./actions"
 Users = require "./users"
+Customer = require "./customers"
+Orders = require "./orders"
 self = this
 methods =
     "createCompany":(company)->
@@ -13,6 +15,10 @@ methods =
     
     "getCustomersByName":->
         Actions.getCustomersByName().fetch()
+    
+    "getCustomerById":(id)->
+        Customer.getCustomer(id)
+    
     "updateOrder":(order)->
       Orders.updateOrder(order)
 
@@ -23,10 +29,12 @@ methods =
         Actions.newClient client,user
         
     "getUserByEmail":(email)-> Users.getUserByEmail(email)
-        
+    
+    "getOrdersByCustomerId":(id)->
+        (Orders.getOrdersByCustomerId id).fetch()
    
     
-    "getAllUsers": -> Users.getAllUsers()
+    "getAllUsers": -> Users.getAllUsers().fetch()
    
     "newUser":(user)->
         result = Actions.newUser user

@@ -38,10 +38,10 @@ newUser = (user)->
         Emails.sendResetEmail user.email,result.resetId
     result
 
-getCurrentUserList = -> users.getusersByClientId(getClientId())
+getCurrentUserList = -> users.getUsersByClientId(getClientId())
 getCustomersByName =  ->customers.getCustomersByName(users.getClientId())
 getCustomersByDate = ->customers.getCustomersByDate(users.getClientId())                
-    
+getCustomerById = (id)->  customers.getCustomer(users.getClientId(),id)
     
 
 

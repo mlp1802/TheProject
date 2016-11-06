@@ -5,26 +5,29 @@ getCustomersByName=->
 getCustomersByDate=->
     Template.instance().customers.set(Actions.getCustomersByDate())
 
-getSelectedCustomerId =->
+getSelectedCustomer =->
       Template.instance().selectedCustomer.get()
         
-setSelectedCustomerId =(id) ->
+setSelectedCustomer =(customer) ->
     Template.instance().selectedCustomer.set(id)     
+
+
 Template.CustomerList.created = ->
     this.selectedCustomer = new ReactiveVar()
     this.customers = new ReactiveVar()
     _cust = this.customers
-    Meteor.call "getCustomersByName",(error,customers) ->
-          console.log("CUSTOMERS")
-          console.log(customers)
-          _cust.set(customers)
 
 
 Template.CustomerList.helpers
   companies:->Template.instance().customers.get()
-  isSelected:(id)->getSelectedCustomerId()==id
-  isCustomerSelected:()->getSelectedCustomerId()!=undefined
-  getSelectedCustomer:->Company.getCustomer(getSelectedCustomerId())
+  isSelected:(id)->
+    c = getSelectedCustomer()
+    if c!=undefined 
+      c._id==id
+    else
+      false
+  isCustomerSelected:()-> getSelectedCustomer()!=undefined
+  getSelectedCustomer:->getSelectedCustomer()
 
 Template.CustomerList.events
   "click .by_date":(event)->getCustomersByDate()
@@ -34,6 +37,9 @@ Template.CustomerList.events
         
   "click [CustomerList-customerRow]":(event)->
             id = event.currentTarget.attributes["CustomerList-customerRow"].value
-            setSelectedCustomerId(id)
+            Meteor.call "getCustomerById",id,(error,customer)->
+                setSelectedCustomer customer
+            
+
 
 

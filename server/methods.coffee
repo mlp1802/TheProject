@@ -30,6 +30,12 @@ methods =
 
     "getUserByEmail":(email)-> Users.getUserByEmail(email)
 
+    "getOrder":(id)->
+
+    	order =  Orders.getOrder id
+    	console.log "FOUND ORDER"
+    	console.log order
+    	order
     "getOrdersByCustomerId":(id)->
         (Orders.getOrdersByCustomerId id).fetch()
 

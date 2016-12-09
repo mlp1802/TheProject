@@ -1,59 +1,53 @@
-<template name="CustomerList">
- {{>ShowTemplate name="CustomerList"}}
-{{#transition in="zoomIn:200"}}
-  {{#unless isCustomerSelected}}
+<template name="CustomerList"> {{>ShowTemplate
+name="CustomerList"}} {{#transition in="zoomIn:200"}} {{#unless
+isCustomerSelected}}
 <h1>Customers</h1>
 <div>
-      <div style="text-align:right">
-        <button type="button" name="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#dialog">Sort by</button>
-        <div class="modal fade" id="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                   <h1>Sort customers</h1>
-                </div>
-                <div class="modal-body">
-                  <button data-dismiss="modal" class="by_name btn btn-default largeButton">By name</button>
-                  <button data-dismiss="modal" class="by_date btn btn-default largeButton">By date</button>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary largeButton" data-dismiss="modal">Close</button>
-                </div>
+	<div style="text-align: right">
+		<button type="button" name="button" class="btn btn-lg btn-primary"
+			data-toggle="modal" data-target="#dialog">Sort by</button>
+		<div class="modal fade" id="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1>Sort customers</h1>
+					</div>
+					<div class="modal-body">
+						<button data-dismiss="modal"
+							class="by_name btn btn-default largeButton">By name</button>
+						<button data-dismiss="modal"
+							class="by_date btn btn-default largeButton">By date</button>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary largeButton"
+							data-dismiss="modal">Close</button>
+					</div>
 
-          </div>
-        </div>
+				</div>
+			</div>
 
-        </div>
-    </div>
-    </div>
+		</div>
+	</div>
+</div>
 <br>
 {{#RememberScrollPosition scrollId="CustomerList-table"}}
 {{#RememberSelected selectId="CustomerList" selectedClass="success"}}
 <table class="table table-striped table-hover">
-<tbody>
-    <tr>
-	<td>Name</td>
-	<td>Created</td>
-     </tr>
-    {{#each company in companies}}
-       <tr RememberSelectedId={{company._id}} CustomerList-customerRow="{{company._id}}" >
-	<td>
-	 {{company.name}}
-	</td>
-	<td>
-	  {{>DefaultDate date = company.created_at}}
-	</td>
-    </tr>
-    {{/each}}
-</tbody>
+	<tbody>
+		<tr>
+			<td>Name</td>
+			<td>Created</td>
+		</tr>
+		{{#each company in companies}}
+		<tr RememberSelectedId={{company._id}}
+			CustomerList-customerRow="{{company._id}}">
+			<td>{{company.name}}</td>
+			<td>{{>DefaultDate date = company.created_at}}</td>
+		</tr>
+		{{/each}}
+	</tbody>
 </table>
-{{/RememberSelected}}
-{{/RememberScrollPosition}}
-{{/unless}}
-{{#if isCustomerSelected}}
-  {{#Panel closeTarget="CustomerList-closeCustomer" title=getSelectedCustomer.name}}
-    {{>Customer customer=getSelectedCustomer}}
-   {{/Panel}}
-{{/if}}
-{{/transition}}
-</template>
+{{/RememberSelected}} {{/RememberScrollPosition}} {{/unless}} {{#if
+isCustomerSelected}} {{#Panel closeTarget="CustomerList-closeCustomer"
+title=getSelectedCustomer.name}} {{>Customer
+customer=getSelectedCustomer}} {{/Panel}} {{/if}} {{/transition}} </template>

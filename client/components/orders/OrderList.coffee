@@ -1,42 +1,44 @@
+clientDao = require("../../clientDao/clientDao")
 instance =  ->Template.instance()
-getSelectedId = ->instance().selectedOrderId.get()
-setSelectedId = (id)->instance().selectedOrderId.set(id)
-isSelected = ->getSelectedId()!=undefined
+getSelectedOrder = ->instance().selectedOrder.get()
+setSelectedOrder = (id)->instance().selectedOrder.set(id)
+isSelected = ->getSelectedOrder()!=undefined
 
 getPaymentClass =(order) ->
-    if(order.paid) 
+    if(order.paid)
         "success"
     else
         if new Date()>order.paymentDate and  !order.paid
             "danger"
         else
             "info"
-        
+
 Template.OrderList.created = ->
-    this.selectedOrderId = new ReactiveVar()
-    this.prevSelectedOrderId = new ReactiveVar()
-    this.subscribe("orders")
-    this.selectedYPos = new ReactiveVar()
-    id = this.selectedOrderId
-    y = this.selectedYPos
+    this.selectedOrder = new ReactiveVar()
+    selected = this.selectedOrder
     PubSub.subscribe "orderUpdated",->
-        i = id.get()
-        id.set(undefined)
+        selected.set(undefined)
 
 Template.OrderList.helpers
     "isSelected":(id)->isSelected()
     "selectedId":->getSelectedId()
-    "selectedOrder":->Orders.getOrder(getSelectedId())
+    "selectedOrder":->getSelectedOrder()
     "getClass":(order)->getPaymentClass order
-        
+
 
 Template.OrderList.events
     "click [OrderList-closeOrder]":(event)->
-        setSelectedId(undefined)
+        setSelectedOrder(undefined)
     "click [OrderList-orderRow]":(event)->
         selectedId = event.currentTarget.attributes["OrderList-orderRow"].value
-        setSelectedId(selectedId)
+        self = Template.instance()
+        clientDao.getOrder selectedId,(error,order)->
+        		console.log("GOT ORDER for id "+selectedId)
+        		console.log order
+        		self.selectedOrder.set order
+
+        #setSelectedId(selectedId)
         #Meteor.setTimeout((->$(window).scrollTop($("#OrderList-NewOrder").offset().top-600)),100)
-        
-        
-    
+
+
+

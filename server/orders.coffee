@@ -32,12 +32,12 @@ searchOrders = (name) ->
         {$or:
             [{customerName:{ $regex: s}},{invoiceNumber:{ $regex: s}}]
         },
-        
+
             sort:
                 customerName:1
             limit:40
-            
-            
+
+
             )
 createOrder = (order)->
     order.created_at = new Date()
@@ -59,7 +59,7 @@ twoDigit = (d) ->
         d
     else
         "0"+d
-        
+
 getInvoiceNumber = ->
     date = new Date()
     d1 = date.getYear()
@@ -67,7 +67,7 @@ getInvoiceNumber = ->
     d3 = twoDigit(date.getDate())
     d4 = twoDigit(OrderCollection.find().count())
     d1+d2+d3+d4
-    
+
 getAmountForExtra = (amount,value)->
     if isNumber(value)
         amount+Number(value)
@@ -95,10 +95,10 @@ getTotalAmount = (order) ->
     else
         0
 updateOrder = (order)->
-    order.totalAmount = getTotalAmount(order)      
+    order.totalAmount = getTotalAmount(order)
     OrderCollection.update order._id,order
 
-module.exports = 
+module.exports =
     getOrder:getOrder
     getOrdersByClientId:getOrdersByClientId
     getOrdersByCustomerId:getOrdersByCustomerId

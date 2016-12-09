@@ -1,5 +1,5 @@
 <template name="CustomerList">
- {{>ShowTemplate name="CustomerList"}}   
+ {{>ShowTemplate name="CustomerList"}}
 {{#transition in="zoomIn:200"}}
   {{#unless isCustomerSelected}}
 <h1>Customers</h1>
@@ -26,7 +26,7 @@
         </div>
     </div>
     </div>
-<br>    
+<br>
 {{#RememberScrollPosition scrollId="CustomerList-table"}}
 {{#RememberSelected selectId="CustomerList" selectedClass="success"}}
 <table class="table table-striped table-hover">
@@ -38,10 +38,10 @@
     {{#each company in companies}}
        <tr RememberSelectedId={{company._id}} CustomerList-customerRow="{{company._id}}" >
 	<td>
-	 {{company.name}}   
+	 {{company.name}}
 	</td>
 	<td>
-	  {{>DefaultDate date = company.created_at}}   
+	  {{>DefaultDate date = company.created_at}}
 	</td>
     </tr>
     {{/each}}

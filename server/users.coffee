@@ -29,7 +29,7 @@ updateUser = (user)->
     UserCollection.update {_id:user._id},user
 
 toShortUser = (user)->
-        u = 
+        u =
             "_id":user._id
             "name":user.firstName+" "+user.lastName
             "email":user.email
@@ -51,10 +51,10 @@ getResets = ->
 
 setPassword = (userId,password)->
     p = getPassword userId
-    if p 
+    if p
         Passwords.update({userId:userId},{userId:userId,password:password})
     else
-        Passwords.insert({userId:userId,password:password})            
+        Passwords.insert({userId:userId,password:password})
 
 resetPassword = (token,password)->
     reset = ResetPassword.findOne {_id:token}
@@ -65,7 +65,7 @@ resetPassword = (token,password)->
         true
     else
         false
-    
+
 
 newClient = (client,user)->
     c = getClientByEmail(client.email)
@@ -74,15 +74,15 @@ newClient = (client,user)->
            {
             error:true
             reason:"Email is already in the system"
-           } 
+           }
        else
             user.clientId = Clients.insert(client)
-            Users.newUser(user.clientId,user)         
-    
+            newUser(user.clientId,user)
+
 
 newReset = (userId)->
     ResetPassword.remove({userId:userId})
-    ResetPassword.insert({userId:userId})    
+    ResetPassword.insert({userId:userId})
 
 newUser = (clientId,user)->
     u = getUserByEmail(user.email)
@@ -96,18 +96,18 @@ newUser = (clientId,user)->
             userId:id
             resetId:newReset id
         }
-    
+
 
 
 
 login = (email,password)->
     user = getUserByEmail(email)
-    if(!user) 
+    if(!user)
         false
     else
         passwordCheck = getPassword user._id
         if(passwordCheck)
-            if password==passwordCheck.password 
+            if password==passwordCheck.password
                 ServerSession.set("currentUser",getUserByEmail(email))
                 user.lastLogin = new Date()
                 UserCollection.update({_id:user._id},user)
@@ -121,7 +121,7 @@ login = (email,password)->
 #login(email,password) = ->
 
 
-module.exports = 
+module.exports =
     newUser:newUser
     newClient:newClient
     getAllUsers:getAllUsers
@@ -137,10 +137,10 @@ module.exports =
     resetEmail:resetEmail
     updateUser:updateUser
     toShortUser:toShortUser
-        
 
 
-    
+
+
 
 
 

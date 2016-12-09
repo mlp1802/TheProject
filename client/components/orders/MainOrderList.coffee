@@ -9,20 +9,20 @@ Template.MainOrderList.created =  ->
         this.showSearch = new ReactiveVar(true)
         setShow = Template.instance().showSearch
         PubSub.subscribe("orderUpdated",(msg,obj)->setShow.set(true))
-        
-Template.MainOrderList.helpers 
+
+Template.MainOrderList.helpers
     "showSearch":->getShowSearch()
     "getSearchClass": -> if getShowSearch() then "" else "hidden"
-            
-            
-        
+
+
+
     "getOrders":->
         orders = getOrders()
         console.log(orders)
         orders
 
 Template.MainOrderList.events
-    
+
     "click [OrderList-orderRow]":(event)->setShowSearch(false)
     "click [OrderList-closeOrder]":(event)->setShowSearch(true)
     "submit [MainOrderList-searchForm]":(event)->
@@ -31,5 +31,4 @@ Template.MainOrderList.events
             orders = ClientDao.searchOrders(searchString)
             console.log(orders)
             setOrders(orders)
-            
-            
+

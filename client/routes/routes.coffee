@@ -8,19 +8,19 @@ Accounts.onLogout (user)->FlowRouter.go("home")
 
 
 exposed = FlowRouter.group()
-          
 
-exposed.route '/activate/:token', 
+
+exposed.route '/activate/:token',
     name:"activate"
-    action: (params, queryParams)-> 
+    action: (params, queryParams)->
         args = {"token":params.token}
-        BlazeLayout.render "Activate", args 
+        BlazeLayout.render "Activate", args
         #Accounts.verifyEmail params.token,(error) ->
-        #    if !error 
+        #    if !error
         #        toastr.success("Account activated","Account")
         #    else
         #        toastr.error("Account could not be activated: "+error.reason,"Account")
-        #    FlowRouter.go("login")    
+        #    FlowRouter.go("login")
 
 
 exposed.route  "/register",
@@ -34,8 +34,8 @@ exposed.route  "/login",
 
 
 
-        
-   
+
+
 users = FlowRouter.group(
     triggersEnter:[
                     checkRedirects
@@ -55,12 +55,12 @@ users.route "/ScrollToTest",
     name:"ScrollToTest"
     action:->BlazeLayout.render "ScrollToTest",
              main:"CustomerList"
-         
+
 users.route "/HideSomething",
     name:"HideSomething"
     action:->BlazeLayout.render "HideSomething",
              main:"CustomerList"
-         
+
 users.route "/customers",
   name:"customers"
   action:->BlazeLayout.render "Customers",
@@ -74,7 +74,7 @@ users.route "/resetPassword",
 users.route "/profile",
     name:"profile"
     action:->BlazeLayout.render "Profile"
-                
+
 
 
 users.route "/customers/new",

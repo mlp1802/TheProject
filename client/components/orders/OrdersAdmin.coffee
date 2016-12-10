@@ -1,36 +1,31 @@
-clientDao = require("../../clientDao/clientDao")
-getStatus =->Template.instance().status.get()
-setStatus =(v)->Template.instance().status.set(v)
+clientDao = require("../../queries")
+self = null
+getStatus =->self.status.get()
+setStatus =(v)->self.status.set(v)
 
 subscribeToCreateOrder = (msg,order)->
    this.$("#closeOrder").click()
 
+updateOrders =(callback) ->
+    clientDao.getOrdersByCustomerId self.data.customer._id,
+      (error,orders)->
+        self.orders.set(orders)
+        if callback then callback(orders)
 Template.OrdersAdmin.created = ->
-  console.log("LOL"+this.customer)
-  this.status = new ReactiveVar("menu")
-  this.orders = new ReactiveVar()
   self = this
-  clientDao.getOrdersByCustomerId this.data.customer._id,
-  	(error,orders)->self.orders.set(orders)
+  self.status = new ReactiveVar("menu")
+  self.orders = new ReactiveVar()
   PubSub.subscribe("orderCreated",subscribeToCreateOrder)
-
-
+  PubSub.subscribe "orderUpdated",(msg,obj)->updateOrders()
 Template.OrdersAdmin.helpers
   "customerOrders":->Template.instance().orders.get()
   "status":->getStatus()
   "eq":(a,b)->a is b
 
-
-
 Template.OrdersAdmin.events
-  #"submit [NewOrder-submitOrder]":(event)->setStatus("menu")
-  #"click [NewOrder-confirmNewOrder]":->setStatus("menu")
   "click [OrdersAdmin-closeCustomerOrders]":(event)->setStatus("menu")
   "click [OrdersAdmin-order]":(event)->setStatus("order")
   "click [OrdersAdmin-allOrders]":(event)->
-  	self = Template.instance()
-  	#TODO this is repeated once before, make single function
-  	clientDao.getOrdersByCustomerId self.data.customer._id,
-	  	(error,orders)->self.orders.set(orders)
-  		setStatus("allOrders")
-
+  	#self = Template.instance()
+    updateOrders (orders)->
+          setStatus("allOrders")

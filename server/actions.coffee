@@ -9,22 +9,27 @@ getCurrentShortUser = ->users.toShortUser(getCurrentUser())
 createCompany = (c) ->
     clientId = getClientId()
     customers.createCompany(clientId,c)
-    
+
 updateCustomer = (customer)-> customers.updateCustomer(customer)
-    
-    
+
+
 newOrder = (order)-> orders.saveNewOrder(getClientId(),order)
 
 allCompanies = -> customers.getAllCompanies(getClientId())
-    
+
 newClient = (client,user)->
     result = users.newClient client,user
     if !result.error
         Emails.sendResetEmail client.email,result.resetId
     result
+#Orders
 updateOrder = (order)-> Orders.updateOrder(customer)
-    
-    
+getOrders =() ->
+	orders.getOrdersByClientId(getClientId())
+
+
+searchOrders = (name)->
+		orders.searchOrders(getClientId(),name)
 updateCurrentProfile = (u)->
     user = getCurrentUser()
     user.firstName = u.firstName
@@ -40,12 +45,12 @@ newUser = (user)->
 
 getCurrentUserList = -> users.getUsersByClientId(getClientId())
 getCustomersByName =  ->customers.getCustomersByName(users.getClientId())
-getCustomersByDate = ->customers.getCustomersByDate(users.getClientId())                
+getCustomersByDate = ->customers.getCustomersByDate(users.getClientId())
 getCustomerById = (id)->  customers.getCustomer(users.getClientId(),id)
-    
 
 
-module.exports = 
+
+module.exports =
     getClientId:getClientId
     setCurrentUser:setCurrentUser
     getCurrentUser:getCurrentUser
@@ -61,5 +66,5 @@ module.exports =
     getCurrentUserList:getCurrentUserList
     getCustomersByName:getCustomersByName
     getCustomersByDate:getCustomersByDate
-
-        
+    getOrders:getOrders
+    searchOrders:searchOrders

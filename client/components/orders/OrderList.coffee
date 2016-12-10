@@ -1,4 +1,5 @@
-clientDao = require("../../clientDao/clientDao")
+clientDao = require("../../queries")
+self
 instance =  ->Template.instance()
 getSelectedOrder = ->instance().selectedOrder.get()
 setSelectedOrder = (id)->instance().selectedOrder.set(id)
@@ -14,6 +15,7 @@ getPaymentClass =(order) ->
             "info"
 
 Template.OrderList.created = ->
+    self = this
     this.selectedOrder = new ReactiveVar()
     selected = this.selectedOrder
     PubSub.subscribe "orderUpdated",->
@@ -39,6 +41,3 @@ Template.OrderList.events
 
         #setSelectedId(selectedId)
         #Meteor.setTimeout((->$(window).scrollTop($("#OrderList-NewOrder").offset().top-600)),100)
-
-
-

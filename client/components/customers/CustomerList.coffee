@@ -1,4 +1,4 @@
-clientDao = require("../../clientDao/clientDao")
+clientDao = require("../../queries")
 getCustomersByName=->
     Template.instance().customers.set(Actions.getCustomersByName())
 

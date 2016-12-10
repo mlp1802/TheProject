@@ -26,12 +26,19 @@ getOrders = ->
                     created_at:-1
                 limit:40
                 )
-searchOrders = (name) ->
+searchOrders = (clientId,name) ->
     s = RegExp("^.*"+name+".*$","i")
     OrderCollection.find(
-        {$or:
-            [{customerName:{ $regex: s}},{invoiceNumber:{ $regex: s}}]
-        },
+        {$and:
+          [
+              {clientId:clientId},
+              {$or:
+                  [{customerName:{ $regex: s}},{invoiceNumber:{ $regex: s}}]
+              }
+
+          ]
+        }
+        ,
 
             sort:
                 customerName:1
@@ -120,4 +127,3 @@ module.exports =
 Startup.addStartAction ->
         Listeners.addOrderCreatedListener (order)->
                 EventLog.orderCreated(order)
-

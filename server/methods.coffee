@@ -19,23 +19,29 @@ methods =
     "getCustomerById":(id)->
         Customer.getCustomer(id)
 
-    "updateOrder":(order)->
-      Orders.updateOrder(order)
 
     "getTotalAmount":(order)->
       Orders.getTotalAmount(order)
+
+    "searchOrders":(name)->
+        orders = (Actions.searchOrders name).fetch()
+        orders
+
 
     "registerClient":(client,user)->
         Actions.newClient client,user
 
     "getUserByEmail":(email)-> Users.getUserByEmail(email)
 
-    "getOrder":(id)->
+    #Orders
+    "updateOrder":(order)->
+      Orders.updateOrder(order)
 
-    	order =  Orders.getOrder id
-    	console.log "FOUND ORDER"
-    	console.log order
-    	order
+    "getOrder":(id)->Orders.getOrder id
+
+
+    "getOrders": ->
+    	Actions.getOrders().fetch()
     "getOrdersByCustomerId":(id)->
         (Orders.getOrdersByCustomerId id).fetch()
 

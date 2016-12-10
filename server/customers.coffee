@@ -2,13 +2,13 @@
 {Mongo} = require("meteor/mongo")
 
 Customers = new Mongo.Collection("customers")
-
+this.Customers = Customers
 getCustomer = (id) ->
     Customers.findOne({_id:id})
 
 
 createCompany = (clientId,company)->
-    company.clientId = clientId    
+    company.clientId = clientId
     company.created_at = new Date()
     Customers.insert(company)
 
@@ -32,7 +32,7 @@ getCustomersByDate = (clientId)->
                 created_at:-1
             )
 
-module.exports = 
+module.exports =
     getCustomer:getCustomer
     createCompany:createCompany
     updateCustomer:updateCustomer
@@ -41,4 +41,4 @@ module.exports =
     getCustomer:getCustomer
     getCustomersByName:getCustomersByName
     getCustomersByDate:getCustomersByDate
-        
+
